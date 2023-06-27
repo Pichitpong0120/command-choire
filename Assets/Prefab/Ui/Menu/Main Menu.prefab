@@ -50,6 +50,7 @@ GameObject:
   - component: {fileID: 1420212842081691741}
   - component: {fileID: 2847865299172326707}
   - component: {fileID: 598594910633495570}
+  - component: {fileID: 6667560469669553586}
   m_Layer: 5
   m_Name: Play
   m_TagString: Untagged
@@ -159,7 +160,34 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 2847865299172326707}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 6667560469669553586}
+        m_TargetAssemblyTypeName: ButtonManager, Assembly-CSharp
+        m_MethodName: LoadScene
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+--- !u!114 &6667560469669553586
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 543413584404973143}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 52704c8cf6d31e1419e23ce2c3726944, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  <panelName>k__BackingField: 
+  <hideMode>k__BackingField: 0
+  <scene>k__BackingField: 2
 --- !u!1 &926905502876947338
 GameObject:
   m_ObjectHideFlags: 0
@@ -172,6 +200,7 @@ GameObject:
   - component: {fileID: 3844407090181976244}
   - component: {fileID: 5086522690304222594}
   - component: {fileID: 5834874360301257509}
+  - component: {fileID: 5682836931773712716}
   m_Layer: 5
   m_Name: Exit
   m_TagString: Untagged
@@ -281,7 +310,34 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 5086522690304222594}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 5682836931773712716}
+        m_TargetAssemblyTypeName: ButtonManager, Assembly-CSharp
+        m_MethodName: QuitScene
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+--- !u!114 &5682836931773712716
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 926905502876947338}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 52704c8cf6d31e1419e23ce2c3726944, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  <panelName>k__BackingField: 
+  <hideMode>k__BackingField: 0
+  <scene>k__BackingField: 0
 --- !u!1 &1153667738407924059
 GameObject:
   m_ObjectHideFlags: 0
@@ -752,6 +808,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   <panelName>k__BackingField: Option Menu
   <hideMode>k__BackingField: 2
+  <scene>k__BackingField: 0
 --- !u!1 &5971921863332284018
 GameObject:
   m_ObjectHideFlags: 0
