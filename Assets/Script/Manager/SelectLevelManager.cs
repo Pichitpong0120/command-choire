@@ -80,12 +80,23 @@ public class LevelsData
     public int indexLevel;
     public string nameLevel;
     public bool unLock;
+    public int collectLetters;
+    public float score;
 
     public LevelsData(int indexLevel, string nameLevel, bool unLock)
     {
         this.indexLevel = indexLevel;
         this.nameLevel = nameLevel;
         this.unLock = unLock;
+    }
+
+    public LevelsData(int indexLevel, string nameLevel, bool unLock, int collectLetters, float score)
+    {
+        this.indexLevel = indexLevel;
+        this.nameLevel = nameLevel;
+        this.unLock = unLock;
+        this.collectLetters = collectLetters;
+        this.score = score;
     }
 }
 
