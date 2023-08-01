@@ -1,15 +1,17 @@
-using System;
 using UnityEditor;
 using System.IO;
 using UnityEngine.SceneManagement;
 using System.Collections.Generic;
+using UnityEngine;
+using System.Collections;
+using System;
 
 public class SceneGameManager
 {
-    private List<string> listScene;
-    private List<string> path;
+    private class LoadingMonoBehaviour : MonoBehaviour { }
 
     private static Action onLoaderCallback;
+    private static AsyncOperation loadingAsyncOperation;
 
     public enum Scene
     {
@@ -19,7 +21,7 @@ public class SceneGameManager
         Level_1,
     }
 
-    public int SceneCount()
+    public static int SceneCount()
     {
         // Get the scene count in BuildSettings
         int sceneCount = EditorBuildSettings.scenes.Length;
@@ -29,14 +31,15 @@ public class SceneGameManager
         return sceneCount;
     }
 
-    public int SceneLevelCount()
+    public static int SceneLevelCount()
     {
         List<string> sceneLevels = SceneLevelNames();
         return sceneLevels.Count;
     }
 
-    public List<string> ScenePaths()
+    public static List<string> ScenePaths()
     {
+        List<string> path = new List<string>();
         // Get a list of scene paths in BuildSettings
         foreach (EditorBuildSettingsScene scene in EditorBuildSettings.scenes)
         {
@@ -47,15 +50,16 @@ public class SceneGameManager
         return path;
     }
 
-    public List<string> SceneLevelNames()
+    public static List<string> SceneLevelNames()
     {
+        List<string> listScene = new List<string>();
         // Get the name of a file from a folder
         string folderPath = "Assets/Scene/Level";
         DirectoryInfo directory = new DirectoryInfo(folderPath);
         FileInfo[] files = directory.GetFiles();
         foreach (FileInfo file in files)
         {
-            if(file.Extension == ".unity")
+            if (file.Extension == ".unity")
             {
                 string fileNameWithoutExtension = Path.GetFileNameWithoutExtension(file.Name);
                 //Debug.Log(fileNameWithoutExtension); 
@@ -65,12 +69,39 @@ public class SceneGameManager
 
         return listScene;
     }
-    
+
     public static void LoadScene(string sceneName)
     {
-        onLoaderCallback = () => SceneManager.LoadScene(sceneName);
+        onLoaderCallback = () =>
+        {
+            GameObject loadingGameObject = new GameObject("Loading...");
+            loadingGameObject.AddComponent<LoadingMonoBehaviour>().StartCoroutine(LoadSceneAsync(sceneName));
+        };
 
         SceneManager.LoadScene(Scene.Loading.ToString());
+    }
+
+    private static IEnumerator LoadSceneAsync(string sceneName)
+    {
+        yield return null;
+        loadingAsyncOperation = SceneManager.LoadSceneAsync(sceneName);
+
+        while (!loadingAsyncOperation.isDone)
+        {
+            yield return null;
+        }
+    }
+
+    public static float GetLoadingProgress()
+    {
+        if (loadingAsyncOperation != null)
+        {
+            return loadingAsyncOperation.progress;
+        }
+        else
+        {
+            return 0f;
+        }
     }
 
     public static void LoaderCallback()
