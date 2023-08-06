@@ -5,6 +5,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using System.Collections;
 using System;
+using System.Linq;
 
 public class SceneGameManager
 {
@@ -31,12 +32,6 @@ public class SceneGameManager
         return sceneCount;
     }
 
-    public static int SceneLevelCount()
-    {
-        List<string> sceneLevels = SceneLevelNames();
-        return sceneLevels.Count;
-    }
-
     public static List<string> ScenePaths()
     {
         List<string> path = new List<string>();
@@ -50,9 +45,15 @@ public class SceneGameManager
         return path;
     }
 
+    public static int SceneLevelCount()
+    {
+        List<string> sceneLevels = SceneLevelNames();
+        return sceneLevels.Count;
+    }
+
     public static List<string> SceneLevelNames()
     {
-        List<string> listScene = new List<string>();
+        List<string> listScenes = new List<string>();
         // Get the name of a file from a folder
         string folderPath = "Assets/Scene/Level";
         DirectoryInfo directory = new DirectoryInfo(folderPath);
@@ -63,11 +64,13 @@ public class SceneGameManager
             {
                 string fileNameWithoutExtension = Path.GetFileNameWithoutExtension(file.Name);
                 //Debug.Log(fileNameWithoutExtension); 
-                listScene.Add(fileNameWithoutExtension);
+                listScenes.Add(fileNameWithoutExtension);
             }
         }
 
-        return listScene;
+        listScenes = listScenes.OrderBy(listScene => int.Parse(listScene.Substring(6))).ToList();
+
+        return listScenes;
     }
 
     public static void LoadScene(string sceneName)

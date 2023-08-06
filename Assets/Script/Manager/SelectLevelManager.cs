@@ -1,112 +1,85 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
-using System.Linq;
-using System.IO;
 
 public class SelectLevelManager : MonoBehaviour
 {
-    [field: SerializeField] private GameObject btnSelectLevelPrefab;
-    [field: SerializeField] private Transform parentBtnSelectLevel;
-    [field: SerializeField] private Button btnBackToMenu;
+    [SerializeField] private GameObject buttonSelectLevelPrefab;
+    [SerializeField] private Transform parentButtonSelectLevel;
 
-    void Start()
+    private ButtonEventManager data;
+
+    private void Start()
     {
-        InitializeBTNSelectLevel();
+        data = GetComponent<ButtonEventManager>();
 
-        btnBackToMenu.onClick.AddListener(() => SceneGameManager.LoadScene("MainMenu"));
+        InitializedData(GenerateSelectLevel());
     }
 
-    void InitializeBTNSelectLevel()
+    List<GameObject> GenerateSelectLevel()
     {
-        List<string> levels = SceneGameManager.SceneLevelNames();
+        int index = 0;
+        List<GameObject> buttonsSelectLevel = new();
 
-        levels = levels.OrderBy(level => int.Parse(level.Substring(6))).ToList();
-
-        for (int i = 0; i < levels.Count; i++)
+        foreach(string levelName in SceneGameManager.SceneLevelNames())
         {
-            GameObject clonedButton = Instantiate(btnSelectLevelPrefab, parentBtnSelectLevel);
-
-            BtnSelectLevelData btnSelectLevel = clonedButton.GetComponent<BtnSelectLevelData>();
-            btnSelectLevel.indexLevel = i+1;
-            btnSelectLevel.nameLevel = levels[i];
-        }
-        LoadLevelFromJson();
-    }
-
-    void SaveLevelToJson()
-    {
-        List<LevelsData> LevelsData = new List<LevelsData>();
-
-        BtnSelectLevelData[] btnSelectLevels = parentBtnSelectLevel.GetComponentsInChildren<BtnSelectLevelData>();
-
-        foreach (BtnSelectLevelData btnSelectLevel in btnSelectLevels)
-        {
-            LevelsData.Add(new LevelsData(btnSelectLevel.indexLevel, btnSelectLevel.nameLevel, btnSelectLevel.unLock));
+            index++;
+            GameObject buttonSelectLevel = Instantiate(buttonSelectLevelPrefab, parentButtonSelectLevel);
+            buttonSelectLevel.name = levelName;
+            buttonsSelectLevel.Add(buttonSelectLevel);
+            data.button.selectLevel.Add(new ButtonSelectLevel(buttonSelectLevel.GetComponent<Button>(), index, levelName));
         }
 
-        string jsonData = JsonUtility.ToJson(new LevelsDataWrapper(LevelsData));
-        string filePath = Path.Combine(Application.persistentDataPath, "level_data.json");
-        File.WriteAllText(filePath, jsonData);
+        return buttonsSelectLevel;
+    }
+    void InitializedData(List<GameObject> buttons)
+    {
+        
+        data.button.selectLevel[0].unLock = true;
+        if(!DataManager.CheckJson()) DataManager.SaveToJson(data.button.selectLevel);
+        DataManager.LoadFromJson(data.button.selectLevel);
+
+        List<ButtonSelectLevel> levels = data.button.selectLevel;
+
+        for (int i = 0; i < data.button.selectLevel.Count; i++)
+        {
+            InitializedButtonValue(buttons[i], levels[i]);
+        }
+        
+        DataManager.DeployToData(data.button.selectLevel);
     }
 
-    void LoadLevelFromJson()
+    void InitializedButtonValue(GameObject button, ButtonSelectLevel level)
     {
-        string filePath = Path.Combine(Application.persistentDataPath, "level_data.json");
-        if (File.Exists(filePath))
+        Color textColor = level.unLock ? Color.black : Color.white;
+
+        button.GetComponentsInChildren<Text>()[0].text = level.indexLevel.ToString();
+        button.GetComponentsInChildren<Text>()[0].color = textColor;
+        button.GetComponentsInChildren<Text>()[1].text = level.unLock ? $"Score: {level.score}" : "";
+        button.GetComponentsInChildren<Text>()[1].color = textColor;
+
+        button.GetComponent<Image>().color = level.unLock ? Color.white : new Color32(65, 65, 65, 255);
+
+        var mail = button.transform.Find("Mail icon").GetComponentsInChildren<Image>();
+
+        if(level.mail != 0 && level.unLock)
         {
-            string jsonData = File.ReadAllText(filePath);
-            LevelsDataWrapper dataWrapper = JsonUtility.FromJson<LevelsDataWrapper>(jsonData);
-            BtnSelectLevelData[] btnSelectLevels = parentBtnSelectLevel.GetComponentsInChildren<BtnSelectLevelData>();
-            for (int i = 0; i < btnSelectLevels.Length; i++)
+            for(int i = 0; i < level.mail; i++)
             {
-                btnSelectLevels[i].indexLevel = dataWrapper.LevelsData[i].indexLevel;
-                btnSelectLevels[i].nameLevel = dataWrapper.LevelsData[i].nameLevel;
-                btnSelectLevels[i].unLock = dataWrapper.LevelsData[i].unLock;
+                mail[i].color = Color.black;
             }
         }
-        else
+        if(!level.unLock)
         {
-            BtnSelectLevelData[] btnSelectLevels = parentBtnSelectLevel.GetComponentsInChildren<BtnSelectLevelData>();
-            btnSelectLevels[0].unLock = true;
-            SaveLevelToJson();
+            foreach(Image mailImage in mail)
+            {
+                mailImage.color = new Color32(70, 70, 70, 255);
+            }
         }
-    }
-}
-
-[System.Serializable]
-public class LevelsData
-{
-    public int indexLevel;
-    public string nameLevel;
-    public bool unLock;
-    public int collectLetters;
-    public float score;
-
-    public LevelsData(int indexLevel, string nameLevel, bool unLock)
-    {
-        this.indexLevel = indexLevel;
-        this.nameLevel = nameLevel;
-        this.unLock = unLock;
-    }
-
-    public LevelsData(int indexLevel, string nameLevel, bool unLock, int collectLetters, float score)
-    {
-        this.indexLevel = indexLevel;
-        this.nameLevel = nameLevel;
-        this.unLock = unLock;
-        this.collectLetters = collectLetters;
-        this.score = score;
-    }
-}
-
-[System.Serializable]
-public class LevelsDataWrapper
-{
-    public List<LevelsData> LevelsData;
-
-    public LevelsDataWrapper(List<LevelsData> LevelsData)
-    {
-        this.LevelsData = LevelsData;
+        
+        if(level.unLock)button.GetComponent<Button>().onClick.AddListener(() =>
+        {
+            ButtonEventManager.LoadScene(level.nameLevel);
+        });
     }
 }

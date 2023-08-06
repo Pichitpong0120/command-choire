@@ -15,7 +15,7 @@
         "command3": "If",
         "command4": "Else",
         "command5": "Count",
-        "command6": "Skip To ",
+        "command6": "Skip To",
         "command7": "Trigger"
     }
 }
