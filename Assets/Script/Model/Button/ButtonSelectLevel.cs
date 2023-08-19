@@ -24,6 +24,7 @@ public class ButtonSelectLevel
     }
     public ButtonSelectLevel(int index, string name, bool unLock, int mail, float score)
     {
+        buttonObject = null;
         indexLevel = index;
         nameLevel = name;
         this.unLock = unLock;
@@ -46,6 +47,10 @@ public class ButtonSelectLevelData
     public bool unLock;
     public int mail;
     public float score;
+
+    public ButtonSelectLevelData()
+    {
+    }
 
     public ButtonSelectLevelData(int index, string name, bool unLock, int mail, float score)
     {

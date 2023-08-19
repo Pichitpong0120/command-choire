@@ -4,27 +4,36 @@ using UnityEngine;
 
 public class DataManager
 {
-    public static List<ButtonSelectLevelData> data = new();
+    private static List<ButtonSelectLevelData> data;
 
     public static void DeployToData(List<ButtonSelectLevel> levels)
     {
-        if (data.Count == 0)
+        if(data == null)
         {
+            data = new List<ButtonSelectLevelData>(levels.Count);
             foreach (ButtonSelectLevel level in levels)
             {
-                data.Add(new ButtonSelectLevelData(level.indexLevel, level.nameLevel, level.unLock, level.mail, level.score));
+                ButtonSelectLevelData levelData = new ButtonSelectLevelData();
+                levelData.indexLevel = level.indexLevel;
+                levelData.nameLevel = level.nameLevel;
+                levelData.unLock = level.unLock;
+                levelData.mail = level.mail;
+                levelData.score = level.score;
+                data.Add(levelData);
             }
         }
     }
 
     public static List<ButtonSelectLevelData> DeployGetData()
     {
-        return data;
+        List<ButtonSelectLevelData> newData = data;
+        ClearData();
+        return newData;
     }
 
     public static void ClearData()
     {
-        data = new List<ButtonSelectLevelData>();
+        data = null;
     }
 
     public static bool CheckJson()

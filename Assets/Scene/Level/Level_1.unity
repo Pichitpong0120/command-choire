@@ -813,31 +813,12 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: 2795413146707564991, guid: d849d78e6df834f448e1426ba0738ad9, type: 3}
       insertIndex: -1
       addedObject: {fileID: 3822069898401797430}
-    - targetCorrespondingSourceObject: {fileID: 2795413146707564991, guid: d849d78e6df834f448e1426ba0738ad9, type: 3}
-      insertIndex: -1
-      addedObject: {fileID: 3822069898401797429}
   m_SourcePrefab: {fileID: 100100000, guid: d849d78e6df834f448e1426ba0738ad9, type: 3}
 --- !u!1 &3822069898401797428 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 2795413146707564991, guid: d849d78e6df834f448e1426ba0738ad9, type: 3}
   m_PrefabInstance: {fileID: 3822069898401797427}
   m_PrefabAsset: {fileID: 0}
---- !u!114 &3822069898401797429
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3822069898401797428}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 609c0df9a05b3f74fa3fe29f49fb1c1e, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  with: 0
-  height: 0
-  tilePrefab: {fileID: 8566925012732355721, guid: 7880e35f460a0e246b37105e5c517419, type: 3}
-  cam: {fileID: 519420032}
 --- !u!114 &3822069898401797430
 MonoBehaviour:
   m_ObjectHideFlags: 0

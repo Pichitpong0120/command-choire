@@ -16,7 +16,7 @@ public class ButtonListenManager
         {
             foreach (ButtonSelectLevel button in buttons.selectLevel)
             {
-                if (button.unLock)button.buttonObject.onClick.AddListener(() => ButtonEventManager.LoadScene(button.nameLevel));
+                if (button.unLock && button.buttonObject != null)button.buttonObject.onClick.AddListener(() => ButtonEventManager.LoadScene(button.nameLevel));
             }
         }
     }

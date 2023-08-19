@@ -10,12 +10,6 @@ public class GridManager : MonoBehaviour
     void Start()
     {
         GenerateGrid();
-        
-        List<ButtonSelectLevelData> tests = DataManager.DeployGetData();
-        foreach(ButtonSelectLevelData test in tests)
-        {
-            Debug.Log(test.indexLevel);
-        }
     }
 
     void GenerateGrid()
