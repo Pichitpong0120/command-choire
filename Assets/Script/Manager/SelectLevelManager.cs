@@ -21,7 +21,7 @@ public class SelectLevelManager : MonoBehaviour
         int index = 0;
         List<GameObject> buttonsSelectLevel = new();
 
-        foreach(string levelName in SceneGameManager.SceneLevelNames())
+        foreach (string levelName in SceneGameManager.SceneLevelNames())
         {
             index++;
             GameObject buttonSelectLevel = Instantiate(buttonSelectLevelPrefab, parentButtonSelectLevel);
@@ -34,9 +34,8 @@ public class SelectLevelManager : MonoBehaviour
     }
     void InitializedData(List<GameObject> buttons)
     {
-        
-        data.button.selectLevel[0].unLock = true;
-        if(!DataManager.CheckJson()) DataManager.SaveToJson(data.button.selectLevel);
+        data.button.selectLevel[0].details.unLock = true;
+        if (!DataManager.CheckJson()) DataManager.SaveToJson(data.button.selectLevel);
         DataManager.LoadFromJson(data.button.selectLevel);
 
         List<ButtonSelectLevel> levels = data.button.selectLevel;
@@ -45,39 +44,39 @@ public class SelectLevelManager : MonoBehaviour
         {
             InitializedButtonValue(buttons[i], levels[i]);
         }
-        
+
         DataManager.DeployToData(data.button.selectLevel);
     }
 
     void InitializedButtonValue(GameObject button, ButtonSelectLevel level)
     {
-        Color textColor = level.unLock ? Color.black : Color.white;
+        Color textColor = level.details.unLock ? Color.black : Color.white;
 
         button.GetComponentsInChildren<Text>()[0].text = level.indexLevel.ToString();
         button.GetComponentsInChildren<Text>()[0].color = textColor;
-        button.GetComponentsInChildren<Text>()[1].text = level.unLock ? $"Score: {level.score}" : "";
+        button.GetComponentsInChildren<Text>()[1].text = level.details.unLock ? $"Score: {level.details.score}" : "";
         button.GetComponentsInChildren<Text>()[1].color = textColor;
 
-        button.GetComponent<Image>().color = level.unLock ? Color.white : new Color32(65, 65, 65, 255);
+        button.GetComponent<Image>().color = level.details.unLock ? Color.white : new Color32(65, 65, 65, 255);
 
         var mail = button.transform.Find("Mail icon").GetComponentsInChildren<Image>();
 
-        if(level.mail != 0 && level.unLock)
+        if (level.details.mail != 0 && level.details.unLock)
         {
-            for(int i = 0; i < level.mail; i++)
+            for (int i = 0; i < level.details.mail; i++)
             {
                 mail[i].color = Color.black;
             }
         }
-        if(!level.unLock)
+        if (!level.details.unLock)
         {
-            foreach(Image mailImage in mail)
+            foreach (Image mailImage in mail)
             {
                 mailImage.color = new Color32(70, 70, 70, 255);
             }
         }
-        
-        if(level.unLock)button.GetComponent<Button>().onClick.AddListener(() =>
+
+        if (level.details.unLock) button.GetComponent<Button>().onClick.AddListener(() =>
         {
             ButtonEventManager.LoadScene(level.nameLevel);
         });

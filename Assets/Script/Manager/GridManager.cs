@@ -3,7 +3,7 @@ using UnityEngine;
 
 public class GridManager : MonoBehaviour
 {
-    [SerializeField] private int with, height; 
+    [SerializeField] private int with, height;
     [SerializeField] private GameObject tilePrefab;
     [SerializeField] private Transform cam;
 
@@ -24,6 +24,6 @@ public class GridManager : MonoBehaviour
             }
         }
 
-        cam.transform.position = new Vector3((float)with/2 - 2.85f, (float)height/2 - 0.5f, -10);
+        cam.transform.position = new Vector3((float)with / 2 - 2.85f, (float)height / 2 - 0.5f, -10);
     }
 }

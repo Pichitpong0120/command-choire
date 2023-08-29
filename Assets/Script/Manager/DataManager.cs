@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using System.IO;
 using UnityEngine;
@@ -8,17 +9,16 @@ public class DataManager
 
     public static void DeployToData(List<ButtonSelectLevel> levels)
     {
-        if(data == null)
+        if (data == null)
         {
             data = new List<ButtonSelectLevelData>(levels.Count);
+            ButtonSelectLevelData levelData;
+            ButtonSelectLevelDetailsData detailsData;
+
             foreach (ButtonSelectLevel level in levels)
             {
-                ButtonSelectLevelData levelData = new ButtonSelectLevelData();
-                levelData.indexLevel = level.indexLevel;
-                levelData.nameLevel = level.nameLevel;
-                levelData.unLock = level.unLock;
-                levelData.mail = level.mail;
-                levelData.score = level.score;
+                detailsData = new ButtonSelectLevelDetailsData(level.details.unLock, level.details.mail, level.details.score);
+                levelData = new ButtonSelectLevelData(level.indexLevel, level.nameLevel, detailsData);
                 data.Add(levelData);
             }
         }
@@ -45,10 +45,11 @@ public class DataManager
     public static void SaveToJson(List<ButtonSelectLevel> buttons)
     {
         List<ButtonSelectLevelData> LevelsData = new();
-
+        ButtonSelectLevelDetailsData detailsData;
         foreach (ButtonSelectLevel button in buttons)
         {
-            LevelsData.Add(new ButtonSelectLevelData(button.indexLevel, button.nameLevel, button.unLock, button.mail, button.score));
+            detailsData = new ButtonSelectLevelDetailsData(button.details);
+            LevelsData.Add(new ButtonSelectLevelData(button.indexLevel, button.nameLevel, detailsData));
         }
 
         string jsonData = JsonUtility.ToJson(new ButtonSelectLevelDataWrapper(LevelsData));
@@ -79,14 +80,16 @@ public class DataManager
         {
             string jsonData = File.ReadAllText(filePath);
             ButtonSelectLevelDataWrapper dataWrapper = JsonUtility.FromJson<ButtonSelectLevelDataWrapper>(jsonData);
-
-            for(int i = 0; i < button.Count; i++)
+            ButtonSelectLevelDetails details;
+            for (int i = 0; i < button.Count; i++)
             {
+                details = new(dataWrapper.levelData[i].details);
                 button[i].indexLevel = dataWrapper.levelData[i].indexLevel;
                 button[i].nameLevel = dataWrapper.levelData[i].nameLevel;
-                button[i].unLock = dataWrapper.levelData[i].unLock;
-                button[i].mail = dataWrapper.levelData[i].mail;
-                button[i].score = dataWrapper.levelData[i].score;
+                button[i].details.unLock = dataWrapper.levelData[i].details.unLock;
+                button[i].details.mail = dataWrapper.levelData[i].details.mail;
+                button[i].details.score = dataWrapper.levelData[i].details.score;
+                button[i].details = details;
             }
         }
     }

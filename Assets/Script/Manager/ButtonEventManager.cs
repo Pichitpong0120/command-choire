@@ -2,7 +2,7 @@ using UnityEngine;
 
 public class ButtonEventManager : MonoBehaviour
 {
-    [field: SerializeField] public ButtonManager button {get; private set; }
+    [field: SerializeField] public ButtonManager button { get; private set; }
 
     private void Start()
     {
