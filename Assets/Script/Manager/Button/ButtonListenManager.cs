@@ -11,7 +11,7 @@ public class ButtonListenManager
                 if (button.active) button.buttonObject.onClick.AddListener(() => ButtonEventManager.LoadScene(button.nameScene));
             }
         }
-
+        
         if (buttons.selectLevel.Count != 0)
         {
             foreach (ButtonSelectLevel button in buttons.selectLevel)
