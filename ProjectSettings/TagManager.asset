@@ -6,6 +6,8 @@ TagManager:
   tags:
   - UI Background
   - Grid
+  - Canvas
+  - List Content Command
   layers:
   - Default
   - TransparentFX
