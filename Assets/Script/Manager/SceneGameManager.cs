@@ -115,4 +115,9 @@ public class SceneGameManager
             onLoaderCallback = null;
         }
     }
+
+    public static void SpawnGameObject(GameObject gameObjectPrefab, Transform transform)
+    {
+        UnityEngine.Object.Instantiate(gameObjectPrefab, transform);
+    }
 }
