@@ -300,24 +300,6 @@ Transform:
   - {fileID: 1131551550}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!1 &1554044579 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 8750104758973111077, guid: d849d78e6df834f448e1426ba0738ad9, type: 3}
-  m_PrefabInstance: {fileID: 3822069898401797427}
-  m_PrefabAsset: {fileID: 0}
---- !u!114 &1554044581
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1554044579}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 5752471ca9c14bd4081dda205229e142, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  uiPopup: {fileID: 7596361904729802787, guid: 86e2683797451ae468be234649606daf, type: 3}
 --- !u!1 &1816670553
 GameObject:
   m_ObjectHideFlags: 0
@@ -395,7 +377,7 @@ Canvas:
   m_OverridePixelPerfect: 0
   m_SortingBucketNormalizedSize: 0
   m_VertexColorAlwaysGammaSpace: 0
-  m_AdditionalShaderChannelsFlag: 0
+  m_AdditionalShaderChannelsFlag: 25
   m_UpdateRectTransformForStandalone: 0
   m_SortingLayerID: 0
   m_SortingOrder: 0
@@ -890,9 +872,6 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: 2795413146707564991, guid: d849d78e6df834f448e1426ba0738ad9, type: 3}
       insertIndex: -1
       addedObject: {fileID: 3822069898401797430}
-    - targetCorrespondingSourceObject: {fileID: 8750104758973111077, guid: d849d78e6df834f448e1426ba0738ad9, type: 3}
-      insertIndex: -1
-      addedObject: {fileID: 1554044581}
   m_SourcePrefab: {fileID: 100100000, guid: d849d78e6df834f448e1426ba0738ad9, type: 3}
 --- !u!1 &3822069898401797428 stripped
 GameObject:

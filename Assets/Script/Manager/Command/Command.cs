@@ -3,6 +3,29 @@ using UnityEngine.EventSystems;
 
 public class Command : MonoBehaviour, IPointerDownHandler, IBeginDragHandler, IDragHandler, IEndDragHandler, IDropHandler
 {
+    enum CommandType{
+            Behavior,
+            Function,
+        }
+
+    enum ListCommandActive{
+        MoveLeft,
+        MoveRight,
+        Jump,
+        JumpLeft,
+        JumpRight,
+        Stop,
+        ClimbUp,
+        ClimbDown,
+        Loop,
+        Break,
+        If,
+        Else,
+        Count,
+        SkipTo,
+        Trigger
+    }
+
     [SerializeField] private CommandType commandType;
     [SerializeField] private ListCommandActive listCommand;
     private Canvas canvas;
@@ -39,27 +62,14 @@ public class Command : MonoBehaviour, IPointerDownHandler, IBeginDragHandler, ID
     {
         Debug.Log("OnDrop");
     }
-}
 
-enum CommandType{
-        Behavior,
-        Function,
+    public string GetCommandType()
+    {
+        return commandType.ToString();
     }
 
-enum ListCommandActive{
-    MoveLeft,
-    MoveRight,
-    Jump,
-    JumpLeft,
-    JumpRight,
-    Stop,
-    ClimbUp,
-    ClimbDown,
-    Loop,
-    Break,
-    If,
-    Else,
-    Count,
-    SkipTo,
-    Trigger
+    public string GetCommand()
+    {
+        return listCommand.ToString();
+    }
 }
