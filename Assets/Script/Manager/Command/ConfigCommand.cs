@@ -26,13 +26,8 @@ public class ConfigCommand : MonoBehaviour
                 return;
             }
 
-            switch (checkCommand)
-            {
-                case "Stop":
-                    CommandStop command = gameCommandObject.GetComponent<CommandStop>();
-                    command.label.text = command.UpdateText(configValue.text);
-                    break;
-            }
+            CommandBehaviorDisplay command = gameCommandObject.GetComponent<CommandBehaviorDisplay>();
+            command.UpdateText(configValue.text);
 
             Destroy(this.gameObject);
         });
