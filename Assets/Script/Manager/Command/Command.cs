@@ -1,14 +1,17 @@
 using UnityEngine;
 using UnityEngine.EventSystems;
+using UnityEngine.UI;
 
 public class Command : MonoBehaviour, IPointerDownHandler, IBeginDragHandler, IDragHandler, IEndDragHandler, IDropHandler
 {
-    enum CommandType{
-            Behavior,
-            Function,
-        }
+    enum CommandType
+    {
+        Behavior,
+        Function,
+    }
 
-    enum ListCommandActive{
+    enum ListCommandActive
+    {
         MoveLeft,
         MoveRight,
         Jump,
@@ -26,16 +29,17 @@ public class Command : MonoBehaviour, IPointerDownHandler, IBeginDragHandler, ID
         Trigger
     }
 
+    enum SetParentTransform
+    {
+        ParentTransform,
+        parentLocationTransform
+    }
+
     [SerializeField] private CommandType commandType;
     [SerializeField] private ListCommandActive listCommand;
-    private Canvas canvas;
-    private RectTransform rectTransform;
 
-    void Awake()
-    {
-        rectTransform = GetComponent<RectTransform>();
-        canvas = GameObject.FindGameObjectWithTag("Canvas").GetComponent<Canvas>();
-    }
+    private Transform parentLocationBeforeDrag;
+    public int indexInParent;
 
     void IPointerDownHandler.OnPointerDown(PointerEventData eventData)
     {
@@ -44,23 +48,69 @@ public class Command : MonoBehaviour, IPointerDownHandler, IBeginDragHandler, ID
 
     void IBeginDragHandler.OnBeginDrag(PointerEventData eventData)
     {
-        Debug.Log("OnBeginDrag");
+        if(commandType == CommandType.Behavior)
+        {
+            parentLocationBeforeDrag = GetParentTransform(SetParentTransform.parentLocationTransform);
+            indexInParent = GetParentTransform().GetSiblingIndex();
+            GetParentTransform().SetParent(GameObject.FindGameObjectWithTag("Canvas").transform);
+            GetComponent<Image>().raycastTarget = false;
+            GetComponentInChildren<Text>().raycastTarget = false;
+            GetComponent<Button>().enabled = false;
+            Debug.Log("OnBeginDrag");
+        }
     }
 
     void IDragHandler.OnDrag(PointerEventData eventData)
     {
-        rectTransform.localPosition = eventData.delta / canvas.scaleFactor;
+        if(commandType == CommandType.Behavior)
+        {
+            GetParentTransform().position = Input.mousePosition;
+        }
+        else
+        {
+            transform.position  = Input.mousePosition;
+        }
         Debug.Log("OnDrag");
-    }
-
-    void IEndDragHandler.OnEndDrag(PointerEventData eventData)
-    {
-        Debug.Log("OnEndDrag");
     }
 
     void IDropHandler.OnDrop(PointerEventData eventData)
     {
+        GameObject gameObjectDrop = eventData.pointerDrag;
+        if(transform.parent != null)
+        {
+            if(transform.parent.position.y >= gameObjectDrop.transform.parent.position.y)
+            {
+                gameObjectDrop.GetComponent<Command>().indexInParent = transform.parent.GetSiblingIndex() + 1;
+            }
+            else
+            {
+                gameObjectDrop.GetComponent<Command>().indexInParent = transform.parent.GetSiblingIndex();
+            }
+        }
         Debug.Log("OnDrop");
+    }
+
+    void IEndDragHandler.OnEndDrag(PointerEventData eventData)
+    {
+        if(commandType == CommandType.Behavior)
+        {
+            GetParentTransform().SetParent(parentLocationBeforeDrag);
+            GetParentTransform().SetSiblingIndex(indexInParent);
+            GetComponent<Button>().enabled = true;
+            GetComponent<Image>().raycastTarget = true;
+            GetComponentInChildren<Text>().raycastTarget = true;
+        }
+        Debug.Log("OnEndDrag");
+    }
+
+    private Transform GetParentTransform(SetParentTransform set = SetParentTransform.ParentTransform)
+    {
+        Transform newTransform = transform;
+        for (int i = 0; i <= set.GetHashCode(); i++)
+        {
+            newTransform = newTransform.parent;
+        }
+        return newTransform;
     }
 
     public string GetCommandType()

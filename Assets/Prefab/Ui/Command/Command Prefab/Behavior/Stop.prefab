@@ -32,10 +32,10 @@ RectTransform:
   m_Children: []
   m_Father: {fileID: 891948886026879759}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0, y: 0}
-  m_AnchorMax: {x: 1, y: 1}
+  m_AnchorMin: {x: 0.5, y: 0.5}
+  m_AnchorMax: {x: 0.5, y: 0.5}
   m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 0, y: 0}
+  m_SizeDelta: {x: 350, y: 100}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &3334495794602592997
 CanvasRenderer:
@@ -78,7 +78,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: 'Stop : - Turn'
+  m_Text: Stop
 --- !u!1 &6420132281850135688
 GameObject:
   m_ObjectHideFlags: 0
@@ -89,6 +89,7 @@ GameObject:
   m_Component:
   - component: {fileID: 8709732820478133851}
   - component: {fileID: 1173732217861379127}
+  - component: {fileID: 5795710585580032318}
   m_Layer: 5
   m_Name: Stop
   m_TagString: Untagged
@@ -130,6 +131,31 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   <label>k__BackingField: {fileID: 905128377072388809}
   objectPrefab: {fileID: 859290437132754879, guid: 28340404263d79d47b8ab8cdcac749df, type: 3}
+  <count>k__BackingField: 0
+--- !u!114 &5795710585580032318
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6420132281850135688}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8a8695521f0d02e499659fee002a26c2, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Padding:
+    m_Left: 0
+    m_Right: 0
+    m_Top: 0
+    m_Bottom: 0
+  m_ChildAlignment: 4
+  m_StartCorner: 0
+  m_StartAxis: 0
+  m_CellSize: {x: 350, y: 100}
+  m_Spacing: {x: 0, y: 0}
+  m_Constraint: 0
+  m_ConstraintCount: 2
 --- !u!1 &7771996976219958950
 GameObject:
   m_ObjectHideFlags: 0
@@ -166,7 +192,7 @@ RectTransform:
   m_Father: {fileID: 8709732820478133851}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
-  m_AnchorMax: {x: 1, y: 1}
+  m_AnchorMax: {x: 0, y: 0}
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
