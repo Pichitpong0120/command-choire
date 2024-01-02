@@ -1,99 +1,99 @@
-using CommandChoice.Component;
-using CommandChoice.Handler;
+using CommandChoice.Model;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class SelectListCommand : MonoBehaviour
+namespace CommandChoice.Component
 {
-    [SerializeField] private Button ui;
-    [SerializeField] private Button backBTN;
-    [SerializeField] private Button behaviorType;
-    [SerializeField] private Button functionType;
-    [SerializeField] private GameObject parentCommandType;
-    [SerializeField] private GameObject parentCommand;
-    [SerializeField] private GameObject parentBehaviorCommand;
-    [SerializeField] private GameObject parentFunctionCommand;
-    [SerializeField] private GameObject MenuCommandBox;
-    [SerializeField] private Transform transformBehavior;
-    [SerializeField] private Transform transformFunction;
-    CommandManager commandManager;
-
-    void Awake()
+    public class SelectListCommand : MonoBehaviour
     {
-        parentCommandType.SetActive(true);
-        parentCommand.SetActive(false);
-        commandManager = GameObject.FindGameObjectWithTag("List View Command").GetComponent<CommandManager>();
-    }
+        [SerializeField] private Button ui;
+        [SerializeField] private Button backBTN;
+        [SerializeField] private Button behaviorType;
+        [SerializeField] private Button functionType;
+        [SerializeField] private GameObject parentCommandType;
+        [SerializeField] private GameObject parentCommand;
+        [SerializeField] private GameObject parentBehaviorCommand;
+        [SerializeField] private GameObject parentFunctionCommand;
+        [SerializeField] private GameObject MenuCommandBox;
+        [SerializeField] private Transform transformBehavior;
+        [SerializeField] private Transform transformFunction;
+        CommandManager commandManager;
 
-    void Start()
-    {
-        behaviorType.onClick.AddListener(() =>
-        {
-            parentCommandType.SetActive(false);
-            parentCommand.SetActive(true);
-            parentBehaviorCommand.SetActive(true);
-            parentFunctionCommand.SetActive(false);
-        });
-
-        functionType.onClick.AddListener(() =>
-        {
-            parentCommandType.SetActive(false);
-            parentCommand.SetActive(true);
-            parentBehaviorCommand.SetActive(false);
-            parentFunctionCommand.SetActive(true);
-        });
-
-        backBTN.onClick.AddListener(() =>
+        void Awake()
         {
             parentCommandType.SetActive(true);
             parentCommand.SetActive(false);
-        });
+            commandManager = GameObject.FindGameObjectWithTag("List View Command").GetComponent<CommandManager>();
+        }
 
-        ui.onClick.AddListener(() =>
+        void Start()
         {
-            Destroy(gameObject);
-        });
-
-        for (int i = 0; i < commandManager.ListCommand.commandBehavior.Count; i++)
-        {
-            if (commandManager.ListCommand.commandBehavior[i].active)
+            behaviorType.onClick.AddListener(() =>
             {
-                GameObject gameObject = Instantiate(MenuCommandBox, transformBehavior);
-                gameObject.GetComponentInChildren<Text>().text = commandManager.ListCommand.commandBehavior[i].NameCommand.name;
+                parentCommandType.SetActive(false);
+                parentCommand.SetActive(true);
+                parentBehaviorCommand.SetActive(true);
+                parentFunctionCommand.SetActive(false);
+            });
+
+            functionType.onClick.AddListener(() =>
+            {
+                parentCommandType.SetActive(false);
+                parentCommand.SetActive(true);
+                parentBehaviorCommand.SetActive(false);
+                parentFunctionCommand.SetActive(true);
+            });
+
+            backBTN.onClick.AddListener(() =>
+            {
+                parentCommandType.SetActive(true);
+                parentCommand.SetActive(false);
+            });
+
+            ui.onClick.AddListener(() =>
+            {
+                Destroy(gameObject);
+            });
+
+            for (int i = 0; i < commandManager.ListCommand.commandBehavior.Count; i++)
+            {
+                if (commandManager.ListCommand.commandBehavior[i].Active)
+                {
+                    GenerateCommand(commandManager.ListCommand.commandBehavior[i].Name, transformBehavior, TypeCommand.Behavior);
+                }
+            }
+
+            for (int i = 0; i < commandManager.ListCommand.commandFunctions.Count; i++)
+            {
+                if (commandManager.ListCommand.commandFunctions[i].Active)
+                {
+                    GenerateCommand(commandManager.ListCommand.commandFunctions[i].Name, transformFunction, TypeCommand.Function);
+                }
             }
         }
 
-        for (int i = 0; i < commandManager.ListCommand.commandFunctions.Count; i++)
+        public void GenerateCommand(string nameCommand, Transform spawnCommand, TypeCommand type)
         {
-            if (commandManager.ListCommand.commandFunctions[i].active)
+            GameObject genCommandBox = Instantiate(MenuCommandBox, spawnCommand);
+
+            genCommandBox.name = nameCommand;
+            genCommandBox.GetComponentInChildren<Text>().text = nameCommand;
+            genCommandBox.GetComponent<Button>().onClick.AddListener(() =>
             {
-                GameObject gameObject = Instantiate(MenuCommandBox, transformFunction);
-                gameObject.GetComponentInChildren<Text>().text = commandManager.ListCommand.commandFunctions[i].NameCommand.name;
-            }
+                genCommandBox.GetComponent<Button>().onClick.RemoveAllListeners();
+                Command setType = genCommandBox.AddComponent<Command>();
+                if (type == TypeCommand.Behavior)
+                {
+                    setType.UpdateType(TypeCommand.Behavior);
+                }
+                else
+                {
+                    setType.UpdateType(TypeCommand.Function);
+                }
+                setType.enabled = true;
+                commandManager.AddNewCommand(genCommandBox);
+                Destroy(gameObject);
+            });
         }
-    }
-
-    public void SelectCommand(GameObject clickedObject)
-    {
-        // Transform parentListCommand = GameObject.FindGameObjectWithTag("List Content Command").transform;
-        // string nameObject = clickedObject.name;
-
-        // foreach(CommandBehaviorModel command in commandModel.commandBehavior)
-        // {
-        //     if(nameObject == command.commandObject.name)
-        //     {
-        //         SceneGameManager.SpawnGameObject(command.commandObject, parentListCommand);
-        //         Destroy(this.gameObject);
-        //     }
-        // }
-
-        // foreach(CommandFunctionModel command in commandModel.commandFunctions)
-        // {
-        //     if(nameObject == command.commandObject.name)
-        //     {
-        //         SceneGameManager.SpawnGameObject(command.commandObject, parentListCommand);
-        //         Destroy(this.gameObject);
-        //     }
-        // }
     }
 }

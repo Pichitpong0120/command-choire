@@ -23,7 +23,7 @@ namespace CommandChoice.Component
                 }
                 catch (Exception)
                 {
-                    Debug.Log($"Script ButtonActionLoadScene in '{this.gameObject.name}' : buttonAction is Null");
+                    Debug.Log($"Script ButtonActionLoadScene in '{gameObject.name}' : buttonAction is Null");
                 }
             }
             foreach (var item in DataGlobal.Scene.ListLevelScene)

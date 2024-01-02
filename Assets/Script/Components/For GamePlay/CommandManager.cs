@@ -8,25 +8,21 @@ namespace CommandChoice.Component
         [field: SerializeField] public ListCommandModel ListCommand { get; private set; }
         [field: SerializeField] public Transform CommandContext { get; private set; }
 
+        [SerializeField] private GameObject ObjectEntry;
+
+        void Update()
+        {
+            ObjectEntry.transform.SetAsLastSibling();
+        }
+
         public void RemoveCommand(GameObject command)
         {
             Destroy(command);
         }
 
-        public void addNewCommand(GameObject command)
+        public void AddNewCommand(GameObject command)
         {
             command.transform.SetParent(CommandContext);
-        }
-
-        public void MoveCommand(GameObject command)
-        {
-            int currentSiblingIndex = command.transform.GetSiblingIndex();
-            int lastIndex = command.transform.parent.childCount - 1;
-
-            if (currentSiblingIndex != lastIndex)
-            {
-                command.transform.SetSiblingIndex(lastIndex);
-            }
         }
     }
 }
