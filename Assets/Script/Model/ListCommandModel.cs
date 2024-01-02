@@ -82,6 +82,11 @@ namespace CommandChoice.Model
         {
             Name = NameCommand;
         }
+
+        public void UsedCommand()
+        {
+            CanUse -= 1;
+        }
     }
 
     public enum TypeCommand

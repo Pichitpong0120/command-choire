@@ -29,10 +29,10 @@ MonoBehaviour:
     <Name>k__BackingField: Idle
     <CanUse>k__BackingField: 0
   commandFunctions:
-  - <Active>k__BackingField: 1
+  - <Active>k__BackingField: 0
     <Name>k__BackingField: Break
     <CanUse>k__BackingField: 0
-  - <Active>k__BackingField: 1
+  - <Active>k__BackingField: 0
     <Name>k__BackingField: Count
     <CanUse>k__BackingField: 0
   - <Active>k__BackingField: 0

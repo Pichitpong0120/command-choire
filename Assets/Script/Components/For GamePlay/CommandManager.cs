@@ -1,3 +1,5 @@
+using System.Collections;
+using System.Collections.Generic;
 using CommandChoice.Model;
 using UnityEngine;
 
@@ -23,6 +25,20 @@ namespace CommandChoice.Component
         public void AddNewCommand(GameObject command)
         {
             command.transform.SetParent(CommandContext);
+        }
+
+        public void PlayAction(List<GameObject> listCommand)
+        {
+            StartCoroutine(RunCommand(listCommand));
+        }
+
+        private IEnumerator RunCommand(List<GameObject> listCommand)
+        {
+            foreach (GameObject item in listCommand)
+            {
+                print(item.name);
+                yield return new WaitForSeconds(2f);
+            }
         }
     }
 }

@@ -1,3 +1,4 @@
+using CommandChoice.Data;
 using CommandChoice.Model;
 using UnityEngine;
 using UnityEngine.UI;
@@ -59,7 +60,7 @@ namespace CommandChoice.Component
             {
                 if (commandManager.ListCommand.commandBehavior[i].Active)
                 {
-                    GenerateCommand(commandManager.ListCommand.commandBehavior[i].Name, transformBehavior, TypeCommand.Behavior);
+                    GenerateCommand(commandManager.ListCommand.commandBehavior[i], transformBehavior, TypeCommand.Behavior);
                 }
             }
 
@@ -67,32 +68,37 @@ namespace CommandChoice.Component
             {
                 if (commandManager.ListCommand.commandFunctions[i].Active)
                 {
-                    GenerateCommand(commandManager.ListCommand.commandFunctions[i].Name, transformFunction, TypeCommand.Function);
+                    GenerateCommand(commandManager.ListCommand.commandFunctions[i], transformFunction, TypeCommand.Function);
                 }
             }
         }
 
-        public void GenerateCommand(string nameCommand, Transform spawnCommand, TypeCommand type)
+        public void GenerateCommand(CommandModel nameCommand, Transform spawnCommand, TypeCommand type)
         {
             GameObject genCommandBox = Instantiate(MenuCommandBox, spawnCommand);
 
-            genCommandBox.name = nameCommand;
-            genCommandBox.GetComponentInChildren<Text>().text = nameCommand;
+            genCommandBox.name = nameCommand.Name;
+            genCommandBox.GetComponentInChildren<Text>().text = $"{nameCommand.Name} [{nameCommand.CanUse}]";
             genCommandBox.GetComponent<Button>().onClick.AddListener(() =>
             {
-                genCommandBox.GetComponent<Button>().onClick.RemoveAllListeners();
-                Command setType = genCommandBox.AddComponent<Command>();
-                if (type == TypeCommand.Behavior)
+                if (nameCommand.CanUse != 0)
                 {
-                    setType.UpdateType(TypeCommand.Behavior);
+                    nameCommand.UsedCommand();
+                    genCommandBox.GetComponentInChildren<Text>().text = nameCommand.Name;
+                    genCommandBox.GetComponent<Button>().onClick.RemoveAllListeners();
+                    Command setType = genCommandBox.AddComponent<Command>();
+                    if (type == TypeCommand.Behavior)
+                    {
+                        setType.UpdateType(TypeCommand.Behavior);
+                    }
+                    else
+                    {
+                        setType.UpdateType(TypeCommand.Function);
+                    }
+                    setType.enabled = true;
+                    commandManager.AddNewCommand(genCommandBox);
+                    Destroy(gameObject);
                 }
-                else
-                {
-                    setType.UpdateType(TypeCommand.Function);
-                }
-                setType.enabled = true;
-                commandManager.AddNewCommand(genCommandBox);
-                Destroy(gameObject);
             });
         }
     }
