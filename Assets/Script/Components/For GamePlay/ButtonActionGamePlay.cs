@@ -48,9 +48,7 @@ namespace CommandChoice.Component
             {
                 button.onClick.AddListener(() =>
                 {
-                    DataGlobal.PauseGame = !DataGlobal.PauseGame;
-                    if (DataGlobal.PauseGame) { Time.timeScale = 0; }
-                    else { Time.timeScale = 1; }
+                    Time.timeScale = 0;
                     Instantiate(Resources.Load<GameObject>("Ui/Menu/PausePanels"), transform.root);
                 });
             }
@@ -60,6 +58,7 @@ namespace CommandChoice.Component
                 {
                     SwitchActionPlay(true);
                     commandManager.ResetAction();
+                    GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerManager>().ResetGame();
                 });
             }
         }

@@ -5,8 +5,7 @@ using UnityEngine;
 namespace CommandChoice.Model
 {
     [Serializable]
-    [CreateAssetMenu(fileName = "ListCommand", menuName = "ScriptableObject/ListCommand", order = 0)]
-    public class ListCommandModel : ScriptableObject
+    public class ListCommandModel
     {
         [SerializeField]
         public List<CommandModel> commandBehavior;

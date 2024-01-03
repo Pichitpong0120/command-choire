@@ -17,6 +17,7 @@ public class PauseGamePanels : MonoBehaviour
         
         ContinueButton.onClick.AddListener(() =>
         {
+            Time.timeScale = 1;
             Destroy(gameObject);
         });
         BackButton.onClick.AddListener(() =>

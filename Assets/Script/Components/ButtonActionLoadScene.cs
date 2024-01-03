@@ -1,5 +1,4 @@
 using System;
-using CommandChoice.Data;
 using CommandChoice.Handler;
 using CommandChoice.Model;
 using UnityEngine;
@@ -25,10 +24,6 @@ namespace CommandChoice.Component
                 {
                     Debug.Log($"Script ButtonActionLoadScene in '{gameObject.name}' : buttonAction is Null");
                 }
-            }
-            foreach (var item in DataGlobal.Scene.ListLevelScene)
-            {
-                print(item.NameLevelScene);
             }
         }
 

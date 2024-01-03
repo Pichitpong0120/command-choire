@@ -29,6 +29,8 @@ public class CommandFunction : MonoBehaviour
         {
 
             commandFunction = Instantiate(Resources.Load<GameObject>("Ui/Command/Block Command Function"), transform.parent);
+            commandFunction.name = gameObject.name;
+            gameObject.name = "Object Child";
             Command commandComponent = commandFunction.AddComponent<Command>();
             commandComponent.UpdateType(TypeCommand.Function);
 

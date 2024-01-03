@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using CommandChoice.Model;
 using UnityEngine;
+using UnityEngine.UI;
 
 namespace CommandChoice.Component
 {
@@ -9,8 +10,14 @@ namespace CommandChoice.Component
     {
         [field: SerializeField] public ListCommandModel ListCommand { get; private set; }
         [field: SerializeField] public Transform CommandContext { get; private set; }
+        [SerializeField] private Text countTime;
 
         [SerializeField] private GameObject ObjectEntry;
+
+        void Start()
+        {
+            countTime.text = "";
+        }
 
         void Update()
         {
@@ -35,14 +42,36 @@ namespace CommandChoice.Component
         public void ResetAction()
         {
             StopAllCoroutines();
+            countTime.text = "";
         }
 
         private IEnumerator RunCommand(List<GameObject> listCommand)
         {
+            int count = 0;
+
+            countTime.text = $"Count: {count}";
+            PlayerManager player = GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerManager>();
             foreach (GameObject item in listCommand)
             {
-                print(item.name);
                 yield return new WaitForSeconds(2f);
+                if (item.name == StaticText.MoveUp)
+                {
+                    player.PlayerMoveUp();
+                }
+                else if (item.name == StaticText.MoveDown)
+                {
+                    player.PlayerMoveDown();
+                }
+                else if (item.name == StaticText.MoveLeft)
+                {
+                    player.PlayerMoveLeft();
+                }
+                else if (item.name == StaticText.MoveRight)
+                {
+                    player.PlayerMoveRight();
+                }
+                else { print("Wait a moment..."); }
+                countTime.text = $"Count: {count += 1}";
             }
         }
     }
