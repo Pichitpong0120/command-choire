@@ -32,6 +32,11 @@ namespace CommandChoice.Component
             StartCoroutine(RunCommand(listCommand));
         }
 
+        public void ResetAction()
+        {
+            StopAllCoroutines();
+        }
+
         private IEnumerator RunCommand(List<GameObject> listCommand)
         {
             foreach (GameObject item in listCommand)

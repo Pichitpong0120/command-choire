@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using CommandChoice.Data;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -18,9 +19,14 @@ namespace CommandChoice.Component
 
         private Button button;
 
+        CommandManager commandManager;
+        Transform listContentCommand;
+
         private void Awake()
         {
             button = gameObject.GetComponent<Button>();
+            commandManager = GameObject.FindGameObjectWithTag("List View Command").GetComponent<CommandManager>();
+            listContentCommand = GameObject.FindGameObjectWithTag("List Content Command").transform;
         }
 
         private void Start()
@@ -31,8 +37,7 @@ namespace CommandChoice.Component
                 {
                     List<GameObject> listCommand = new();
                     SwitchActionPlay(false);
-                    CommandManager commandManager = GameObject.FindGameObjectWithTag("List View Command").GetComponent<CommandManager>();
-                    foreach (Transform child in GameObject.FindGameObjectWithTag("List Content Command").transform)
+                    foreach (Transform child in listContentCommand)
                     {
                         listCommand.Add(child.gameObject);
                     }
@@ -43,6 +48,10 @@ namespace CommandChoice.Component
             {
                 button.onClick.AddListener(() =>
                 {
+                    DataGlobal.PauseGame = !DataGlobal.PauseGame;
+                    if (DataGlobal.PauseGame) { Time.timeScale = 0; }
+                    else { Time.timeScale = 1; }
+                    Instantiate(Resources.Load<GameObject>("Ui/Menu/PausePanels"), transform.root);
                 });
             }
             else
@@ -50,6 +59,7 @@ namespace CommandChoice.Component
                 button.onClick.AddListener(() =>
                 {
                     SwitchActionPlay(true);
+                    commandManager.ResetAction();
                 });
             }
         }
