@@ -37,8 +37,9 @@ namespace CommandChoice.Component
                     configValue.textComponent.color = Color.red;
                     return;
                 }
+                commandFunction.count = valueCount;
 
-                textConfig.text = CommandDisplay(commandConfig.gameObject.name);
+                textConfig.text = StaticText.CommandDisplay(commandConfig.gameObject.name, commandFunction);
                 Destroy(gameObject);
             });
 
@@ -65,53 +66,6 @@ namespace CommandChoice.Component
             commandConfig = command;
             this.commandFunction = commandFunction;
             textConfig = commandFunction.gameObject.GetComponentInChildren<Text>();
-        }
-
-        public string CommandDisplay(string text)
-        {
-
-            string textUpdate = "";
-
-            switch (text)
-            {
-                case StaticText.Idle:
-                    textUpdate = text;
-                    break;
-                case StaticText.MoveUp:
-                    textUpdate = text;
-                    break;
-                case StaticText.MoveDown:
-                    textUpdate = text;
-                    break;
-                case StaticText.MoveLeft:
-                    textUpdate = text;
-                    break;
-                case StaticText.MoveRight:
-                    textUpdate = text;
-                    break;
-                case StaticText.Break:
-                    textUpdate = text;
-                    break;
-                case StaticText.Count:
-                    textUpdate = $"{text} : value";
-                    break;
-                case StaticText.If:
-                    textUpdate = $"{text} : value";
-                    break;
-                case StaticText.Else:
-                    textUpdate = text;
-                    break;
-                case StaticText.Loop:
-                    textUpdate = $"{text} : Count value";
-                    break;
-                case StaticText.SkipTo:
-                    textUpdate = $"{text} : value";
-                    break;
-                case StaticText.Trigger:
-                    textUpdate = $"{text} : value";
-                    break;
-            }
-            return textUpdate;
         }
     }
 }

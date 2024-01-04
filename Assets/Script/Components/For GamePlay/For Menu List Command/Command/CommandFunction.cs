@@ -1,80 +1,97 @@
-using CommandChoice.Component;
 using CommandChoice.Model;
 using UnityEngine;
+using UnityEngine.EventSystems;
 using UnityEngine.UI;
 
-public class CommandFunction : MonoBehaviour
+namespace CommandChoice.Component
 {
-    [SerializeField] private CommandManager CommandManager;
-    public GameObject RootContentCommand { get; private set; }
-    [SerializeField] private GameObject commandFunction;
-    public GameObject RootListViewCommand { get; private set; }
-
-    void Awake()
+    public class CommandFunction : MonoBehaviour
     {
-        RootContentCommand = GameObject.FindGameObjectWithTag("List Content Command");
-        RootListViewCommand = GameObject.FindGameObjectWithTag("List View Command");
-        CommandManager = RootListViewCommand.GetComponent<CommandManager>();
-    }
+        [SerializeField] private CommandManager CommandManager;
+        public GameObject RootContentCommand { get; private set; }
+        [SerializeField] private GameObject commandFunction;
+        public GameObject RootListViewCommand { get; private set; }
 
-    void Start()
-    {
-        InitCommand();
-        UpdateColor(RootContentCommand.transform);
-    }
+        public int count;
 
-    private void InitCommand()
-    {
-        if (transform.parent.GetComponent<Command>() == null)
+        public GameObject trigger;
+
+        [SerializeField] private string nameCommand;
+
+        void Awake()
         {
-
-            commandFunction = Instantiate(Resources.Load<GameObject>("Ui/Command/Block Command Function"), transform.parent);
-            commandFunction.name = gameObject.name;
-            gameObject.name = "Object Child";
-            Command commandComponent = commandFunction.AddComponent<Command>();
-            commandComponent.UpdateType(TypeCommand.Function);
-            gameObject.GetComponent<Button>().onClick.AddListener(() =>
-            {
-                RootListViewCommand.GetComponent<CommandManager>().ConfigCommand(commandComponent, this);
-            });
-
-            Destroy(gameObject.GetComponent<Command>());
-            StartConfigCommandFunction(commandComponent);
-            transform.SetParent(commandComponent.transform);
+            RootContentCommand = GameObject.FindGameObjectWithTag("List Content Command");
+            RootListViewCommand = GameObject.FindGameObjectWithTag("List View Command");
+            CommandManager = RootListViewCommand.GetComponent<CommandManager>();
         }
-    }
 
-    private void StartConfigCommandFunction(Command command)
-    {
-        if (command.gameObject.name == StaticText.Loop) RootListViewCommand.GetComponent<CommandManager>().ConfigCommand(command, this); ;
-    }
-
-    public void UpdateColor(Transform transform, bool revers = false)
-    {
-        int index = revers ? CommandManager.ListCommand.listColorCommands.Count - 1 : 1;
-        foreach (Transform child in transform)
+        void Start()
         {
-            foreach (Transform childInChild in child)
+            InitCommand();
+            UpdateColor(RootContentCommand.transform);
+        }
+
+        private void InitCommand()
+        {
+            if (transform.parent.GetComponent<Command>() == null)
             {
-                if (childInChild.GetComponent<CommandFunction>() != null)
+
+                commandFunction = Instantiate(Resources.Load<GameObject>("Ui/Command/Block Command Function"), transform.parent);
+                commandFunction.name = gameObject.name;
+                nameCommand = commandFunction.name;
+                gameObject.name = "Object Child";
+                Command commandComponent = commandFunction.AddComponent<Command>();
+                commandComponent.UpdateType(TypeCommand.Function);
+                gameObject.GetComponent<Button>().onClick.AddListener(() =>
                 {
-                    childInChild.GetComponent<Image>().color = CommandManager.ListCommand.listColorCommands[index];
-
-                    if (child.childCount > 0)
+                    if (StaticText.CheckCommandCanConfig(commandComponent.gameObject.name))
                     {
-                        foreach (Transform childInChildInChild in child.transform)
+                        CommandManager.ConfigCommand(commandComponent, this);
+                    }
+                    else if (StaticText.CheckCommandCanTrigger(commandComponent.gameObject.name))
+                    {
+                        CommandManager.TriggerCommand(commandComponent, this);
+                    }
+                });
+
+                Destroy(gameObject.GetComponent<Command>());
+                StartConfigCommandFunction(commandComponent);
+                transform.SetParent(commandComponent.transform);
+            }
+        }
+
+        private void StartConfigCommandFunction(Command command)
+        {
+            if (command.gameObject.name == StaticText.Loop) CommandManager.ConfigCommand(command, this); ;
+        }
+
+        public void UpdateColor(Transform transform, bool revers = false)
+        {
+            int index = revers ? CommandManager.ListCommand.listColorCommands.Count - 1 : 1;
+            foreach (Transform child in transform)
+            {
+                foreach (Transform childInChild in child)
+                {
+                    if (childInChild.GetComponent<CommandFunction>() != null)
+                    {
+                        childInChild.GetComponent<Image>().color = CommandManager.ListCommand.listColorCommands[index];
+
+                        if (child.childCount > 0)
                         {
-                            UpdateColor(childInChildInChild.transform, !revers);
+                            foreach (Transform childInChildInChild in child.transform)
+                            {
+                                UpdateColor(childInChildInChild.transform, !revers);
+                            }
                         }
-                    }
 
-                    if (revers)
-                    {
-                        _ = index > 1 ? index-- : index = CommandManager.ListCommand.listColorCommands.Count - 1;
-                    }
-                    else
-                    {
-                        _ = index < CommandManager.ListCommand.listColorCommands.Count - 1 ? index++ : index = 1;
+                        if (revers)
+                        {
+                            _ = index > 1 ? index-- : index = CommandManager.ListCommand.listColorCommands.Count - 1;
+                        }
+                        else
+                        {
+                            _ = index < CommandManager.ListCommand.listColorCommands.Count - 1 ? index++ : index = 1;
+                        }
                     }
                 }
             }

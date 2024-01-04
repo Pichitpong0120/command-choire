@@ -3,7 +3,11 @@
 --- !u!78 &1
 TagManager:
   serializedVersion: 2
-  tags: []
+  tags:
+  - List View Command
+  - Canvas
+  - List Content Command
+  - Remove Command
   layers:
   - Default
   - TransparentFX

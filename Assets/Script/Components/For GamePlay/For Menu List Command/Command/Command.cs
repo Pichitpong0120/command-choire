@@ -20,7 +20,7 @@ namespace CommandChoice.Component
         private Vector3 beginDrag = new();
         private Image image;
         private Color imageColor;
-        ScrollRect scrollControl;
+        private ScrollRect scrollControl;
 
         void Awake()
         {

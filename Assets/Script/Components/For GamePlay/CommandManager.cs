@@ -106,5 +106,10 @@ namespace CommandChoice.Component
             ConfigCommand config = configPanels.GetComponent<ConfigCommand>();
             config.GetCommand(command, commandFunction);
         }
+
+        public void TriggerCommand(Command command, CommandFunction commandFunction)
+        {
+            print("Triggering");
+        }
     }
 }

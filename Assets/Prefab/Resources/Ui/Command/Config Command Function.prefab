@@ -94,6 +94,10 @@ MonoBehaviour:
   buttonClose: {fileID: 1591011674292915938}
   configValue: {fileID: 7741230765685633694}
   textTitle: {fileID: 7694003668012777700}
+  commandConfig: {fileID: 0}
+  commandFunction: {fileID: 0}
+  textConfig: {fileID: 0}
+  commandManager: {fileID: 0}
 --- !u!1 &1066192594778783862
 GameObject:
   m_ObjectHideFlags: 0
