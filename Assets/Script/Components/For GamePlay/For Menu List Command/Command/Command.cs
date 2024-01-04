@@ -18,11 +18,16 @@ namespace CommandChoice.Component
         private bool OnDrag = false;
         private PointerEventData eventData;
         private Vector3 beginDrag = new();
+        private Image image;
+        private Color imageColor;
+        ScrollRect scrollControl;
 
         void Awake()
         {
             RootContentCommand = GameObject.FindGameObjectWithTag("List Content Command");
             CommandManager = GameObject.FindGameObjectWithTag("List View Command").GetComponent<CommandManager>();
+            scrollControl = CommandManager.transform.Find("Scroll View").GetComponent<ScrollRect>();
+            image = GetComponent<Image>();
         }
 
         void Start()
@@ -51,18 +56,10 @@ namespace CommandChoice.Component
         {
             if (OnDrag)
             {
-                Vector2 transformRoot = RootContentCommand.GetComponent<RectTransform>().anchoredPosition;
-                float updateListView = Time.deltaTime * (beginDrag.y - eventData.pointerDrag.transform.position.y);
-                if (beginDrag.y <= eventData.pointerDrag.transform.position.y)
-                {
-                    transformRoot.y -= Math.Abs(updateListView);
-                }
-                else if (beginDrag.y >= eventData.pointerDrag.transform.position.y)
-                {
-                    transformRoot.y += Math.Abs(updateListView);
-                }
-                RootContentCommand.GetComponent<RectTransform>().anchoredPosition = transformRoot;
-                //print(eventData.pointerDrag.transform.position.y - beginDrag.y);
+                float distance = eventData.pointerDrag.transform.position.y - beginDrag.y;
+                float distanceConvert = (float)Math.Round(distance / 500f, 6);
+                scrollControl.verticalNormalizedPosition += Time.deltaTime * distanceConvert;
+                //print(distanceConvert);
             }
         }
 
@@ -83,13 +80,16 @@ namespace CommandChoice.Component
             Parent.UpdateParentAndIndex(transform.parent, transform.GetSiblingIndex());
             transform.SetParent(transform.root);
             transform.SetAsLastSibling();
-            GetComponent<Image>().raycastTarget = false;
+            image.raycastTarget = false;
+            imageColor = image.color;
+            image.color = new Color(imageColor.r, imageColor.g, imageColor.b, 0.1f);
             GetComponentInChildren<Text>().raycastTarget = false;
             GetComponent<Button>().enabled = false;
             OnDrag = true;
             RootContentCommand.GetComponent<VerticalLayoutGroup>().enabled = false;
+            RootContentCommand.GetComponent<ContentSizeFitter>().enabled = false;
             CommandManager.DropRemoveCommand.SetActive(OnDrag);
-            beginDrag = transform.position;
+            beginDrag = scrollControl.transform.position;
             foreach (Transform child in transform)
             {
                 child.gameObject.SetActive(false);
@@ -111,11 +111,13 @@ namespace CommandChoice.Component
             {
                 child.gameObject.SetActive(true);
             }
-            GetComponent<Image>().raycastTarget = true;
+            image.raycastTarget = true;
+            image.color = imageColor;
             GetComponentInChildren<Text>().raycastTarget = true;
             GetComponent<Button>().enabled = true;
             OnDrag = false;
             RootContentCommand.GetComponent<VerticalLayoutGroup>().enabled = true;
+            RootContentCommand.GetComponent<ContentSizeFitter>().enabled = true;
             CommandManager.DropRemoveCommand.SetActive(OnDrag);
             if (Type == TypeCommand.Function)
             {
