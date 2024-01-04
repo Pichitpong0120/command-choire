@@ -35,11 +35,11 @@ namespace CommandChoice.Component
             {
                 button.onClick.AddListener(() =>
                 {
-                    List<GameObject> listCommand = new();
+                    List<Transform> listCommand = new();
                     SwitchActionPlay(false);
                     foreach (Transform child in listContentCommand)
                     {
-                        listCommand.Add(child.gameObject);
+                        listCommand.Add(child);
                     }
                     commandManager.PlayAction(listCommand);
                 });

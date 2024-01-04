@@ -17,6 +17,12 @@ namespace CommandChoice.Model
         public const string SkipTo = "Skip To";
         public const string Trigger = "Trigger";
 
+        public static bool CheckCommand(string command)
+        {
+            if(CheckCommandBehavior(command)) return true;
+            return CheckCommandFunction(command);
+        }
+
         public static bool CheckCommandBehavior(string command)
         {
             List<string> listCommand = new List<string>() { MoveUp, MoveDown, MoveLeft, MoveRight, Idle };

@@ -12,6 +12,7 @@ namespace CommandChoice.Component
         [field: SerializeField] public Transform CommandContext { get; private set; }
         [SerializeField] private Text countTime;
         [field: SerializeField] public GameObject DropRemoveCommand { get; private set; }
+        [SerializeField] private List<string> listNameCommand = new();
 
         void Start()
         {
@@ -28,9 +29,38 @@ namespace CommandChoice.Component
             command.transform.SetParent(CommandContext);
         }
 
-        public void PlayAction(List<GameObject> listCommand)
+        public void PlayAction(List<Transform> listCommand)
         {
-            StartCoroutine(RunCommand(listCommand));
+            listNameCommand.Clear();
+            LoopCheckCommand(listCommand);
+            StartCoroutine(RunCommand(listNameCommand));
+        }
+
+        private void LoopCheckCommand(List<Transform> transformObject)
+        {
+            foreach (Transform parent in transformObject)
+            {
+                if (StaticText.CheckCommand(parent.gameObject.name)) listNameCommand.Add(parent.gameObject.name);
+                if (parent.childCount > 1)
+                {
+                    foreach (Transform child in parent)
+                    {
+                        LoopCheckCommand(child);
+                    }
+                }
+            }
+        }
+
+        private void LoopCheckCommand(Transform transformObject)
+        {
+            if (StaticText.CheckCommand(transformObject.gameObject.name)) listNameCommand.Add(transformObject.gameObject.name);
+            if (transformObject.childCount > 1)
+            {
+                foreach (Transform child in transformObject)
+                {
+                    LoopCheckCommand(child);
+                }
+            }
         }
 
         public void ResetAction()
@@ -39,32 +69,32 @@ namespace CommandChoice.Component
             countTime.text = "";
         }
 
-        private IEnumerator RunCommand(List<GameObject> listCommand)
+        private IEnumerator RunCommand(List<string> listCommand)
         {
             int count = 0;
 
             countTime.text = $"Count: {count}";
             PlayerManager player = GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerManager>();
-            foreach (GameObject item in listCommand)
+            foreach (string item in listCommand)
             {
                 yield return new WaitForSeconds(2f);
-                if (item.name == StaticText.MoveUp)
+                if (item == StaticText.MoveUp)
                 {
                     player.PlayerMoveUp();
                 }
-                else if (item.name == StaticText.MoveDown)
+                else if (item == StaticText.MoveDown)
                 {
                     player.PlayerMoveDown();
                 }
-                else if (item.name == StaticText.MoveLeft)
+                else if (item == StaticText.MoveLeft)
                 {
                     player.PlayerMoveLeft();
                 }
-                else if (item.name == StaticText.MoveRight)
+                else if (item == StaticText.MoveRight)
                 {
                     player.PlayerMoveRight();
                 }
-                else { print("Wait a moment..."); }
+                print(item);
                 countTime.text = $"Count: {count += 1}";
             }
         }

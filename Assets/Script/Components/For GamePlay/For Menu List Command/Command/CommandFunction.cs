@@ -8,12 +8,10 @@ public class CommandFunction : MonoBehaviour
     [SerializeField] private CommandManager CommandManager;
     public GameObject RootContentCommand { get; private set; }
     [SerializeField] private GameObject commandFunction;
-    private RectTransform RectTransform;
     public GameObject RootListViewCommand { get; private set; }
 
     void Awake()
     {
-        RectTransform = GetComponent<RectTransform>();
         RootContentCommand = GameObject.FindGameObjectWithTag("List Content Command");
         RootListViewCommand = GameObject.FindGameObjectWithTag("List View Command");
         CommandManager = RootListViewCommand.GetComponent<CommandManager>();
