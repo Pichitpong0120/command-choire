@@ -74,5 +74,13 @@ namespace CommandChoice.Component
                 countTime.text = $"Count: {count += 1}";
             }
         }
+
+        public void ConfigCommand(Command command, CommandFunction commandFunction)
+        {
+            if(command.Type != TypeCommand.Function) return;
+            GameObject configPanels = Instantiate(Resources.Load<GameObject>("Ui/Command/Config Command Function"), transform.root);
+            ConfigCommand config = configPanels.GetComponent<ConfigCommand>();
+            config.GetCommand(command, commandFunction);
+        }
     }
 }

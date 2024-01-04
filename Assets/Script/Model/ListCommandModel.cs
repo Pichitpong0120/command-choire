@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using CommandChoice.Component;
 using UnityEngine;
 
 namespace CommandChoice.Model
@@ -14,6 +15,40 @@ namespace CommandChoice.Model
         public List<CommandModel> commandFunctions;
         [SerializeField]
         public List<Color32> listColorCommands;
+
+        public void ReturnCommand(Command command)
+        {
+            if (command.Type == TypeCommand.Behavior)
+            {
+                foreach (CommandModel item in commandBehavior)
+                {
+                    if (command.gameObject.name == item.Name) item.ReturnCommand();
+                }
+            }
+            else
+            {
+                foreach (CommandModel item in commandFunctions)
+                {
+                    if (command.gameObject.name == item.Name) item.ReturnCommand();
+                }
+                LoopCheckChildCommandFunction(command.transform);
+            }
+        }
+
+        void LoopCheckChildCommandFunction(Transform transformCommand)
+        {
+            foreach (Transform child in transformCommand)
+            {
+                Command command = child.GetComponent<Command>();
+                if (command == null) continue;
+                List<CommandModel> checkCommand = command.Type == TypeCommand.Behavior ? commandBehavior : commandFunctions;
+                foreach (CommandModel item in checkCommand)
+                {
+                    if (command.gameObject.name == item.Name) item.ReturnCommand();
+                }
+                if (command.Type == TypeCommand.Function) LoopCheckChildCommandFunction(child.transform);
+            }
+        }
 
         ListCommandModel()
         {
@@ -56,15 +91,9 @@ namespace CommandChoice.Model
             index = IndexInParent;
         }
 
-        public void UpdateParent(Transform TransformParent)
-        {
-            parent = TransformParent;
-        }
+        public void UpdateParent(Transform TransformParent) { parent = TransformParent; }
 
-        public void UpdateIndex(int IndexInParent)
-        {
-            index = IndexInParent;
-        }
+        public void UpdateIndex(int IndexInParent) { index = IndexInParent; }
     }
 
     [Serializable]
@@ -76,15 +105,11 @@ namespace CommandChoice.Model
 
         [field: SerializeField] public int CanUse { get; private set; } = 0;
 
-        public CommandModel(string NameCommand)
-        {
-            Name = NameCommand;
-        }
+        public CommandModel(string NameCommand) { Name = NameCommand; }
 
-        public void UsedCommand()
-        {
-            CanUse -= 1;
-        }
+        public void UsedCommand() { CanUse -= 1; }
+
+        public void ReturnCommand() { CanUse += 1; }
     }
 
     public enum TypeCommand

@@ -310,6 +310,7 @@ MonoBehaviour:
   ConfirmPanel: {fileID: 7915392380294036027}
   ContinueButton: {fileID: 3032293753649602388}
   BackButton: {fileID: 5249078499897016940}
+  ConfirmButton: {fileID: 924017989035667415}
   UnConfirmButton: {fileID: 2729259608008022256}
 --- !u!1 &1773492293324900137
 GameObject:

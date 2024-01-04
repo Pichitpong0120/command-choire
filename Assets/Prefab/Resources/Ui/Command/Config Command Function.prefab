@@ -11,6 +11,7 @@ GameObject:
   - component: {fileID: 700504795919108344}
   - component: {fileID: 4153502040228360455}
   - component: {fileID: 2758870792089811600}
+  - component: {fileID: 6263576203101110942}
   m_Layer: 5
   m_Name: Config Command Function
   m_TagString: Untagged
@@ -51,7 +52,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 1, g: 1, b: 1, a: 0.11372549}
+  m_Color: {r: 0, g: 0, b: 0, a: 0.9137255}
   m_RaycastTarget: 1
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
@@ -76,6 +77,23 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 859290437132754879}
   m_CullTransparentMesh: 1
+--- !u!114 &6263576203101110942
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 859290437132754879}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 869b68a0fa7a21742a99a2a9d5e87cf3, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  buttonConfirm: {fileID: 8798910048600907724}
+  buttonRemove: {fileID: 5273372538960371432}
+  buttonClose: {fileID: 1591011674292915938}
+  configValue: {fileID: 7741230765685633694}
+  textTitle: {fileID: 7694003668012777700}
 --- !u!1 &1066192594778783862
 GameObject:
   m_ObjectHideFlags: 0
@@ -974,7 +992,7 @@ RectTransform:
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
   m_AnchoredPosition: {x: 0.0026865005, y: -6.21762}
-  m_SizeDelta: {x: 861.3464, y: 339.4388}
+  m_SizeDelta: {x: 861.3464, y: 429.04}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &6041518192671978145
 CanvasRenderer:
@@ -997,14 +1015,14 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 0.20784315, g: 0.20784315, b: 0.20784315, a: 1}
+  m_Color: {r: 0.5566038, g: 0, b: 0, a: 1}
   m_RaycastTarget: 1
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 21300000, guid: d1fcabd55b6a87b4bbdf9adbf9bfc7d4, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 08bc726e684a6184cb1f2d4748a5388a, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1

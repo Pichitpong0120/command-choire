@@ -47,13 +47,14 @@ namespace CommandChoice.Component
             if (OnDrag)
             {
                 Vector2 transformRoot = RootContentCommand.GetComponent<RectTransform>().anchoredPosition;
+                float updateListView = Time.deltaTime * (beginDrag.y - eventData.pointerDrag.transform.position.y);
                 if (beginDrag.y <= eventData.pointerDrag.transform.position.y)
                 {
-                    transformRoot.y -= Time.deltaTime * Math.Abs(beginDrag.y - eventData.pointerDrag.transform.position.y);
+                    transformRoot.y -= Math.Abs(updateListView);
                 }
                 else if (beginDrag.y >= eventData.pointerDrag.transform.position.y)
                 {
-                    transformRoot.y += Time.deltaTime * Math.Abs(beginDrag.y - eventData.pointerDrag.transform.position.y);
+                    transformRoot.y += Math.Abs(updateListView);
                 }
                 RootContentCommand.GetComponent<RectTransform>().anchoredPosition = transformRoot;
                 //print(eventData.pointerDrag.transform.position.y - beginDrag.y);

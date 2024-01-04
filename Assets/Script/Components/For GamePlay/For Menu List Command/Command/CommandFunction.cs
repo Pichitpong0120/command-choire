@@ -9,12 +9,14 @@ public class CommandFunction : MonoBehaviour
     public GameObject RootContentCommand { get; private set; }
     [SerializeField] private GameObject commandFunction;
     private RectTransform RectTransform;
+    public GameObject RootListViewCommand { get; private set; }
 
     void Awake()
     {
         RectTransform = GetComponent<RectTransform>();
         CommandManager = GameObject.FindGameObjectWithTag("List View Command").GetComponent<CommandManager>();
         RootContentCommand = GameObject.FindGameObjectWithTag("List Content Command");
+        RootListViewCommand = GameObject.FindGameObjectWithTag("List View Command");
     }
 
     void Start()
@@ -33,11 +35,20 @@ public class CommandFunction : MonoBehaviour
             gameObject.name = "Object Child";
             Command commandComponent = commandFunction.AddComponent<Command>();
             commandComponent.UpdateType(TypeCommand.Function);
+            gameObject.GetComponent<Button>().onClick.AddListener(() =>
+            {
+                RootListViewCommand.GetComponent<CommandManager>().ConfigCommand(commandComponent, this);
+            });
 
             Destroy(gameObject.GetComponent<Command>());
-
+            StartConfigCommandFunction(commandComponent);
             transform.SetParent(commandComponent.transform);
         }
+    }
+
+    private void StartConfigCommandFunction(Command command)
+    {
+        if (command.gameObject.name == StaticText.Loop) RootListViewCommand.GetComponent<CommandManager>().ConfigCommand(command, this); ;
     }
 
     public void UpdateColor(Transform transform, bool revers = false)
