@@ -14,9 +14,9 @@ public class CommandFunction : MonoBehaviour
     void Awake()
     {
         RectTransform = GetComponent<RectTransform>();
-        CommandManager = GameObject.FindGameObjectWithTag("List View Command").GetComponent<CommandManager>();
         RootContentCommand = GameObject.FindGameObjectWithTag("List Content Command");
         RootListViewCommand = GameObject.FindGameObjectWithTag("List View Command");
+        CommandManager = RootListViewCommand.GetComponent<CommandManager>();
     }
 
     void Start()

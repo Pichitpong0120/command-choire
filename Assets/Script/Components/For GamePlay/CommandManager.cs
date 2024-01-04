@@ -12,16 +12,10 @@ namespace CommandChoice.Component
         [field: SerializeField] public Transform CommandContext { get; private set; }
         [SerializeField] private Text countTime;
         [field: SerializeField] public GameObject DropRemoveCommand { get; private set; }
-        [SerializeField] private GameObject ObjectEntry;
 
         void Start()
         {
             countTime.text = "";
-        }
-
-        void Update()
-        {
-            ObjectEntry.transform.SetAsLastSibling();
         }
 
         public void RemoveCommand(GameObject command)

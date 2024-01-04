@@ -18,7 +18,6 @@ namespace CommandChoice.Component
         private bool OnDrag = false;
         private PointerEventData eventData;
         private Vector3 beginDrag = new();
-        [SerializeField] private GameObject removeCommand;
 
         void Awake()
         {
@@ -28,8 +27,6 @@ namespace CommandChoice.Component
 
         void Start()
         {
-
-            removeCommand = GameObject.FindGameObjectWithTag("Remove Command");
             Parent.UpdateParentAndIndex(transform.parent, transform.GetSiblingIndex());
             if (Type != TypeCommand.Null)
             {
@@ -43,6 +40,9 @@ namespace CommandChoice.Component
                     {
                         gameObject.AddComponent<CommandFunction>();
                     }
+
+                    RootContentCommand.GetComponent<VerticalLayoutGroup>().enabled = false;
+                    RootContentCommand.GetComponent<VerticalLayoutGroup>().enabled = true;
                 }
             }
         }
@@ -87,6 +87,7 @@ namespace CommandChoice.Component
             GetComponentInChildren<Text>().raycastTarget = false;
             GetComponent<Button>().enabled = false;
             OnDrag = true;
+            RootContentCommand.GetComponent<VerticalLayoutGroup>().enabled = false;
             CommandManager.DropRemoveCommand.SetActive(OnDrag);
             beginDrag = transform.position;
             foreach (Transform child in transform)
@@ -114,6 +115,7 @@ namespace CommandChoice.Component
             GetComponentInChildren<Text>().raycastTarget = true;
             GetComponent<Button>().enabled = true;
             OnDrag = false;
+            RootContentCommand.GetComponent<VerticalLayoutGroup>().enabled = true;
             CommandManager.DropRemoveCommand.SetActive(OnDrag);
             if (Type == TypeCommand.Function)
             {
