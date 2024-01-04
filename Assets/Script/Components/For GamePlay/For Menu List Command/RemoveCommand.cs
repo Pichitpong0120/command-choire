@@ -12,12 +12,18 @@ namespace CommandChoice.Component
             commandManager = GameObject.FindGameObjectWithTag("List View Command").GetComponent<CommandManager>();
         }
 
+        void Start()
+        {
+            gameObject.SetActive(false);
+        }
+
         public void OnDrop(PointerEventData eventData)
         {
             Command dropCommandObject = eventData.pointerDrag.GetComponent<Command>();
 
             commandManager.ListCommand.ReturnCommand(dropCommandObject);
             Destroy(dropCommandObject.gameObject);
+            gameObject.SetActive(false);
         }
     }
 }

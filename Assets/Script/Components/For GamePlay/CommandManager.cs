@@ -11,7 +11,7 @@ namespace CommandChoice.Component
         [field: SerializeField] public ListCommandModel ListCommand { get; private set; }
         [field: SerializeField] public Transform CommandContext { get; private set; }
         [SerializeField] private Text countTime;
-
+        [field: SerializeField] public GameObject DropRemoveCommand { get; private set; }
         [SerializeField] private GameObject ObjectEntry;
 
         void Start()
@@ -77,7 +77,7 @@ namespace CommandChoice.Component
 
         public void ConfigCommand(Command command, CommandFunction commandFunction)
         {
-            if(command.Type != TypeCommand.Function) return;
+            if (command.Type != TypeCommand.Function) return;
             GameObject configPanels = Instantiate(Resources.Load<GameObject>("Ui/Command/Config Command Function"), transform.root);
             ConfigCommand config = configPanels.GetComponent<ConfigCommand>();
             config.GetCommand(command, commandFunction);

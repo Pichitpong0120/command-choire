@@ -13,18 +13,23 @@ namespace CommandChoice.Component
         [SerializeField] private ParentCommand Parent = new();
 
         public GameObject RootContentCommand { get; private set; }
+        public CommandManager CommandManager { get; private set; }
 
         private bool OnDrag = false;
         private PointerEventData eventData;
         private Vector3 beginDrag = new();
+        [SerializeField] private GameObject removeCommand;
 
         void Awake()
         {
             RootContentCommand = GameObject.FindGameObjectWithTag("List Content Command");
+            CommandManager = GameObject.FindGameObjectWithTag("List View Command").GetComponent<CommandManager>();
         }
 
         void Start()
         {
+
+            removeCommand = GameObject.FindGameObjectWithTag("Remove Command");
             Parent.UpdateParentAndIndex(transform.parent, transform.GetSiblingIndex());
             if (Type != TypeCommand.Null)
             {
@@ -82,6 +87,7 @@ namespace CommandChoice.Component
             GetComponentInChildren<Text>().raycastTarget = false;
             GetComponent<Button>().enabled = false;
             OnDrag = true;
+            CommandManager.DropRemoveCommand.SetActive(OnDrag);
             beginDrag = transform.position;
             foreach (Transform child in transform)
             {
@@ -108,6 +114,7 @@ namespace CommandChoice.Component
             GetComponentInChildren<Text>().raycastTarget = true;
             GetComponent<Button>().enabled = true;
             OnDrag = false;
+            CommandManager.DropRemoveCommand.SetActive(OnDrag);
             if (Type == TypeCommand.Function)
             {
                 CommandFunction command = transform.GetChild(0).GetComponent<CommandFunction>();
