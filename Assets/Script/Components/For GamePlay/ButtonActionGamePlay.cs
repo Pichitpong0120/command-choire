@@ -1,5 +1,4 @@
 using System.Collections.Generic;
-using CommandChoice.Data;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -62,11 +61,15 @@ namespace CommandChoice.Component
             {
                 button.onClick.AddListener(() =>
                 {
-                    SwitchActionPlay(true);
-                    commandManager.ResetAction();
-                    GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerManager>().ResetGame();
+                    ResetActionControl();
                 });
             }
+        }
+
+        public void ResetActionControl()
+        {
+            SwitchActionPlay(true);
+            commandManager.ResetAction();
         }
 
         private void SwitchActionPlay(bool action)

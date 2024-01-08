@@ -1,15 +1,22 @@
 using UnityEngine;
 using UnityEngine.EventSystems;
+using UnityEngine.UI;
 
 namespace CommandChoice.Component
 {
     public class RemoveCommand : MonoBehaviour, IDropHandler
     {
         [SerializeField] private CommandManager commandManager;
+        [SerializeField] private GameObject commandContent;
+        [SerializeField] private ContentSizeFitter contentSize;
+        [SerializeField] private VerticalLayoutGroup verticalLayout;
 
         void Awake()
         {
             commandManager = GameObject.FindGameObjectWithTag("List View Command").GetComponent<CommandManager>();
+            commandContent = GameObject.FindGameObjectWithTag("List Content Command");
+            contentSize = commandContent.GetComponent<ContentSizeFitter>();
+            verticalLayout = commandContent.GetComponent<VerticalLayoutGroup>();
         }
 
         void Start()
@@ -20,7 +27,8 @@ namespace CommandChoice.Component
         public void OnDrop(PointerEventData eventData)
         {
             Command dropCommandObject = eventData.pointerDrag.GetComponent<Command>();
-
+            contentSize.enabled = true;
+            verticalLayout.enabled = true;
             commandManager.ListCommand.ReturnCommand(dropCommandObject);
             Destroy(dropCommandObject.gameObject);
             gameObject.SetActive(false);

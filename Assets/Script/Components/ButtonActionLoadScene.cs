@@ -18,7 +18,7 @@ namespace CommandChoice.Component
             {
                 try
                 {
-                    buttonAction.GetComponent<Button>();
+                    buttonAction = GetComponent<Button>();
                 }
                 catch (Exception)
                 {

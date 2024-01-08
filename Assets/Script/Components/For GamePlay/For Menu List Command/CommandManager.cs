@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using CommandChoice.Data;
 using CommandChoice.Model;
 using UnityEngine;
 using UnityEngine.UI;
@@ -8,14 +9,17 @@ namespace CommandChoice.Component
 {
     public class CommandManager : MonoBehaviour
     {
+        [field: SerializeField] public DataGamePlay DataThisGame { get; private set; }
+        [field: SerializeField] public int TimeCount { get; private set; } = 0;
         [field: SerializeField] public ListCommandModel ListCommand { get; private set; }
         [field: SerializeField] public Transform CommandContext { get; private set; }
         [SerializeField] private Text countTime;
         [field: SerializeField] public GameObject DropRemoveCommand { get; private set; }
-        [SerializeField] private List<string> listNameCommand = new();
+        [field: SerializeField] public List<string> ListNameCommand { get; private set; } = new();
 
         void Start()
         {
+            DataThisGame = new();
             countTime.text = "";
         }
 
@@ -31,16 +35,16 @@ namespace CommandChoice.Component
 
         public void PlayAction(List<Transform> listCommand)
         {
-            listNameCommand.Clear();
+            ListNameCommand.Clear();
             LoopCheckCommand(listCommand);
-            StartCoroutine(RunCommand(listNameCommand));
+            StartCoroutine(RunCommand(ListNameCommand));
         }
 
         private void LoopCheckCommand(List<Transform> transformObject)
         {
             foreach (Transform parent in transformObject)
             {
-                if (StaticText.CheckCommand(parent.gameObject.name)) listNameCommand.Add(parent.gameObject.name);
+                if (StaticText.CheckCommand(parent.gameObject.name)) ListNameCommand.Add(parent.gameObject.name);
                 if (parent.childCount > 1)
                 {
                     foreach (Transform child in parent)
@@ -53,7 +57,7 @@ namespace CommandChoice.Component
 
         private void LoopCheckCommand(Transform transformObject)
         {
-            if (StaticText.CheckCommand(transformObject.gameObject.name)) listNameCommand.Add(transformObject.gameObject.name);
+            if (StaticText.CheckCommand(transformObject.gameObject.name)) ListNameCommand.Add(transformObject.gameObject.name);
             if (transformObject.childCount > 1)
             {
                 foreach (Transform child in transformObject)
@@ -63,17 +67,29 @@ namespace CommandChoice.Component
             }
         }
 
-        public void ResetAction()
+        public void ResetAction(bool stopCoroutinesOnly = false)
         {
             StopAllCoroutines();
+            if (stopCoroutinesOnly) return;
             countTime.text = "";
+            GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerManager>().ResetGame();
+            foreach (GameObject item in DataThisGame.MailObjects)
+            {
+                if (item == null) break;
+                item.GetComponent<MailComponent>().ResetGame();
+            }
+            foreach (Transform item in GameObject.Find("Right-Bottom").transform)
+            {
+                if (item.gameObject.name == "Run") item.gameObject.SetActive(true);
+                if (item.gameObject.name == "Reset") item.gameObject.SetActive(false);
+            }
         }
 
         private IEnumerator RunCommand(List<string> listCommand)
         {
-            int count = 0;
+            TimeCount = 0;
 
-            countTime.text = $"Count: {count}";
+            countTime.text = $"Count: {TimeCount}";
             PlayerManager player = GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerManager>();
             foreach (string item in listCommand)
             {
@@ -94,8 +110,8 @@ namespace CommandChoice.Component
                 {
                     player.PlayerMoveRight();
                 }
-                print(item);
-                countTime.text = $"Count: {count += 1}";
+                //print(item);
+                countTime.text = $"Count: {TimeCount += 1}";
             }
         }
 

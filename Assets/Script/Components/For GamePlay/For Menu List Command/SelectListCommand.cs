@@ -1,4 +1,3 @@
-using CommandChoice.Data;
 using CommandChoice.Model;
 using UnityEngine;
 using UnityEngine.UI;

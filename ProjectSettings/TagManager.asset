@@ -9,6 +9,10 @@ TagManager:
   - List Content Command
   - Remove Command
   - Command
+  - HP
+  - Mail
+  - Postal Box
+  - Enemy
   layers:
   - Default
   - TransparentFX

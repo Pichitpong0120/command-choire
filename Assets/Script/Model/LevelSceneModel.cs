@@ -1,3 +1,5 @@
+using UnityEngine;
+
 namespace CommandChoice.Model
 {
     public class LevelSceneModel
@@ -5,7 +7,8 @@ namespace CommandChoice.Model
         public string NameLevelScene { get; private set; } = "LevelScene";
         public LevelSceneDetailModel DetailLevelScene { get; private set; } = new();
 
-        public string getNameForLoadScene(){
+        public string getNameForLoadScene()
+        {
             return NameLevelScene.Replace(' ', '_');
         }
 
@@ -22,5 +25,12 @@ namespace CommandChoice.Model
         public int CountBoxCommand { get; set; } = 0;
         public int MailLevelScene { get; set; } = 0;
         public int UseTime { get; set; } = 0;
+
+        public bool NewHightScore(double newScore)
+        {
+            if (ScoreLevelScene <= newScore) return false;
+            ScoreLevelScene = newScore;
+            return true;
+        }
     }
 }
