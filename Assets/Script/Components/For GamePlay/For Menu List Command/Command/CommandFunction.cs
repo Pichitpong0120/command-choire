@@ -57,6 +57,7 @@ namespace CommandChoice.Component
                 Destroy(gameObject.GetComponent<Command>());
                 StartConfigCommandFunction(commandComponent);
                 transform.SetParent(commandComponent.transform);
+                gameObject.tag = "Untagged";
             }
         }
 

@@ -12,7 +12,8 @@ namespace CommandChoice.Component
         {
             Play,
             Pause,
-            Reset
+            Reset,
+            Zoom
         }
 
         [SerializeField] private TypeAction Type;
@@ -51,6 +52,11 @@ namespace CommandChoice.Component
                     Time.timeScale = 0;
                     Instantiate(Resources.Load<GameObject>("Ui/Menu/PausePanels"), transform.root);
                 });
+            }
+            else if (Type == TypeAction.Zoom)
+            {
+                ZoomComponent zoomComponent = gameObject.AddComponent<ZoomComponent>();
+                zoomComponent.enabled = true;
             }
             else
             {

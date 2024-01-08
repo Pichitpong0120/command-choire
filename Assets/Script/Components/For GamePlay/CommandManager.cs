@@ -109,7 +109,11 @@ namespace CommandChoice.Component
 
         public void TriggerCommand(Command command, CommandFunction commandFunction)
         {
-            print("Triggering");
+            List<GameObject> l = new(GameObject.FindGameObjectsWithTag("Command"));
+            foreach (var item in l)
+            {
+                print(item.name);
+            }
         }
     }
 }

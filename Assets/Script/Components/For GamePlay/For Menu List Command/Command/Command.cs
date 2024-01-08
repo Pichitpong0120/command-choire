@@ -32,6 +32,7 @@ namespace CommandChoice.Component
 
         void Start()
         {
+            gameObject.tag = "Command";
             Parent.UpdateParentAndIndex(transform.parent, transform.GetSiblingIndex());
             if (Type != TypeCommand.Null)
             {
@@ -70,12 +71,12 @@ namespace CommandChoice.Component
 
         void IPointerDownHandler.OnPointerDown(PointerEventData eventData)
         {
-            Debug.Log($"OnPointerDown '{gameObject.name}'");
+            //Debug.Log($"OnPointerDown '{gameObject.name}'");
         }
 
         void IBeginDragHandler.OnBeginDrag(PointerEventData eventData)
         {
-            Debug.Log($"OnBeginDrag '{gameObject.name}'");
+            //Debug.Log($"OnBeginDrag '{gameObject.name}'");
             this.eventData = eventData;
             Parent.UpdateParentAndIndex(transform.parent, transform.GetSiblingIndex());
             transform.SetParent(transform.root);
@@ -97,14 +98,14 @@ namespace CommandChoice.Component
         }
         void IDragHandler.OnDrag(PointerEventData eventData)
         {
-            Debug.Log($"OnDrag '{gameObject.name}'");
+            //Debug.Log($"OnDrag '{gameObject.name}'");
             transform.position = Input.mousePosition;
             //print(RootContentCommand.transform.position.y - eventData.pointerDrag.transform.position.y);
         }
 
         void IEndDragHandler.OnEndDrag(PointerEventData eventData)
         {
-            Debug.Log($"OnEndDrag '{gameObject.name}'");
+            //Debug.Log($"OnEndDrag '{gameObject.name}'");
             transform.SetParent(Parent.parent);
             transform.SetSiblingIndex(Parent.index);
             foreach (Transform child in transform)
@@ -160,7 +161,7 @@ namespace CommandChoice.Component
                 dropCommandObject.Parent.UpdateParent(transform.parent);
             }
 
-            Debug.Log($"'{dropCommandObject.name}' OnDrop '{gameObject.name}'");
+            //Debug.Log($"'{dropCommandObject.name}' OnDrop '{gameObject.name}'");
         }
     }
 }

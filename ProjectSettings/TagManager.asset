@@ -8,6 +8,7 @@ TagManager:
   - Canvas
   - List Content Command
   - Remove Command
+  - Command
   layers:
   - Default
   - TransparentFX

@@ -1,3 +1,4 @@
+using System;
 using CommandChoice.Model;
 using UnityEngine;
 
@@ -32,16 +33,18 @@ namespace CommandChoice.Component
                     var spawnedTileDownLeft = Instantiate(_tilePrefab, new Vector3(posPlayer.x - x, posPlayer.y - y, 20), Quaternion.identity);
                     var spawnedTileDownRight = Instantiate(_tilePrefab, new Vector3(posPlayer.x + x, posPlayer.y - y, 20), Quaternion.identity);
                     SettingGrid(spawnedTileUpRight, x, y);
-                    SettingGrid(spawnedTileUpLeft, x, y);
-                    SettingGrid(spawnedTileDownLeft, x, y);
-                    SettingGrid(spawnedTileDownRight, x, y);
+                    SettingGrid(spawnedTileUpLeft, -x, y);
+                    SettingGrid(spawnedTileDownLeft, -x, -y);
+                    SettingGrid(spawnedTileDownRight, x, -y);
                 }
             }
         }
 
         void SettingGrid(GameObject spawnedTile, int x, int y)
         {
-            var isOffset = (x % 2 == 0 && y % 2 != 0) || (x % 2 != 0 && y % 2 == 0);
+            int xPositive = Math.Abs(x);
+            int yPositive = Math.Abs(y);
+            var isOffset = (xPositive % 2 == 0 && yPositive % 2 != 0) || (xPositive % 2 != 0 && yPositive % 2 == 0);
             spawnedTile.GetComponent<SpriteRenderer>().color = isOffset ? model.FirstColor : model.SecondColor;
             spawnedTile.transform.SetParent(transform);
             spawnedTile.name = $"Tile {x} {y}";
