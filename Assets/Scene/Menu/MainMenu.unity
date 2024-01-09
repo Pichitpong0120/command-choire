@@ -528,7 +528,7 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls: []
   m_FontData:
-    m_Font: {fileID: 12800000, guid: 94a877f3ca1879240833343de74418bb, type: 3}
+    m_Font: {fileID: 12800000, guid: 6c524b9437b017044933a8e29e1cb6de, type: 3}
     m_FontSize: 77
     m_FontStyle: 0
     m_BestFit: 0
@@ -657,10 +657,10 @@ Animator:
   m_GameObject: {fileID: 543413585584238151}
   m_Enabled: 1
   m_Avatar: {fileID: 0}
-  m_Controller: {fileID: 9100000, guid: b9a4fe199f5776e4a88a6b43dd147098, type: 2}
+  m_Controller: {fileID: 9100000, guid: 0d8e3e305bba402449496ad036993522, type: 2}
   m_CullingMode: 0
   m_UpdateMode: 0
-  m_ApplyRootMotion: 0
+  m_ApplyRootMotion: 1
   m_LinearVelocityBlending: 0
   m_StabilizeFeet: 0
   m_WarningMessage: 
@@ -689,7 +689,7 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls: []
   m_FontData:
-    m_Font: {fileID: 12800000, guid: bc1c5735e16a7b3449599c86c6555c32, type: 3}
+    m_Font: {fileID: 12800000, guid: 6c524b9437b017044933a8e29e1cb6de, type: 3}
     m_FontSize: 66
     m_FontStyle: 0
     m_BestFit: 0
@@ -772,7 +772,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 0.6372987}
-  m_AnchoredPosition: {x: 0, y: 0.16501}
+  m_AnchoredPosition: {x: 0, y: 0.16503906}
   m_SizeDelta: {x: 0, y: -0.33002}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &6071637021239529642
@@ -784,10 +784,10 @@ MonoBehaviour:
   m_GameObject: {fileID: 543413585584238151}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: c538ec95ad100074e8e1cbedc10671ff, type: 3}
+  m_Script: {fileID: 11500000, guid: e260a393f8983ef41be74d17f19d84e1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  buttonAction: {fileID: 598594909529744386}
+  buttonAction: {fileID: 0}
   sceneMenuSelect: 3
   levelLoadScene: 
 --- !u!224 &6838373319160003943

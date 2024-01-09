@@ -5,6 +5,7 @@ namespace CommandChoice.Component
 {
     public class ZoomComponent : MonoBehaviour
     {
+        [Header("Fields Auto Set")]
         [SerializeField] Button button;
         [SerializeField] Image image;
         [SerializeField] Camera Camera;

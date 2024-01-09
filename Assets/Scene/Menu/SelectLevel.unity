@@ -406,7 +406,7 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls: []
   m_FontData:
-    m_Font: {fileID: 12800000, guid: ab1bfb9f6b79cf240974ea120d0ab890, type: 3}
+    m_Font: {fileID: 12800000, guid: 6c524b9437b017044933a8e29e1cb6de, type: 3}
     m_FontSize: 57
     m_FontStyle: 0
     m_BestFit: 0
@@ -942,10 +942,10 @@ MonoBehaviour:
   m_GameObject: {fileID: 3351500972262643959}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: ced1030e56bb85040a547eba0d4eea81, type: 3}
+  m_Script: {fileID: 11500000, guid: d0edb1488f8eff34e8d6e9021cceed59, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  buttonSelectLevelPrefab: {fileID: 1042439472745044183, guid: 7139ab9cefce9504d92c0dc06302a4b4, type: 3}
+  buttonSelectLevelPrefab: {fileID: 1042439472745044183, guid: fe01632bbe852a347bd7135cf51efc44, type: 3}
   parentButtonSelectLevel: {fileID: 3922997626145889916}
 --- !u!114 &7252383005684349646
 MonoBehaviour:
@@ -1037,7 +1037,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 21300000, guid: a4e08dad4a61d3948b73dcab074baad1, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 0aaf775df8750ae469c112e52f353c4d, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -1100,10 +1100,10 @@ MonoBehaviour:
   m_GameObject: {fileID: 2857952636115493078}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: c538ec95ad100074e8e1cbedc10671ff, type: 3}
+  m_Script: {fileID: 11500000, guid: e260a393f8983ef41be74d17f19d84e1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  buttonAction: {fileID: 7473885903578414173}
+  buttonAction: {fileID: 0}
   sceneMenuSelect: 1
   levelLoadScene: 
 --- !u!114 &7473885903578414175

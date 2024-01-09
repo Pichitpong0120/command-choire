@@ -11,7 +11,7 @@ namespace CommandChoice.Component
         [SerializeField] private Button buttonClose;
         [SerializeField] private InputField configValue;
         [SerializeField] private Text textTitle;
-
+        [Header("Fields Auto Set")]
         [SerializeField] private Command commandConfig;
         [SerializeField] private CommandFunction commandFunction;
         [SerializeField] private Text textConfig;

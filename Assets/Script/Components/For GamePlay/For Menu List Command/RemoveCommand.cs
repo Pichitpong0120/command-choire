@@ -6,6 +6,7 @@ namespace CommandChoice.Component
 {
     public class RemoveCommand : MonoBehaviour, IDropHandler
     {
+        [Header("Field Auto Set")]
         [SerializeField] private CommandManager commandManager;
         [SerializeField] private GameObject commandContent;
         [SerializeField] private ContentSizeFitter contentSize;
