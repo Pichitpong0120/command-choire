@@ -265,7 +265,7 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls: []
   m_FontData:
-    m_Font: {fileID: 10102, guid: 0000000000000000e000000000000000, type: 0}
+    m_Font: {fileID: 12800000, guid: 6c524b9437b017044933a8e29e1cb6de, type: 3}
     m_FontSize: 52
     m_FontStyle: 0
     m_BestFit: 0
@@ -875,7 +875,7 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls: []
   m_FontData:
-    m_Font: {fileID: 10102, guid: 0000000000000000e000000000000000, type: 0}
+    m_Font: {fileID: 12800000, guid: 6c524b9437b017044933a8e29e1cb6de, type: 3}
     m_FontSize: 52
     m_FontStyle: 0
     m_BestFit: 0
@@ -1351,17 +1351,17 @@ MonoBehaviour:
   m_GameObject: {fileID: 8932253686058748314}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: a7bc40b3750281040996854ab4b4aaa3, type: 3}
+  m_Script: {fileID: 11500000, guid: 8551859142f48344c96b497c46164192, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  ui: {fileID: 6407134423719218668}
+  uiParent: {fileID: 6407134423719218668}
   backBTN: {fileID: 1146894903561496885}
-  behaviorType: {fileID: 1013979798454630209}
-  functionType: {fileID: 1173769742019147235}
+  buttonBehaviorType: {fileID: 1013979798454630209}
+  buttonFunctionType: {fileID: 1173769742019147235}
   parentCommandType: {fileID: 2660670784755792987}
   parentCommand: {fileID: 968804762348754915}
   parentBehaviorCommand: {fileID: 4678425431318093280}
   parentFunctionCommand: {fileID: 4352024018546818389}
-  MenuCommandBox: {fileID: 292483786368610978, guid: 09868cb90fe85bc40b99a72b77cb1bbb, type: 3}
+  CommandPrefab: {fileID: 292483786368610978, guid: 09868cb90fe85bc40b99a72b77cb1bbb, type: 3}
   transformBehavior: {fileID: 3799536883028551102}
   transformFunction: {fileID: 2333449225105895658}

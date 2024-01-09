@@ -8,6 +8,7 @@ namespace CommandChoice.Component
     {
         [SerializeField] private int HP = DataGlobal.HpDefault;
         [field: SerializeField] public int Mail { get; private set; } = DataGlobal.MailDefault;
+        [Header("Fields Auto Set")]
         [SerializeField] private Text textHP;
         [SerializeField] private Text textMail;
         [SerializeField] private Vector3 startSpawn;

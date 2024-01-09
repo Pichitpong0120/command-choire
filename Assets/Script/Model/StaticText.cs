@@ -15,6 +15,7 @@ namespace CommandChoice.Model
         public const string If = "If";
         public const string Else = "Else";
         public const string Loop = "Loop";
+        public const string EndLoop = "End Loop";
         public const string SkipTo = "Skip To";
         public const string Trigger = "Trigger";
 
