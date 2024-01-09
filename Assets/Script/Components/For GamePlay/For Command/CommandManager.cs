@@ -110,6 +110,10 @@ namespace CommandChoice.Component
                 {
                     player.PlayerMoveRight();
                 }
+                else if (item == StaticText.Loop)
+                {
+                    
+                }
                 //print(item);
                 countTime.text = $"Count: {TimeCount += 1}";
             }

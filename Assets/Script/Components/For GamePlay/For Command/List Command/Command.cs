@@ -14,6 +14,7 @@ namespace CommandChoice.Component
 
         public GameObject RootContentCommand { get; private set; }
         public CommandManager CommandManager { get; private set; }
+        public CommandFunction CommandFunction { get; private set; }
 
         private bool OnDrag = false;
         private PointerEventData eventData;
@@ -27,6 +28,7 @@ namespace CommandChoice.Component
             RootContentCommand = GameObject.FindGameObjectWithTag("List Content Command");
             CommandManager = GameObject.FindGameObjectWithTag("List View Command").GetComponent<CommandManager>();
             scrollControl = CommandManager.transform.Find("Scroll View").GetComponent<ScrollRect>();
+            CommandFunction = transform.GetChild(0).GetComponent<CommandFunction>();
             image = GetComponent<Image>();
         }
 
