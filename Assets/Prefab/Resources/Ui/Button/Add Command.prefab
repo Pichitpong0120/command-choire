@@ -206,7 +206,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 4411068649373999047}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 5752471ca9c14bd4081dda205229e142, type: 3}
+  m_Script: {fileID: 11500000, guid: 4994a12475c968f4e8e9192808940a17, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  uiPopup: {fileID: 7596361904729802787, guid: 86e2683797451ae468be234649606daf, type: 3}
+  menuListCommand: {fileID: 8932253686058748314, guid: b54607dc45438a645b7a3e2d4d8a8588, type: 3}

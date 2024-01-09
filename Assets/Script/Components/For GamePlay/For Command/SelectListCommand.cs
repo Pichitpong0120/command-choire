@@ -6,15 +6,15 @@ namespace CommandChoice.Component
 {
     public class SelectListCommand : MonoBehaviour
     {
-        [SerializeField] private Button ui;
+        [SerializeField] private Button uiParent;
         [SerializeField] private Button backBTN;
-        [SerializeField] private Button behaviorType;
-        [SerializeField] private Button functionType;
+        [SerializeField] private Button buttonBehaviorType;
+        [SerializeField] private Button buttonFunctionType;
         [SerializeField] private GameObject parentCommandType;
         [SerializeField] private GameObject parentCommand;
         [SerializeField] private GameObject parentBehaviorCommand;
         [SerializeField] private GameObject parentFunctionCommand;
-        [SerializeField] private GameObject MenuCommandBox;
+        [SerializeField] private GameObject CommandPrefab;
         [SerializeField] private Transform transformBehavior;
         [SerializeField] private Transform transformFunction;
         CommandManager commandManager;
@@ -28,7 +28,7 @@ namespace CommandChoice.Component
 
         void Start()
         {
-            behaviorType.onClick.AddListener(() =>
+            buttonBehaviorType.onClick.AddListener(() =>
             {
                 parentCommandType.SetActive(false);
                 parentCommand.SetActive(true);
@@ -36,7 +36,7 @@ namespace CommandChoice.Component
                 parentFunctionCommand.SetActive(false);
             });
 
-            functionType.onClick.AddListener(() =>
+            buttonFunctionType.onClick.AddListener(() =>
             {
                 parentCommandType.SetActive(false);
                 parentCommand.SetActive(true);
@@ -50,7 +50,7 @@ namespace CommandChoice.Component
                 parentCommand.SetActive(false);
             });
 
-            ui.onClick.AddListener(() =>
+            uiParent.onClick.AddListener(() =>
             {
                 Destroy(gameObject);
             });
@@ -74,7 +74,7 @@ namespace CommandChoice.Component
 
         public void GenerateCommand(CommandModel nameCommand, Transform spawnCommand, TypeCommand type)
         {
-            GameObject genCommandBox = Instantiate(MenuCommandBox, spawnCommand);
+            GameObject genCommandBox = Instantiate(CommandPrefab, spawnCommand);
 
             genCommandBox.name = nameCommand.Name;
             genCommandBox.GetComponentInChildren<Text>().text = $"{nameCommand.Name} [{nameCommand.CanUse}]";

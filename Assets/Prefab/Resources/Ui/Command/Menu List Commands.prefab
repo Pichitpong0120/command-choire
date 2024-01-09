@@ -17,7 +17,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &5661028909764117615
 RectTransform:
   m_ObjectHideFlags: 0
@@ -313,7 +313,7 @@ RectTransform:
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
   m_AnchoredPosition: {x: -0.000076293945, y: -0.00012207031}
-  m_SizeDelta: {x: 0.0001001358, y: 0}
+  m_SizeDelta: {x: 0.0001001358, y: -961.80493}
   m_Pivot: {x: 0, y: 1}
 --- !u!114 &6999096548504664952
 MonoBehaviour:
@@ -445,7 +445,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!224 &479507051616352383
 RectTransform:
   m_ObjectHideFlags: 0
@@ -1351,17 +1351,17 @@ MonoBehaviour:
   m_GameObject: {fileID: 8932253686058748314}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 0f5e8036a3cf9874d8d0e6f13bf09a58, type: 3}
+  m_Script: {fileID: 11500000, guid: 8e78bce04164c1347a95195919b1c738, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  ui: {fileID: 6407134423719218668}
+  uiParent: {fileID: 6407134423719218668}
   backBTN: {fileID: 1146894903561496885}
-  behaviorType: {fileID: 1013979798454630209}
-  functionType: {fileID: 1173769742019147235}
+  buttonBehaviorType: {fileID: 1013979798454630209}
+  buttonFunctionType: {fileID: 1173769742019147235}
   parentCommandType: {fileID: 2660670784755792987}
   parentCommand: {fileID: 968804762348754915}
   parentBehaviorCommand: {fileID: 4678425431318093280}
   parentFunctionCommand: {fileID: 4352024018546818389}
-  MenuCommandBox: {fileID: 292483786368610978, guid: 273c2086b79ec0c42ba300f2e46b42fe, type: 3}
+  CommandPrefab: {fileID: 292483786368610978, guid: 273c2086b79ec0c42ba300f2e46b42fe, type: 3}
   transformBehavior: {fileID: 3799536883028551102}
   transformFunction: {fileID: 2333449225105895658}

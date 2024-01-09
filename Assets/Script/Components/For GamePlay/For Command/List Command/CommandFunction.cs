@@ -27,20 +27,20 @@ namespace CommandChoice.Component
         void Start()
         {
             InitCommand();
-            UpdateColor(RootContentCommand.transform);
         }
 
         private void InitCommand()
         {
             if (transform.parent.GetComponent<Command>() == null)
             {
-
                 commandFunction = Instantiate(Resources.Load<GameObject>("Ui/Command/Block Command Function"), transform.parent);
                 commandFunction.name = gameObject.name;
                 nameCommand = commandFunction.name;
                 gameObject.name = "Object Child";
+                gameObject.tag = "Untagged";
                 Command commandComponent = commandFunction.AddComponent<Command>();
                 commandComponent.UpdateType(TypeCommand.Function);
+                commandComponent.enabled = true;
                 gameObject.GetComponent<Button>().onClick.AddListener(() =>
                 {
                     if (StaticText.CheckCommandCanConfig(commandComponent.gameObject.name))
@@ -56,7 +56,7 @@ namespace CommandChoice.Component
                 Destroy(gameObject.GetComponent<Command>());
                 StartConfigCommandFunction(commandComponent);
                 transform.SetParent(commandComponent.transform);
-                gameObject.tag = "Untagged";
+                UpdateColor(RootContentCommand.transform);
             }
         }
 
@@ -70,6 +70,7 @@ namespace CommandChoice.Component
             int index = revers ? CommandManager.ListCommand.listColorCommands.Count - 1 : 1;
             foreach (Transform child in transform)
             {
+                if (!StaticText.CheckCommandFunction(child.gameObject.name)) continue;
                 foreach (Transform childInChild in child)
                 {
                     if (childInChild.GetComponent<CommandFunction>() != null)
@@ -80,6 +81,7 @@ namespace CommandChoice.Component
                         {
                             foreach (Transform childInChildInChild in child.transform)
                             {
+                                if (!StaticText.CheckCommandFunction(childInChildInChild.gameObject.name)) continue;
                                 UpdateColor(childInChildInChild.transform, !revers);
                             }
                         }

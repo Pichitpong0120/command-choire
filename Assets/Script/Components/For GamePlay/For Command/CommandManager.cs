@@ -12,7 +12,7 @@ namespace CommandChoice.Component
         [field: SerializeField] public DataGamePlay DataThisGame { get; private set; }
         [field: SerializeField] public int TimeCount { get; private set; } = 0;
         [field: SerializeField] public ListCommandModel ListCommand { get; private set; }
-        [field: SerializeField] public Transform CommandContext { get; private set; }
+        [field: SerializeField] public Transform CommandContent { get; private set; }
         [SerializeField] private Text countTime;
         [field: SerializeField] public GameObject DropRemoveCommand { get; private set; }
         [field: SerializeField] public List<string> ListNameCommand { get; private set; } = new();
@@ -30,7 +30,7 @@ namespace CommandChoice.Component
 
         public void AddNewCommand(GameObject command)
         {
-            command.transform.SetParent(CommandContext);
+            command.transform.SetParent(CommandContent);
         }
 
         public void PlayAction(List<Transform> listCommand)

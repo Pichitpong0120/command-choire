@@ -16,25 +16,29 @@ namespace CommandChoice.Component
         public CommandManager CommandManager { get; private set; }
         public CommandFunction CommandFunction { get; private set; }
 
-        private bool OnDrag = false;
-        private PointerEventData eventData;
-        private Vector3 beginDrag = new();
-        private Image image;
-        private Color imageColor;
-        private ScrollRect scrollControl;
+        [SerializeField] private bool OnDrag = false;
+        [SerializeField] private PointerEventData eventData;
+        [SerializeField] private Vector3 beginDrag = new();
+        [SerializeField] private Image image;
+        [SerializeField] private Color imageColor;
+        [SerializeField] private ScrollRect scrollControl;
+        [SerializeField] private VerticalLayoutGroup verticalLayout;
+        [SerializeField] private ContentSizeFitter contentSize;
 
         void Awake()
         {
             RootContentCommand = GameObject.FindGameObjectWithTag("List Content Command");
             CommandManager = GameObject.FindGameObjectWithTag("List View Command").GetComponent<CommandManager>();
             scrollControl = CommandManager.transform.Find("Scroll View").GetComponent<ScrollRect>();
-            CommandFunction = transform.GetChild(0).GetComponent<CommandFunction>();
-            image = GetComponent<Image>();
+            verticalLayout = RootContentCommand.GetComponent<VerticalLayoutGroup>();
+            contentSize = RootContentCommand.GetComponent<ContentSizeFitter>();
         }
 
         void Start()
         {
             gameObject.tag = "Command";
+            CommandFunction = transform.GetChild(0).GetComponent<CommandFunction>();
+            image = gameObject.GetComponent<Image>();
             Parent.UpdateParentAndIndex(transform.parent, transform.GetSiblingIndex());
             if (Type != TypeCommand.Null)
             {
@@ -49,8 +53,8 @@ namespace CommandChoice.Component
                         gameObject.AddComponent<CommandFunction>();
                     }
 
-                    RootContentCommand.GetComponent<VerticalLayoutGroup>().enabled = false;
-                    RootContentCommand.GetComponent<VerticalLayoutGroup>().enabled = true;
+                    verticalLayout.enabled = false;
+                    verticalLayout.enabled = true;
                 }
             }
         }
@@ -89,8 +93,8 @@ namespace CommandChoice.Component
             GetComponentInChildren<Text>().raycastTarget = false;
             GetComponent<Button>().enabled = false;
             OnDrag = true;
-            RootContentCommand.GetComponent<VerticalLayoutGroup>().enabled = false;
-            RootContentCommand.GetComponent<ContentSizeFitter>().enabled = false;
+            verticalLayout.enabled = false;
+            contentSize.enabled = false;
             CommandManager.DropRemoveCommand.SetActive(OnDrag);
             beginDrag = scrollControl.transform.position;
             foreach (Transform child in transform)
@@ -119,8 +123,8 @@ namespace CommandChoice.Component
             GetComponentInChildren<Text>().raycastTarget = true;
             GetComponent<Button>().enabled = true;
             OnDrag = false;
-            RootContentCommand.GetComponent<VerticalLayoutGroup>().enabled = true;
-            RootContentCommand.GetComponent<ContentSizeFitter>().enabled = true;
+            verticalLayout.enabled = true;
+            contentSize.enabled = true;
             CommandManager.DropRemoveCommand.SetActive(OnDrag);
             if (Type == TypeCommand.Function)
             {

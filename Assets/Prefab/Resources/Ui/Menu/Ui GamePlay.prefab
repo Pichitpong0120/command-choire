@@ -183,7 +183,6 @@ GameObject:
   - component: {fileID: 6211761303801014567}
   - component: {fileID: 7080095418325747939}
   - component: {fileID: 1383946848836099459}
-  - component: {fileID: 8547832642467341336}
   m_Layer: 5
   m_Name: Remove Command
   m_TagString: Remove Command
@@ -302,26 +301,13 @@ MonoBehaviour:
   m_GameObject: {fileID: 227636297493470569}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: e76f7609f48efbb45ae134bc5b4c5598, type: 3}
+  m_Script: {fileID: 11500000, guid: a992b708531e074448167042ad8498ee, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  menuListCommand: {fileID: 8932253686058748314, guid: b54607dc45438a645b7a3e2d4d8a8588, type: 3}
---- !u!114 &8547832642467341336
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 227636297493470569}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 9a7579144a05f6245b91cbe78789eae2, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  commandManager: {fileID: 0}
-  commandContent: {fileID: 0}
-  contentSize: {fileID: 0}
-  verticalLayout: {fileID: 0}
+  commandManager: {fileID: 9216926691805279350}
+  commandContent: {fileID: 5419296765001976367}
+  contentSize: {fileID: 7296629630932510664}
+  verticalLayout: {fileID: 9036207952370858027}
 --- !u!1 &1248056870542631382
 GameObject:
   m_ObjectHideFlags: 0
@@ -411,7 +397,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 1248056870542631382}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 4a74040932cedb74eb8121c4f623bdcb, type: 3}
+  m_Script: {fileID: 11500000, guid: 4aa3502865126f547be5e6dc66408677, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   <TimeCount>k__BackingField: 0
@@ -429,31 +415,31 @@ MonoBehaviour:
     - <Active>k__BackingField: 1
       <Name>k__BackingField: Move Right
       <CanUse>k__BackingField: 3
-    - <Active>k__BackingField: 0
+    - <Active>k__BackingField: 1
       <Name>k__BackingField: Idle
-      <CanUse>k__BackingField: 0
+      <CanUse>k__BackingField: 3
     commandFunctions:
-    - <Active>k__BackingField: 0
+    - <Active>k__BackingField: 1
       <Name>k__BackingField: Break
       <CanUse>k__BackingField: 3
-    - <Active>k__BackingField: 0
+    - <Active>k__BackingField: 1
       <Name>k__BackingField: Count
-      <CanUse>k__BackingField: 0
-    - <Active>k__BackingField: 0
+      <CanUse>k__BackingField: 3
+    - <Active>k__BackingField: 1
       <Name>k__BackingField: If
-      <CanUse>k__BackingField: 0
-    - <Active>k__BackingField: 0
+      <CanUse>k__BackingField: 3
+    - <Active>k__BackingField: 1
       <Name>k__BackingField: Else
-      <CanUse>k__BackingField: 0
-    - <Active>k__BackingField: 0
+      <CanUse>k__BackingField: 3
+    - <Active>k__BackingField: 1
       <Name>k__BackingField: Loop
-      <CanUse>k__BackingField: 0
-    - <Active>k__BackingField: 0
+      <CanUse>k__BackingField: 3
+    - <Active>k__BackingField: 1
       <Name>k__BackingField: Skip To
-      <CanUse>k__BackingField: 0
-    - <Active>k__BackingField: 0
+      <CanUse>k__BackingField: 3
+    - <Active>k__BackingField: 1
       <Name>k__BackingField: Trigger
-      <CanUse>k__BackingField: 0
+      <CanUse>k__BackingField: 3
     listColorCommands:
     - serializedVersion: 2
       rgba: 4286874868
@@ -463,7 +449,7 @@ MonoBehaviour:
       rgba: 4278190335
     - serializedVersion: 2
       rgba: 4283478016
-  <CommandContext>k__BackingField: {fileID: 3730949669673037830}
+  <CommandContent>k__BackingField: {fileID: 3730949669673037830}
   countTime: {fileID: 5019247375397819109}
   <DropRemoveCommand>k__BackingField: {fileID: 227636297493470569}
   <ListNameCommand>k__BackingField: []
@@ -1057,7 +1043,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 5100686744701655175}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: e76f7609f48efbb45ae134bc5b4c5598, type: 3}
+  m_Script: {fileID: 11500000, guid: 4994a12475c968f4e8e9192808940a17, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   menuListCommand: {fileID: 8932253686058748314, guid: b54607dc45438a645b7a3e2d4d8a8588, type: 3}
