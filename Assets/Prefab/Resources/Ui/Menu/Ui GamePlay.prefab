@@ -406,40 +406,52 @@ MonoBehaviour:
     - <Active>k__BackingField: 1
       <Name>k__BackingField: Move Up
       <CanUse>k__BackingField: 3
+      <InfinityCanUse>k__BackingField: 1
     - <Active>k__BackingField: 1
       <Name>k__BackingField: Move Down
       <CanUse>k__BackingField: 3
+      <InfinityCanUse>k__BackingField: 1
     - <Active>k__BackingField: 1
       <Name>k__BackingField: Move Left
       <CanUse>k__BackingField: 3
+      <InfinityCanUse>k__BackingField: 1
     - <Active>k__BackingField: 1
       <Name>k__BackingField: Move Right
       <CanUse>k__BackingField: 3
+      <InfinityCanUse>k__BackingField: 1
     - <Active>k__BackingField: 1
       <Name>k__BackingField: Idle
       <CanUse>k__BackingField: 3
+      <InfinityCanUse>k__BackingField: 1
     commandFunctions:
     - <Active>k__BackingField: 1
       <Name>k__BackingField: Break
       <CanUse>k__BackingField: 3
+      <InfinityCanUse>k__BackingField: 0
     - <Active>k__BackingField: 1
       <Name>k__BackingField: Count
       <CanUse>k__BackingField: 3
+      <InfinityCanUse>k__BackingField: 0
     - <Active>k__BackingField: 1
       <Name>k__BackingField: If
       <CanUse>k__BackingField: 3
+      <InfinityCanUse>k__BackingField: 0
     - <Active>k__BackingField: 1
       <Name>k__BackingField: Else
       <CanUse>k__BackingField: 3
+      <InfinityCanUse>k__BackingField: 0
     - <Active>k__BackingField: 1
       <Name>k__BackingField: Loop
       <CanUse>k__BackingField: 3
+      <InfinityCanUse>k__BackingField: 0
     - <Active>k__BackingField: 1
       <Name>k__BackingField: Skip To
       <CanUse>k__BackingField: 3
+      <InfinityCanUse>k__BackingField: 0
     - <Active>k__BackingField: 1
       <Name>k__BackingField: Trigger
       <CanUse>k__BackingField: 3
+      <InfinityCanUse>k__BackingField: 0
     listColorCommands:
     - serializedVersion: 2
       rgba: 4286874868

@@ -77,10 +77,10 @@ namespace CommandChoice.Component
             GameObject genCommandBox = Instantiate(CommandPrefab, spawnCommand);
 
             genCommandBox.name = nameCommand.Name;
-            genCommandBox.GetComponentInChildren<Text>().text = $"{nameCommand.Name} [{nameCommand.CanUse}]";
+            genCommandBox.GetComponentInChildren<Text>().text = nameCommand.InfinityCanUse ? $"{nameCommand.Name}" : $"{nameCommand.Name} [{nameCommand.CanUse}]";
             genCommandBox.GetComponent<Button>().onClick.AddListener(() =>
             {
-                if (nameCommand.CanUse != 0)
+                if (nameCommand.CanUse != 0 || nameCommand.InfinityCanUse)
                 {
                     nameCommand.UsedCommand();
                     genCommandBox.GetComponentInChildren<Text>().text = nameCommand.Name;

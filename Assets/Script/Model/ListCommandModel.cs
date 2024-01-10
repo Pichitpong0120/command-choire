@@ -104,12 +104,13 @@ namespace CommandChoice.Model
         [field: SerializeField] public string Name { get; private set; } = "Command";
 
         [field: SerializeField] public int CanUse { get; private set; } = 0;
+        [field: SerializeField] public bool InfinityCanUse { get; private set; } = false;
 
         public CommandModel(string NameCommand) { Name = NameCommand; }
 
-        public void UsedCommand() { CanUse -= 1; }
+        public void UsedCommand() { if (InfinityCanUse) return; CanUse -= 1; }
 
-        public void ReturnCommand() { CanUse += 1; }
+        public void ReturnCommand() { if (InfinityCanUse) return; CanUse += 1; }
     }
 
     public enum TypeCommand
