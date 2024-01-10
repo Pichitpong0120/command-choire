@@ -51,7 +51,7 @@ namespace CommandChoice.Component
 
             button.GetComponent<Image>().color = level.DetailLevelScene.UnLockLevelScene ? Color.white : new Color32(65, 65, 65, 255);
 
-            var mail = button.transform.Find("Mail icon").GetComponentsInChildren<Image>();
+            var mail = button.transform.Find(StaticText.MailIcon).GetComponentsInChildren<Image>();
 
             if (level.DetailLevelScene.MailLevelScene != 0 && level.DetailLevelScene.UnLockLevelScene)
             {

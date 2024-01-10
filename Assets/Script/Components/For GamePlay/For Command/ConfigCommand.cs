@@ -19,7 +19,7 @@ namespace CommandChoice.Component
 
         void Awake()
         {
-            commandManager = GameObject.FindGameObjectWithTag("List View Command").GetComponent<CommandManager>();
+            commandManager = GameObject.FindGameObjectWithTag(StaticText.RootListViewCommand).GetComponent<CommandManager>();
         }
 
         void Start()

@@ -1,3 +1,4 @@
+using CommandChoice.Model;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -11,7 +12,7 @@ namespace CommandChoice.Component
         {
             gameObject.GetComponent<Button>().onClick.AddListener(() =>
             {
-                Transform transform = GameObject.FindGameObjectWithTag("Canvas").transform;
+                Transform transform = GameObject.FindGameObjectWithTag(StaticText.TagCanvas).transform;
                 Instantiate(menuListCommand, transform);
             });
         }

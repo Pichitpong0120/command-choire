@@ -1,10 +1,10 @@
 using System.Collections.Generic;
+using CommandChoice.Model;
 using UnityEngine;
 using UnityEngine.UI;
 
 namespace CommandChoice.Component
 {
-
     public class ButtonActionGamePlay : MonoBehaviour
     {
         enum TypeAction
@@ -25,8 +25,8 @@ namespace CommandChoice.Component
         private void Awake()
         {
             button = gameObject.GetComponent<Button>();
-            commandManager = GameObject.FindGameObjectWithTag("List View Command").GetComponent<CommandManager>();
-            listContentCommand = GameObject.FindGameObjectWithTag("List Content Command").transform;
+            commandManager = GameObject.FindGameObjectWithTag(StaticText.RootListViewCommand).GetComponent<CommandManager>();
+            listContentCommand = GameObject.FindGameObjectWithTag(StaticText.RootListContentCommand).transform;
         }
 
         private void Start()
@@ -49,7 +49,7 @@ namespace CommandChoice.Component
                 button.onClick.AddListener(() =>
                 {
                     Time.timeScale = 0;
-                    Instantiate(Resources.Load<GameObject>("Ui/Menu/PausePanels"), transform.root);
+                    Instantiate(Resources.Load<GameObject>(StaticText.PathPrefabPauseGame), transform.root);
                 });
             }
             else if (Type == TypeAction.Zoom)

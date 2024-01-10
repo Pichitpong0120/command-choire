@@ -17,7 +17,7 @@ namespace CommandChoice.Component
         {
             replaceButton.onClick.AddListener(() =>
             {
-                GameObject.FindGameObjectWithTag("List View Command").GetComponent<CommandManager>().ResetAction();
+                GameObject.FindGameObjectWithTag(StaticText.RootListViewCommand).GetComponent<CommandManager>().ResetAction();
                 Destroy(gameObject);
             });
         }

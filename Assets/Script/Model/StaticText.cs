@@ -18,6 +18,25 @@ namespace CommandChoice.Model
         public const string EndLoop = "End Loop";
         public const string SkipTo = "Skip To";
         public const string Trigger = "Trigger";
+        public const string ObjectChild = "Object Child";
+        public const string MailIcon = "Mail icon";
+        public const string UiMail = "Ui Mail";
+        public const string TagMail = "Mail";
+        public const string TagEnemy = "Enemy";
+        public const string TagHP = "HP";
+        public const string TagCommand = "Command";
+        public const string Untagged = "Untagged";
+        public const string TagCanvas = "Canvas";
+        public const string TagPlayer = "Player";
+        public const string TagCamera = "MainCamera";
+        public const string PathLevelScene = "Assets/Scene/Level";
+        public const string PathImgMinimize = "Icon/minimize";
+        public const string PathImgZoom = "Icon/zoom";
+        public const string PathPrefabPauseGame = "Ui/Menu/PausePanels";
+        public const string PathPrefabConfigCommandForFunction = "Ui/Command/Config Command Function";
+        public const string PathPrefabBlockCommandForFunction = "Ui/Command/Block Command Function";
+        public const string RootListContentCommand = "List Content Command";
+        public const string RootListViewCommand = "List View Command";
 
         public static bool CheckCommand(string command)
         {

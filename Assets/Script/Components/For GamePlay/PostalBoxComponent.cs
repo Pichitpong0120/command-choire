@@ -14,12 +14,12 @@ namespace CommandChoice.Component
 
         void Awake()
         {
-            commandManager = GameObject.FindGameObjectWithTag("List View Command").GetComponent<CommandManager>();
+            commandManager = GameObject.FindGameObjectWithTag(StaticText.RootListViewCommand).GetComponent<CommandManager>();
         }
 
         void OnTriggerEnter2D(Collider2D other)
         {
-            if (other.gameObject.CompareTag("Player"))
+            if (other.gameObject.CompareTag(StaticText.TagPlayer))
             {
                 player = other.gameObject.GetComponent<PlayerManager>();
                 commandManager.ResetAction(true);

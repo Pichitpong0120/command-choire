@@ -72,7 +72,7 @@ namespace CommandChoice.Component
             StopAllCoroutines();
             if (stopCoroutinesOnly) return;
             countTime.text = "";
-            GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerManager>().ResetGame();
+            GameObject.FindGameObjectWithTag(StaticText.TagPlayer).GetComponent<PlayerManager>().ResetGame();
             foreach (GameObject item in DataThisGame.MailObjects)
             {
                 if (item == null) break;
@@ -90,7 +90,7 @@ namespace CommandChoice.Component
             TimeCount = 0;
 
             countTime.text = $"Count: {TimeCount}";
-            PlayerManager player = GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerManager>();
+            PlayerManager player = GameObject.FindGameObjectWithTag(StaticText.TagPlayer).GetComponent<PlayerManager>();
             foreach (string item in listCommand)
             {
                 yield return new WaitForSeconds(2f);
@@ -122,14 +122,14 @@ namespace CommandChoice.Component
         public void ConfigCommand(Command command, CommandFunction commandFunction)
         {
             if (command.Type != TypeCommand.Function) return;
-            GameObject configPanels = Instantiate(Resources.Load<GameObject>("Ui/Command/Config Command Function"), transform.root);
+            GameObject configPanels = Instantiate(Resources.Load<GameObject>(StaticText.PathPrefabConfigCommandForFunction), transform.root);
             ConfigCommand config = configPanels.GetComponent<ConfigCommand>();
             config.GetCommand(command, commandFunction);
         }
 
         public void TriggerCommand(Command command, CommandFunction commandFunction)
         {
-            List<GameObject> l = new(GameObject.FindGameObjectsWithTag("Command"));
+            List<GameObject> l = new(GameObject.FindGameObjectsWithTag(StaticText.TagCommand));
             foreach (var item in l)
             {
                 print(item.name);

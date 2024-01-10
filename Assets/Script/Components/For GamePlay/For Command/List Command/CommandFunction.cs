@@ -19,8 +19,8 @@ namespace CommandChoice.Component
 
         void Awake()
         {
-            RootContentCommand = GameObject.FindGameObjectWithTag("List Content Command");
-            RootListViewCommand = GameObject.FindGameObjectWithTag("List View Command");
+            RootContentCommand = GameObject.FindGameObjectWithTag(StaticText.RootListContentCommand);
+            RootListViewCommand = GameObject.FindGameObjectWithTag(StaticText.RootListViewCommand);
             CommandManager = RootListViewCommand.GetComponent<CommandManager>();
         }
 
@@ -33,11 +33,11 @@ namespace CommandChoice.Component
         {
             if (transform.parent.GetComponent<Command>() == null)
             {
-                commandFunction = Instantiate(Resources.Load<GameObject>("Ui/Command/Block Command Function"), transform.parent);
+                commandFunction = Instantiate(Resources.Load<GameObject>(StaticText.PathPrefabBlockCommandForFunction), transform.parent);
                 commandFunction.name = gameObject.name;
                 nameCommand = commandFunction.name;
-                gameObject.name = "Object Child";
-                gameObject.tag = "Untagged";
+                gameObject.name = StaticText.ObjectChild;
+                gameObject.tag = StaticText.Untagged;
                 Command commandComponent = commandFunction.AddComponent<Command>();
                 commandComponent.UpdateType(TypeCommand.Function);
                 commandComponent.enabled = true;
@@ -77,15 +77,6 @@ namespace CommandChoice.Component
                     {
                         childInChild.GetComponent<Image>().color = CommandManager.ListCommand.listColorCommands[index];
 
-                        if (child.childCount > 0)
-                        {
-                            foreach (Transform childInChildInChild in child.transform)
-                            {
-                                if (!StaticText.CheckCommandFunction(childInChildInChild.gameObject.name)) continue;
-                                UpdateColor(childInChildInChild.transform, !revers);
-                            }
-                        }
-
                         if (revers)
                         {
                             _ = index > 1 ? index-- : index = CommandManager.ListCommand.listColorCommands.Count - 1;
@@ -94,6 +85,10 @@ namespace CommandChoice.Component
                         {
                             _ = index < CommandManager.ListCommand.listColorCommands.Count - 1 ? index++ : index = 1;
                         }
+                    }
+                    if (StaticText.CheckCommandFunction(childInChild.gameObject.name))
+                    {
+                        UpdateColor(child.transform, !revers);
                     }
                 }
             }

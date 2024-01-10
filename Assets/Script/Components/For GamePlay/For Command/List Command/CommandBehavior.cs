@@ -1,21 +1,24 @@
-using CommandChoice.Component;
+using CommandChoice.Model;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class CommandBehavior : MonoBehaviour
+namespace CommandChoice.Component
 {
-    [SerializeField] private Image ColorBackground;
-
-    [SerializeField] private CommandManager CommandManager;
-
-    void Awake()
+    public class CommandBehavior : MonoBehaviour
     {
-        ColorBackground = GetComponent<Image>();
-        CommandManager = GameObject.FindGameObjectWithTag("List View Command").GetComponent<CommandManager>();
-    }
+        [SerializeField] private Image ColorBackground;
 
-    void Start()
-    {
-        ColorBackground.color = CommandManager.ListCommand.listColorCommands[0];
+        [SerializeField] private CommandManager CommandManager;
+
+        void Awake()
+        {
+            ColorBackground = GetComponent<Image>();
+            CommandManager = GameObject.FindGameObjectWithTag(StaticText.RootListViewCommand).GetComponent<CommandManager>();
+        }
+
+        void Start()
+        {
+            ColorBackground.color = CommandManager.ListCommand.listColorCommands[0];
+        }
     }
 }

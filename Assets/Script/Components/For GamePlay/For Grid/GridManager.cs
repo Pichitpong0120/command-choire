@@ -13,7 +13,7 @@ namespace CommandChoice.Component
         void Awake()
         {
 
-            player = GameObject.FindGameObjectWithTag("Player");
+            player = GameObject.FindGameObjectWithTag(StaticText.TagPlayer);
         }
 
         void Start()

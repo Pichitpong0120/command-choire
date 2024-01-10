@@ -1,3 +1,4 @@
+using CommandChoice.Model;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -17,7 +18,7 @@ namespace CommandChoice.Component
         void Awake()
         {
             zoomActive = false;
-            Camera = GameObject.FindGameObjectWithTag("MainCamera").GetComponent<Camera>();
+            Camera = GameObject.FindGameObjectWithTag(StaticText.TagCamera).GetComponent<Camera>();
             button = GetComponent<Button>();
             image = transform.GetChild(0).GetComponent<Image>();
         }
@@ -31,11 +32,11 @@ namespace CommandChoice.Component
                 CheckScreenSize();
                 if (zoomActive)
                 {
-                    image.sprite = Resources.Load<Sprite>("Icon/minimize");
+                    image.sprite = Resources.Load<Sprite>(StaticText.PathImgMinimize);
                 }
                 else
                 {
-                    image.sprite = Resources.Load<Sprite>("Icon/zoom");
+                    image.sprite = Resources.Load<Sprite>(StaticText.PathImgZoom);
                 }
             });
         }

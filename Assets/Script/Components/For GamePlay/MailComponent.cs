@@ -1,3 +1,4 @@
+using CommandChoice.Model;
 using UnityEngine;
 
 namespace CommandChoice.Component
@@ -11,7 +12,7 @@ namespace CommandChoice.Component
 
         void OnTriggerEnter2D(Collider2D other)
         {
-            if(other.gameObject.CompareTag("Player"))
+            if(other.gameObject.CompareTag(StaticText.TagPlayer))
             {
                 PlayerManager player = other.gameObject.GetComponent<PlayerManager>();
                 player.GetMail();

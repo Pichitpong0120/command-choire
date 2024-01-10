@@ -23,7 +23,7 @@ namespace CommandChoice.Component
         {
             parentCommandType.SetActive(true);
             parentCommand.SetActive(false);
-            commandManager = GameObject.FindGameObjectWithTag("List View Command").GetComponent<CommandManager>();
+            commandManager = GameObject.FindGameObjectWithTag(StaticText.RootListViewCommand).GetComponent<CommandManager>();
         }
 
         void Start()

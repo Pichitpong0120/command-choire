@@ -1,3 +1,4 @@
+using CommandChoice.Model;
 using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.UI;
@@ -14,8 +15,8 @@ namespace CommandChoice.Component
 
         void Awake()
         {
-            commandManager = GameObject.FindGameObjectWithTag("List View Command").GetComponent<CommandManager>();
-            commandContent = GameObject.FindGameObjectWithTag("List Content Command");
+            commandManager = GameObject.FindGameObjectWithTag(StaticText.RootListViewCommand).GetComponent<CommandManager>();
+            commandContent = GameObject.FindGameObjectWithTag(StaticText.RootListContentCommand);
             contentSize = commandContent.GetComponent<ContentSizeFitter>();
             verticalLayout = commandContent.GetComponent<VerticalLayoutGroup>();
         }

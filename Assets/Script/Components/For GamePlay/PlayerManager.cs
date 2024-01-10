@@ -1,4 +1,5 @@
 using CommandChoice.Data;
+using CommandChoice.Model;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -15,8 +16,8 @@ namespace CommandChoice.Component
 
         void Awake()
         {
-            textHP = GameObject.FindGameObjectWithTag("HP").transform.GetComponentInChildren<Text>();
-            textMail = GameObject.Find("Ui Mail").transform.GetComponentInChildren<Text>();
+            textHP = GameObject.FindGameObjectWithTag(StaticText.TagHP).transform.GetComponentInChildren<Text>();
+            textMail = GameObject.Find(StaticText.UiMail).transform.GetComponentInChildren<Text>();
         }
 
         void Start()

@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using CommandChoice.Model;
 using UnityEngine;
 
 namespace CommandChoice.Data
@@ -10,12 +11,12 @@ namespace CommandChoice.Data
 
         public DataGamePlay()
         {
-            foreach (GameObject item in GameObject.FindGameObjectsWithTag("Mail"))
+            foreach (GameObject item in GameObject.FindGameObjectsWithTag(StaticText.TagMail))
             {
                 if (item == null) break;
                 MailObjects.Add(item);
             };
-            foreach (GameObject item in GameObject.FindGameObjectsWithTag("Enemy"))
+            foreach (GameObject item in GameObject.FindGameObjectsWithTag(StaticText.TagEnemy))
             {
                 if (item == null) break;
                 EnemyObjects.Add(item);

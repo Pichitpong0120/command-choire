@@ -1,3 +1,4 @@
+using CommandChoice.Model;
 using UnityEngine;
 
 namespace CommandChoice.Component
@@ -11,7 +12,7 @@ namespace CommandChoice.Component
         void Awake()
         {
             //camera = GetComponent<Camera>();
-            player = GameObject.FindGameObjectWithTag("Player");
+            player = GameObject.FindGameObjectWithTag(StaticText.TagPlayer);
         }
 
         void Update()

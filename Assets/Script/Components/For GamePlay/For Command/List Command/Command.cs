@@ -27,8 +27,8 @@ namespace CommandChoice.Component
 
         void Awake()
         {
-            RootContentCommand = GameObject.FindGameObjectWithTag("List Content Command");
-            CommandManager = GameObject.FindGameObjectWithTag("List View Command").GetComponent<CommandManager>();
+            RootContentCommand = GameObject.FindGameObjectWithTag(StaticText.RootListContentCommand);
+            CommandManager = GameObject.FindGameObjectWithTag(StaticText.RootListViewCommand).GetComponent<CommandManager>();
             scrollControl = CommandManager.transform.Find("Scroll View").GetComponent<ScrollRect>();
             verticalLayout = RootContentCommand.GetComponent<VerticalLayoutGroup>();
             contentSize = RootContentCommand.GetComponent<ContentSizeFitter>();
@@ -36,7 +36,7 @@ namespace CommandChoice.Component
 
         void Start()
         {
-            gameObject.tag = "Command";
+            gameObject.tag = StaticText.TagCommand;
             CommandFunction = transform.GetChild(0).GetComponent<CommandFunction>();
             image = gameObject.GetComponent<Image>();
             Parent.UpdateParentAndIndex(transform.parent, transform.GetSiblingIndex());
