@@ -67,7 +67,7 @@ namespace CommandChoice.Component
 
         public void UpdateColor(Transform transform, bool revers = false)
         {
-            int index = revers ? CommandManager.ListCommand.listColorCommands.Count - 1 : 1;
+            int index = revers ? CommandManager.ListCommandModel.listColorCommands.Count - 1 : 1;
             foreach (Transform child in transform)
             {
                 if (!StaticText.CheckCommandFunction(child.gameObject.name)) continue;
@@ -75,15 +75,15 @@ namespace CommandChoice.Component
                 {
                     if (childInChild.GetComponent<CommandFunction>() != null)
                     {
-                        childInChild.GetComponent<Image>().color = CommandManager.ListCommand.listColorCommands[index];
+                        childInChild.GetComponent<Image>().color = CommandManager.ListCommandModel.listColorCommands[index];
 
                         if (revers)
                         {
-                            _ = index > 1 ? index-- : index = CommandManager.ListCommand.listColorCommands.Count - 1;
+                            _ = index > 1 ? index-- : index = CommandManager.ListCommandModel.listColorCommands.Count - 1;
                         }
                         else
                         {
-                            _ = index < CommandManager.ListCommand.listColorCommands.Count - 1 ? index++ : index = 1;
+                            _ = index < CommandManager.ListCommandModel.listColorCommands.Count - 1 ? index++ : index = 1;
                         }
                     }
                     if (StaticText.CheckCommandFunction(childInChild.gameObject.name))

@@ -18,7 +18,7 @@ namespace CommandChoice.Component
 
         void Start()
         {
-            ColorBackground.color = CommandManager.ListCommand.listColorCommands[0];
+            ColorBackground.color = CommandManager.ListCommandModel.listColorCommands[0];
         }
     }
 }

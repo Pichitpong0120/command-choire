@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using CommandChoice.Data;
+using CommandChoice.Handler;
 using CommandChoice.Model;
 using UnityEngine;
 using UnityEngine.UI;
@@ -11,11 +12,11 @@ namespace CommandChoice.Component
     {
         [field: SerializeField] public DataGamePlay DataThisGame { get; private set; }
         [field: SerializeField] public int TimeCount { get; private set; } = 0;
-        [field: SerializeField] public ListCommandModel ListCommand { get; private set; }
+        [field: SerializeField] public ListCommandModel ListCommandModel { get; private set; }
         [field: SerializeField] public Transform CommandContent { get; private set; }
         [SerializeField] private Text countTime;
         [field: SerializeField] public GameObject DropRemoveCommand { get; private set; }
-        [field: SerializeField] public List<string> ListNameCommand { get; private set; } = new();
+        [field: SerializeField] public List<Transform> ListCommandSelected { get; private set; } = new();
 
         void Start()
         {
@@ -35,16 +36,16 @@ namespace CommandChoice.Component
 
         public void PlayAction(List<Transform> listCommand)
         {
-            ListNameCommand.Clear();
+            ListCommandSelected.Clear();
             LoopCheckCommand(listCommand);
-            StartCoroutine(RunCommand(ListNameCommand));
+            StartCoroutine(RunCommand(ListCommandSelected));
         }
 
         private void LoopCheckCommand(List<Transform> transformObject)
         {
             foreach (Transform parent in transformObject)
             {
-                if (StaticText.CheckCommand(parent.gameObject.name)) ListNameCommand.Add(parent.gameObject.name);
+                if (StaticText.CheckCommand(parent.gameObject.name)) ListCommandSelected.Add(parent);
                 if (parent.childCount > 1)
                 {
                     foreach (Transform child in parent)
@@ -57,7 +58,7 @@ namespace CommandChoice.Component
 
         private void LoopCheckCommand(Transform transformObject)
         {
-            if (StaticText.CheckCommand(transformObject.gameObject.name)) ListNameCommand.Add(transformObject.gameObject.name);
+            if (StaticText.CheckCommand(transformObject.gameObject.name)) ListCommandSelected.Add(transformObject);
             if (transformObject.childCount > 1)
             {
                 foreach (Transform child in transformObject)
@@ -83,36 +84,51 @@ namespace CommandChoice.Component
                 if (item.gameObject.name == "Run") item.gameObject.SetActive(true);
                 if (item.gameObject.name == "Reset") item.gameObject.SetActive(false);
             }
+
+            foreach (GameObject item in GameObject.FindGameObjectsWithTag(StaticText.TagCommand))
+            {
+                item.GetComponent<Command>().ResetAction();
+            }
         }
 
-        private IEnumerator RunCommand(List<string> listCommand)
+        private IEnumerator RunCommand(List<Transform> listCommand)
         {
             TimeCount = 0;
 
             countTime.text = $"Count: {TimeCount}";
             PlayerManager player = GameObject.FindGameObjectWithTag(StaticText.TagPlayer).GetComponent<PlayerManager>();
-            foreach (string item in listCommand)
+            foreach (Transform item in listCommand)
             {
                 yield return new WaitForSeconds(2f);
-                if (item == StaticText.MoveUp)
+                if (listCommand.IndexOf(item) == 0)
+                {
+                    item.GetComponent<Command>().PlayingAction();
+                }
+                else
+                {
+                    Transform commandPerverse = listCommand[listCommand.IndexOf(item) - 1].transform;
+                    commandPerverse.GetComponent<Command>().ResetAction();
+                    item.GetComponent<Command>().PlayingAction();
+                }
+                if (item.name == StaticText.MoveUp)
                 {
                     player.PlayerMoveUp();
                 }
-                else if (item == StaticText.MoveDown)
+                else if (item.name == StaticText.MoveDown)
                 {
                     player.PlayerMoveDown();
                 }
-                else if (item == StaticText.MoveLeft)
+                else if (item.name == StaticText.MoveLeft)
                 {
                     player.PlayerMoveLeft();
                 }
-                else if (item == StaticText.MoveRight)
+                else if (item.name == StaticText.MoveRight)
                 {
                     player.PlayerMoveRight();
                 }
-                else if (item == StaticText.Loop)
+                else if (item.name == StaticText.Loop)
                 {
-                    //Handler Command Loop
+                    CommandAction.LoopAction(ListCommandSelected, listCommand.IndexOf(item));
                 }
                 //print(item);
                 countTime.text = $"Count: {TimeCount += 1}";

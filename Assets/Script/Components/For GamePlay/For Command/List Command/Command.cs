@@ -20,6 +20,7 @@ namespace CommandChoice.Component
         [SerializeField] private PointerEventData eventData;
         [SerializeField] private Vector3 beginDrag = new();
         [SerializeField] private Image image;
+        [SerializeField] private Color DefaultColor;
         [SerializeField] private Color imageColor;
         [SerializeField] private ScrollRect scrollControl;
         [SerializeField] private VerticalLayoutGroup verticalLayout;
@@ -45,12 +46,17 @@ namespace CommandChoice.Component
                 if (Type == TypeCommand.Behavior)
                 {
                     gameObject.AddComponent<CommandBehavior>();
+                    DefaultColor = image.color;
                 }
                 else
                 {
                     if (transform.GetChild(0).GetComponent<CommandFunction>() == null)
                     {
                         gameObject.AddComponent<CommandFunction>();
+                    }
+                    else
+                    {
+                        DefaultColor = transform.GetChild(0).GetComponent<Image>().color;
                     }
 
                     verticalLayout.enabled = false;
@@ -67,6 +73,30 @@ namespace CommandChoice.Component
                 float distanceConvert = (float)Math.Round(distance / 500f, 6);
                 scrollControl.verticalNormalizedPosition += Time.deltaTime * distanceConvert;
                 //print(distanceConvert);
+            }
+        }
+
+        public void PlayingAction()
+        {
+            if (Type == TypeCommand.Behavior)
+            {
+                image.color = Color.black;
+            }
+            else
+            {
+                transform.GetChild(0).GetComponent<Image>().color = Color.black;
+            }
+        }
+
+        public void ResetAction()
+        {
+            if (Type == TypeCommand.Behavior)
+            {
+                image.color = DefaultColor;
+            }
+            else
+            {
+                transform.GetChild(0).GetComponent<Image>().color = DefaultColor;
             }
         }
 

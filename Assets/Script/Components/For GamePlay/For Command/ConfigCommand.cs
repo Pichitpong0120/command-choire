@@ -45,7 +45,7 @@ namespace CommandChoice.Component
 
             buttonRemove.onClick.AddListener(() =>
             {
-                commandManager.ListCommand.ReturnCommand(commandConfig);
+                commandManager.ListCommandModel.ReturnCommand(commandConfig);
                 Destroy(commandConfig.gameObject);
                 Destroy(gameObject);
             });

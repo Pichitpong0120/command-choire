@@ -55,19 +55,19 @@ namespace CommandChoice.Component
                 Destroy(gameObject);
             });
 
-            for (int i = 0; i < commandManager.ListCommand.commandBehavior.Count; i++)
+            for (int i = 0; i < commandManager.ListCommandModel.commandBehavior.Count; i++)
             {
-                if (commandManager.ListCommand.commandBehavior[i].Active)
+                if (commandManager.ListCommandModel.commandBehavior[i].Active)
                 {
-                    GenerateCommand(commandManager.ListCommand.commandBehavior[i], transformBehavior, TypeCommand.Behavior);
+                    GenerateCommand(commandManager.ListCommandModel.commandBehavior[i], transformBehavior, TypeCommand.Behavior);
                 }
             }
 
-            for (int i = 0; i < commandManager.ListCommand.commandFunctions.Count; i++)
+            for (int i = 0; i < commandManager.ListCommandModel.commandFunctions.Count; i++)
             {
-                if (commandManager.ListCommand.commandFunctions[i].Active)
+                if (commandManager.ListCommandModel.commandFunctions[i].Active)
                 {
-                    GenerateCommand(commandManager.ListCommand.commandFunctions[i], transformFunction, TypeCommand.Function);
+                    GenerateCommand(commandManager.ListCommandModel.commandFunctions[i], transformFunction, TypeCommand.Function);
                 }
             }
         }

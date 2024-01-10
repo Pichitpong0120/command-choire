@@ -31,7 +31,7 @@ namespace CommandChoice.Component
             Command dropCommandObject = eventData.pointerDrag.GetComponent<Command>();
             contentSize.enabled = true;
             verticalLayout.enabled = true;
-            commandManager.ListCommand.ReturnCommand(dropCommandObject);
+            commandManager.ListCommandModel.ReturnCommand(dropCommandObject);
             Destroy(dropCommandObject.gameObject);
             gameObject.SetActive(false);
         }

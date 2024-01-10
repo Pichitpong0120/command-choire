@@ -29,7 +29,7 @@ namespace CommandChoice.Component
                 {
                     if (scene[i].getNameForLoadScene() == SceneManager.GetActiveScene().name)
                     {
-                        scene[i].DetailLevelScene.CountBoxCommand = commandManager.ListNameCommand.Count;
+                        scene[i].DetailLevelScene.CountBoxCommand = commandManager.ListCommandSelected.Count;
                         scene[i].DetailLevelScene.MailLevelScene = player.Mail;
                         scene[i].DetailLevelScene.UseTime = commandManager.TimeCount;
                         newScore = scene[i].DetailLevelScene.NewHightScore(100);
