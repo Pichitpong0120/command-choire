@@ -35,6 +35,7 @@ namespace CommandChoice.Model
         public const string PathPrefabPauseGame = "Ui/Menu/PausePanels";
         public const string PathPrefabConfigCommandForFunction = "Ui/Command/Config Command Function";
         public const string PathPrefabBlockCommandForFunction = "Ui/Command/Block Command Function";
+        public const string PathPrefabCommand = "Ui/Button/Command";
         public const string RootListContentCommand = "List Content Command";
         public const string RootListViewCommand = "List View Command";
 
@@ -88,47 +89,47 @@ namespace CommandChoice.Model
             return false;
         }
 
-        public static string CommandDisplay(string text, CommandFunction commandFunction)
+        public static string CommandDisplay(string nameCommand, CommandFunction commandFunction)
         {
             string textUpdate = "";
 
-            switch (text)
+            switch (nameCommand)
             {
                 case Idle:
-                    textUpdate = text;
+                    textUpdate = nameCommand;
                     break;
                 case MoveUp:
-                    textUpdate = text;
+                    textUpdate = nameCommand;
                     break;
                 case MoveDown:
-                    textUpdate = text;
+                    textUpdate = nameCommand;
                     break;
                 case MoveLeft:
-                    textUpdate = text;
+                    textUpdate = nameCommand;
                     break;
                 case MoveRight:
-                    textUpdate = text;
+                    textUpdate = nameCommand;
                     break;
                 case Break:
-                    textUpdate = text;
+                    textUpdate = nameCommand;
                     break;
                 case Count:
-                    textUpdate = $"{text} : {commandFunction.count}";
+                    textUpdate = $"{nameCommand} : {commandFunction.countTime}";
                     break;
                 case If:
-                    textUpdate = $"{text} : {commandFunction.trigger}";
+                    textUpdate = $"{nameCommand} : {commandFunction.trigger}";
                     break;
                 case Else:
-                    textUpdate = text;
+                    textUpdate = nameCommand;
                     break;
                 case Loop:
-                    textUpdate = $"{text} : Count {commandFunction.count}";
+                    textUpdate = $"{nameCommand} : Count {commandFunction.countTime}";
                     break;
                 case SkipTo:
-                    textUpdate = $"{text} : {commandFunction.trigger}";
+                    textUpdate = $"{nameCommand} : {commandFunction.trigger}";
                     break;
                 case Trigger:
-                    textUpdate = $"{text} : {commandFunction.trigger}";
+                    textUpdate = $"{nameCommand} : {commandFunction.trigger}";
                     break;
             }
             return textUpdate;

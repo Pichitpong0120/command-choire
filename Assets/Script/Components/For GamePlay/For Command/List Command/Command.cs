@@ -12,9 +12,9 @@ namespace CommandChoice.Component
         [field: SerializeField] public TypeCommand Type { get; private set; }
         [SerializeField] private ParentCommand Parent = new();
 
-        public GameObject RootContentCommand { get; private set; }
-        public CommandManager CommandManager { get; private set; }
-        public CommandFunction CommandFunction { get; private set; }
+        [field: SerializeField] public GameObject RootContentCommand { get; private set; }
+        [field: SerializeField] public CommandManager CommandManager { get; private set; }
+        [field: SerializeField] public CommandFunction CommandFunction { get; private set; }
 
         [SerializeField] private bool OnDrag = false;
         [SerializeField] private PointerEventData eventData;

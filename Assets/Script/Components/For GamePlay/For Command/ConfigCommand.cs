@@ -37,7 +37,8 @@ namespace CommandChoice.Component
                     configValue.textComponent.color = Color.red;
                     return;
                 }
-                commandFunction.count = valueCount;
+                commandFunction.countDefault = valueCount;
+                commandFunction.countTime = valueCount;
 
                 textConfig.text = StaticText.CommandDisplay(commandConfig.gameObject.name, commandFunction);
                 Destroy(gameObject);

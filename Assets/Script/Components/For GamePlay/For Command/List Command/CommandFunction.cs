@@ -11,8 +11,10 @@ namespace CommandChoice.Component
         [SerializeField] private GameObject commandFunction;
         public GameObject RootListViewCommand { get; private set; }
 
-        public int count;
+        public int countDefault;
+        public int countTime;
 
+        public GameObject triggerDefault;
         public GameObject trigger;
 
         [SerializeField] private string nameCommand;
@@ -58,6 +60,24 @@ namespace CommandChoice.Component
                 transform.SetParent(commandComponent.transform);
                 UpdateColor(RootContentCommand.transform);
             }
+        }
+
+        public void UpdateTextCommand(string nameCommand, bool reset = false)
+        {
+            if(reset)
+            {
+                countTime = countDefault;
+                trigger = triggerDefault;
+            }
+            Text command = transform.GetChild(0).GetComponent<Text>();
+            command.text = StaticText.CommandDisplay(nameCommand, this);
+        }
+
+        public int UsedLoopCount(bool setNew = false)
+        {
+            if (setNew) countTime = countDefault;
+            countTime -= 1;
+            return countTime;
         }
 
         private void StartConfigCommandFunction(Command command)

@@ -1,7 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using CommandChoice.Data;
-using CommandChoice.Handler;
 using CommandChoice.Model;
 using UnityEngine;
 using UnityEngine.UI;
@@ -17,6 +17,7 @@ namespace CommandChoice.Component
         [SerializeField] private Text countTime;
         [field: SerializeField] public GameObject DropRemoveCommand { get; private set; }
         [field: SerializeField] public List<Transform> ListCommandSelected { get; private set; } = new();
+        private readonly List<LoopCommandModel> LoopCommands = new();
 
         void Start()
         {
@@ -53,6 +54,12 @@ namespace CommandChoice.Component
                         LoopCheckCommand(child);
                     }
                 }
+                if (parent.gameObject.name == StaticText.Loop)
+                {
+                    Transform newObject = Resources.Load<GameObject>(StaticText.PathPrefabCommand).transform;
+                    newObject.name = StaticText.EndLoop;
+                    ListCommandSelected.Add(newObject);
+                };
             }
         }
 
@@ -66,6 +73,12 @@ namespace CommandChoice.Component
                     LoopCheckCommand(child);
                 }
             }
+            if (transformObject.gameObject.name == StaticText.Loop)
+            {
+                Transform newObject = Resources.Load<GameObject>(StaticText.PathPrefabCommand).transform;
+                newObject.name = StaticText.EndLoop;
+                ListCommandSelected.Add(newObject);
+            };
         }
 
         public void ResetAction(bool stopCoroutinesOnly = false)
@@ -73,6 +86,15 @@ namespace CommandChoice.Component
             StopAllCoroutines();
             if (stopCoroutinesOnly) return;
             countTime.text = "";
+            LoopCommands.Clear();
+            foreach (Transform item in ListCommandSelected)
+            {
+                Command command1 = item.GetComponent<Command>();
+                if (command1 == null) continue;
+                CommandFunction command2 = command1.CommandFunction;
+                if (command2 == null) continue;
+                command2.UpdateTextCommand(item.name, true);
+            }
             GameObject.FindGameObjectWithTag(StaticText.TagPlayer).GetComponent<PlayerManager>().ResetGame();
             foreach (GameObject item in DataThisGame.MailObjects)
             {
@@ -91,48 +113,107 @@ namespace CommandChoice.Component
             }
         }
 
-        private IEnumerator RunCommand(List<Transform> listCommand)
+        private IEnumerator RunCommand(List<Transform> listCommand, int? timeSet = null, bool IsChild = false)
         {
-            TimeCount = 0;
+            if (timeSet == null) TimeCount = 0;
+            bool CheckSetEndLoop = true;
 
             countTime.text = $"Count: {TimeCount}";
             PlayerManager player = GameObject.FindGameObjectWithTag(StaticText.TagPlayer).GetComponent<PlayerManager>();
-            foreach (Transform item in listCommand)
+            foreach (var item in listCommand.Select((value, index) => new { value, index }))
             {
-                yield return new WaitForSeconds(2f);
-                if (listCommand.IndexOf(item) == 0)
+                if (item.index == 0)
                 {
-                    item.GetComponent<Command>().PlayingAction();
+                    yield return new WaitForSeconds(2f);
+                    item.value.GetComponent<Command>().PlayingAction();
+                }
+                else if (item.value.name == StaticText.EndLoop)
+                {
+                    yield return new WaitForSeconds(1f);
+                    if (CheckSetEndLoop) LoopCommands[0].SetEndLoop(item.index);
+                    int index = item.index;
+                    Transform commandPerverse = listCommand[index - 1].transform;
+                    while (commandPerverse.name == StaticText.EndLoop)
+                    {
+                        commandPerverse = listCommand[index -= 1].transform;
+                    }
+                    if (commandPerverse.name != StaticText.EndLoop) commandPerverse.GetComponent<Command>().ResetAction();
+                    if (LoopCommands.Count == 0) continue;
+                    if (LoopCommands[0].CommandTransform.GetComponent<Command>().CommandFunction.countTime == 0)
+                    {
+                        print($"Remove End Loop: {LoopCommands.Count} index Start: {LoopCommands.First().IndexStartLoop} index End: {LoopCommands.First().IndexEndLoop} count command: {LoopCommands[0].CommandTransform.GetComponent<Command>().CommandFunction.countTime}");
+                        LoopCommands.RemoveAt(0);
+                        continue;
+                    }
+                    if (LoopCommands.Count > 1)
+                    {
+                        if (!CheckSetEndLoop && LoopCommands[1].CommandTransform.GetComponent<Command>().CommandFunction.countTime == 0)
+                        {
+                            continue;
+                        }
+                    }
+                    print($"Still End Loop: {LoopCommands.Count} index Start: {LoopCommands.First().IndexStartLoop} index End: {LoopCommands.First().IndexEndLoop} count command: {LoopCommands[0].CommandTransform.GetComponent<Command>().CommandFunction.countTime}");
+                    yield return StartCoroutine(RunCommand(LoopCommands.First().CheckCommand(ListCommandSelected), TimeCount, true));
+                    continue;
                 }
                 else
                 {
-                    Transform commandPerverse = listCommand[listCommand.IndexOf(item) - 1].transform;
+                    yield return new WaitForSeconds(2f);
+                    int index = item.index;
+                    Transform commandPerverse = listCommand[index - 1].transform;
+                    while (commandPerverse.name == StaticText.EndLoop)
+                    {
+                        commandPerverse = listCommand[index -= 1].transform;
+                    }
                     commandPerverse.GetComponent<Command>().ResetAction();
-                    item.GetComponent<Command>().PlayingAction();
+                    if (item.value.name != StaticText.EndLoop)
+                    {
+                        item.value.GetComponent<Command>().PlayingAction();
+                    }
                 }
-                if (item.name == StaticText.MoveUp)
+                if (item.value.name == StaticText.MoveUp)
                 {
                     player.PlayerMoveUp();
                 }
-                else if (item.name == StaticText.MoveDown)
+                else if (item.value.name == StaticText.MoveDown)
                 {
                     player.PlayerMoveDown();
                 }
-                else if (item.name == StaticText.MoveLeft)
+                else if (item.value.name == StaticText.MoveLeft)
                 {
                     player.PlayerMoveLeft();
                 }
-                else if (item.name == StaticText.MoveRight)
+                else if (item.value.name == StaticText.MoveRight)
                 {
                     player.PlayerMoveRight();
                 }
-                else if (item.name == StaticText.Loop)
+                else if (item.value.name == StaticText.Loop)
                 {
-                    CommandAction.LoopAction(ListCommandSelected, listCommand.IndexOf(item));
+                    Command command = item.value.GetComponent<Command>();
+                    if (LoopCommands.Count > 0)
+                    {
+                        if (LoopCommands[0].CommandTransform.GetHashCode() == item.value.GetHashCode() && IsChild)
+                        {
+                            CheckSetEndLoop = false;
+                            command.CommandFunction.UsedLoopCount();
+                            command.CommandFunction.UpdateTextCommand(item.value.name);
+                            countTime.text = $"Count: {TimeCount += 1}";
+                            print($"Still Start Loop: {LoopCommands.Count} index Start: {LoopCommands.First().IndexStartLoop} index End: {LoopCommands.First().IndexEndLoop}  count command: {command.CommandFunction.countTime}");
+                            continue;
+                        }
+                    }
+                    if (command.CommandFunction.countTime > 0)
+                    {
+                        CheckSetEndLoop = true;
+                        command.CommandFunction.UsedLoopCount();
+                        command.CommandFunction.UpdateTextCommand(item.value.name);
+                        LoopCommands.Insert(0, new LoopCommandModel(item.value, item.index));
+                        print($"Add Start Loop: {LoopCommands.Count} index Start: {LoopCommands.First().IndexStartLoop} index End: {LoopCommands.First().IndexEndLoop} count command: {command.CommandFunction.countTime}");
+                    }
                 }
-                //print(item);
                 countTime.text = $"Count: {TimeCount += 1}";
             }
+            print("End Run");
         }
 
         public void ConfigCommand(Command command, CommandFunction commandFunction)

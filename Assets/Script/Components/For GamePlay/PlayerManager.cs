@@ -1,5 +1,6 @@
 using CommandChoice.Data;
 using CommandChoice.Model;
+using UnityEditor;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -9,6 +10,7 @@ namespace CommandChoice.Component
     {
         [SerializeField] private int HP = DataGlobal.HpDefault;
         [field: SerializeField] public int Mail { get; private set; } = DataGlobal.MailDefault;
+        [SerializeField] private LayerMask LayerStopMove;
         [Header("Fields Auto Set")]
         [SerializeField] private Text textHP;
         [SerializeField] private Text textMail;
@@ -38,28 +40,34 @@ namespace CommandChoice.Component
         {
             Vector2 transformPlayer = transform.position;
             transformPlayer.y += 1;
-            transform.position = transformPlayer;
+            CheckMovement(transformPlayer);
         }
 
         public void PlayerMoveDown()
         {
             Vector2 transformPlayer = transform.position;
             transformPlayer.y -= 1;
-            transform.position = transformPlayer;
+            CheckMovement(transformPlayer);
         }
 
         public void PlayerMoveLeft()
         {
             Vector2 transformPlayer = transform.position;
             transformPlayer.x -= 1;
-            transform.position = transformPlayer;
+            CheckMovement(transformPlayer);
         }
 
         public void PlayerMoveRight()
         {
             Vector2 transformPlayer = transform.position;
             transformPlayer.x += 1;
-            transform.position = transformPlayer;
+            CheckMovement(transformPlayer);
+        }
+
+        private void CheckMovement(Vector2 newMovement)
+        {
+            if (Physics2D.OverlapCircle(newMovement, 0.2f, LayerStopMove)) return;
+            transform.position = newMovement;
         }
 
         public void TakeDamage()
