@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.Data;
 using CommandChoice.Component;
 using UnityEngine;
 
@@ -15,6 +16,17 @@ namespace CommandChoice.Model
         public List<CommandModel> commandFunctions;
         [SerializeField]
         public List<Color32> listColorCommands;
+
+        public bool CommandIsEmpty(int command)
+        {
+            int countActive = 0;
+
+            foreach (var item in command == 0 ? commandBehavior : commandFunctions)
+            {
+                if (item.Active) { countActive++; }
+            }
+            return countActive == 0;
+        }
 
         public void ReturnCommand(Command command)
         {

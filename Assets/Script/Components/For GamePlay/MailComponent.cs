@@ -1,10 +1,18 @@
 using CommandChoice.Model;
 using UnityEngine;
+using UnityEngine.UI;
 
 namespace CommandChoice.Component
 {
     public class MailComponent : MonoBehaviour
     {
+        [SerializeField] int countMail = 0;
+
+        void Awake()
+        {
+            transform.Find("Canvas").GetComponentInChildren<Text>().text = countMail.ToString();
+        }
+
         public void ResetGame()
         {
             gameObject.SetActive(true);
@@ -12,10 +20,10 @@ namespace CommandChoice.Component
 
         void OnTriggerEnter2D(Collider2D other)
         {
-            if(other.gameObject.CompareTag(StaticText.TagPlayer))
+            if (other.gameObject.CompareTag(StaticText.TagPlayer))
             {
                 PlayerManager player = other.gameObject.GetComponent<PlayerManager>();
-                player.GetMail();
+                player.GetMail(countMail);
                 gameObject.SetActive(false);
             }
         }

@@ -24,6 +24,8 @@ namespace CommandChoice.Component
             parentCommandType.SetActive(true);
             parentCommand.SetActive(false);
             commandManager = GameObject.FindGameObjectWithTag(StaticText.RootListViewCommand).GetComponent<CommandManager>();
+            if (commandManager.ListCommandModel.CommandIsEmpty(0)) { buttonBehaviorType.gameObject.SetActive(false); }
+            if (commandManager.ListCommandModel.CommandIsEmpty(1)) { buttonFunctionType.gameObject.SetActive(false); }
         }
 
         void Start()

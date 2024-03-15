@@ -110432,6 +110432,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 1419051620}
     m_Modifications:
+    - target: {fileID: 523899797122788271, guid: 003135579db0d324fb18b023ec12d59c, type: 3}
+      propertyPath: countMail
+      value: 3
+      objectReference: {fileID: 0}
     - target: {fileID: 1298830051012662811, guid: 003135579db0d324fb18b023ec12d59c, type: 3}
       propertyPath: m_LocalPosition.x
       value: -1673.5
@@ -115290,7 +115294,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 9216926691805279350, guid: d95dc8eaacb47694688fef0667ac62b2, type: 3}
       propertyPath: <ListCommandModel>k__BackingField.commandBehavior.Array.data[4].<Active>k__BackingField
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 9216926691805279350, guid: d95dc8eaacb47694688fef0667ac62b2, type: 3}
       propertyPath: <ListCommandModel>k__BackingField.commandBehavior.Array.data[0].<InfinityCanUse>k__BackingField

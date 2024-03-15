@@ -82,14 +82,16 @@ namespace CommandChoice.Component
             UpdateText();
         }
 
-        public void GetMail()
+        public void GetMail(int getCountMail)
         {
-            Mail++;
+            Mail += getCountMail;
+            if (Mail > 3) Mail = 3;
             UpdateText();
         }
-        public void DropMail()
+        public void DropMail(int dropCountMail)
         {
-            Mail--;
+            Mail += dropCountMail;
+            if (Mail < 0) Mail = 0;
             UpdateText();
         }
 

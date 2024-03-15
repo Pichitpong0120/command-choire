@@ -110562,6 +110562,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 1419051620}
     m_Modifications:
+    - target: {fileID: 523899797122788271, guid: 003135579db0d324fb18b023ec12d59c, type: 3}
+      propertyPath: countMail
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 1298830051012662811, guid: 003135579db0d324fb18b023ec12d59c, type: 3}
       propertyPath: m_LocalPosition.x
       value: -1673.5
