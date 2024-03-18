@@ -60,10 +60,10 @@ namespace CommandChoice.Component
                     ListCommandSelected.Add(newObject);
                 };
             }
-            List<Transform> Output = new List<Transform>();
+            List<Transform> OutputRunCommand = new();
 
-            Stack<int> loopIndexStack = new Stack<int>(); // เก็บ index ของลูป "for"
-            Stack<int> loopCountStack = new Stack<int>(); // เก็บจำนวนครั้งที่ต้องทำซ้ำของลูป "for"
+            Stack<int> loopIndexStack = new(); // Store index of "for" loops
+            Stack<int> loopCountStack = new(); // Store loop count of "for" loops
 
             for (int i = 0; i < ListCommandSelected.Count; i++)
             {
@@ -72,29 +72,29 @@ namespace CommandChoice.Component
                 if (command.name.ToLower().StartsWith("loop"))
                 {
                     int loopCount = command.GetComponent<Command>().CommandFunction.countDefault;
-                    loopIndexStack.Push(Output.Count); // เก็บ index ปัจจุบันของลูป "for"
-                    loopCountStack.Push(loopCount); // เก็บจำนวนครั้งที่ต้องทำซ้ำของลูป "for"
-                    Output.Add(command); // เพิ่มคำสั่ง "for" ในเอาต์พุต
+                    loopIndexStack.Push(OutputRunCommand.Count); // Store current index of "for" loop
+                    loopCountStack.Push(loopCount); // Store loop count of "for" loop
+                    OutputRunCommand.Add(command); // Add "for" command to output
                 }
                 else if (command.name.ToLower().StartsWith("end"))
                 {
-                    int loopIndex = loopIndexStack.Pop(); // ดึง index ของลูป "for" ที่ตรงกับ "end"
-                    int loopCount = loopCountStack.Pop(); // ดึงจำนวนครั้งที่ต้องทำซ้ำของลูป "for"
-                    List<Transform> loopContent = new List<Transform>(); // สร้างรายการสำหรับเก็บเนื้อหาของลูป "for"
-                                                                         // ดึงเนื้อหาของลูป "for" จากเอาต์พุต
-                    for (int j = loopIndex; j < Output.Count; j++)
+                    int loopIndex = loopIndexStack.Pop(); // Retrieve index of corresponding "end" for "for" loop
+                    int loopCount = loopCountStack.Pop(); // Retrieve loop count of "for" loop
+                    List<Transform> loopContent = new(); // Create list to store content of "for" loop
+                                                         // Retrieve content of "for" loop from output
+                    for (int j = loopIndex; j < OutputRunCommand.Count; j++)
                     {
-                        loopContent.Add(Output[j]);
+                        loopContent.Add(OutputRunCommand[j]);
                     }
-                    // นำเนื้อหาของลูป "for" มาเพิ่มในเอาต์พุตตามจำนวนครั้งที่ต้องทำซ้ำ
+                    // Add content of "for" loop to output according to loop count
                     for (int k = 1; k < loopCount; k++)
                     {
-                        Output.AddRange(loopContent);
+                        OutputRunCommand.AddRange(loopContent);
                     }
                 }
                 else
                 {
-                    Output.Add(command); // เพิ่มคำสั่ง move ในเอาต์พุต
+                    OutputRunCommand.Add(command); // Add move command to output
                 }
             }
 
@@ -103,7 +103,7 @@ namespace CommandChoice.Component
             //     Debug.Log(item.name);
             // }
 
-            StartCoroutine(RunCommand(Output));
+            StartCoroutine(RunCommand(OutputRunCommand));
         }
 
         private void LoopCheckCommand(Transform transformObject)
@@ -134,25 +134,31 @@ namespace CommandChoice.Component
             {
                 Command command1 = item.GetComponent<Command>();
                 if (command1 == null) continue;
+                command1.ResetAction();
                 CommandFunction command2 = command1.CommandFunction;
                 if (command2 == null) continue;
                 command2.UpdateTextCommand(item.name, true);
             }
             GameObject.FindGameObjectWithTag(StaticText.TagPlayer).GetComponent<PlayerManager>().ResetGame();
-            foreach (GameObject item in DataThisGame.MailObjects)
+            if (DataThisGame.MailObjects.Count > 0)
             {
-                if (item == null) break;
-                item.GetComponent<MailComponent>().ResetGame();
+                foreach (GameObject item in DataThisGame.MailObjects)
+                {
+                    item.GetComponent<MailComponent>().ResetGame();
+                    print(item.name);
+                }
+            }
+            if (DataThisGame.EnemyObjects.Count > 0)
+            {
+                foreach (GameObject enemy in DataThisGame.EnemyObjects)
+                {
+                    enemy.GetComponent<DogComponent>().Movement();
+                }
             }
             foreach (Transform item in GameObject.Find("Right-Bottom").transform)
             {
                 if (item.gameObject.name == "Run") item.gameObject.SetActive(true);
                 if (item.gameObject.name == "Reset") item.gameObject.SetActive(false);
-            }
-
-            foreach (GameObject item in GameObject.FindGameObjectsWithTag(StaticText.TagCommand))
-            {
-                item.GetComponent<Command>().ResetAction();
             }
         }
 
@@ -164,7 +170,8 @@ namespace CommandChoice.Component
             PlayerManager player = GameObject.FindGameObjectWithTag(StaticText.TagPlayer).GetComponent<PlayerManager>();
             foreach (var item in listCommand.Select((value, index) => new { value, index }))
             {
-                yield return new WaitForSeconds(2f);
+                bool SkipAction = false;
+                yield return new WaitForSeconds(DataGlobal.timeDeray);
                 try
                 {
                     listCommand[item.index - 1].GetComponent<Command>().ResetAction();
@@ -199,10 +206,19 @@ namespace CommandChoice.Component
                     }
                     command.CommandFunction.UsedLoopCount();
                     command.CommandFunction.UpdateTextCommand(item.value.name);
+                    SkipAction = true;
                 }
                 countTime.text = $"Count: {TimeCount += 1}";
+                if (!SkipAction)
+                {
+                    foreach (GameObject enemy in DataThisGame.EnemyObjects)
+                    {
+                        if (enemy == null) break;
+                        enemy.GetComponent<DogComponent>().Movement();
+                    }
+                }
             }
-            print("End Run");
+            //print("End Run");
         }
 
         void CheckLoopForCountTextUI(Transform transformParent)
