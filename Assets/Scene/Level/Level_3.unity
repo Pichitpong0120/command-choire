@@ -102472,6 +102472,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Main Camera
       objectReference: {fileID: 0}
+    - target: {fileID: 2890507692893700358, guid: f39bb7a088026c14ab666b93c54e23bc, type: 3}
+      propertyPath: m_Enabled
+      value: 1
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -119537,6 +119541,10 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 9216926691805279350, guid: d95dc8eaacb47694688fef0667ac62b2, type: 3}
       propertyPath: <ListCommandModel>k__BackingField.commandBehavior.Array.data[4].<InfinityCanUse>k__BackingField
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 9216926691805279350, guid: d95dc8eaacb47694688fef0667ac62b2, type: 3}
+      propertyPath: <ListCommandModel>k__BackingField.commandFunctions.Array.data[4].<InfinityCanUse>k__BackingField
       value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
@@ -143201,13 +143209,15 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   index: 0
   dirMovement:
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
+  - {fileID: 845385261}
+  - {fileID: 142963402}
+  - {fileID: 1652237174}
+  - {fileID: 1013269129}
+  - {fileID: 1211387964}
+  - {fileID: 592277437}
+  - {fileID: 1095525200}
+  - {fileID: 557877017}
+  - {fileID: 845385261}
   modifierRayCheck: 24
   layerCanWalk:
     serializedVersion: 2

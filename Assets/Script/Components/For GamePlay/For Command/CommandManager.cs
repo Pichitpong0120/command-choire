@@ -39,7 +39,6 @@ namespace CommandChoice.Component
         {
             ListCommandSelected.Clear();
             LoopCheckCommand(listCommand);
-            StartCoroutine(RunCommand(ListCommandSelected));
         }
 
         private void LoopCheckCommand(List<Transform> transformObject)
@@ -61,6 +60,50 @@ namespace CommandChoice.Component
                     ListCommandSelected.Add(newObject);
                 };
             }
+            List<Transform> Output = new List<Transform>();
+
+            Stack<int> loopIndexStack = new Stack<int>(); // เก็บ index ของลูป "for"
+            Stack<int> loopCountStack = new Stack<int>(); // เก็บจำนวนครั้งที่ต้องทำซ้ำของลูป "for"
+
+            for (int i = 0; i < ListCommandSelected.Count; i++)
+            {
+                Transform command = ListCommandSelected[i];
+
+                if (command.name.ToLower().StartsWith("loop"))
+                {
+                    int loopCount = command.GetComponent<Command>().CommandFunction.countDefault;
+                    loopIndexStack.Push(Output.Count); // เก็บ index ปัจจุบันของลูป "for"
+                    loopCountStack.Push(loopCount); // เก็บจำนวนครั้งที่ต้องทำซ้ำของลูป "for"
+                    Output.Add(command); // เพิ่มคำสั่ง "for" ในเอาต์พุต
+                }
+                else if (command.name.ToLower().StartsWith("end"))
+                {
+                    int loopIndex = loopIndexStack.Pop(); // ดึง index ของลูป "for" ที่ตรงกับ "end"
+                    int loopCount = loopCountStack.Pop(); // ดึงจำนวนครั้งที่ต้องทำซ้ำของลูป "for"
+                    List<Transform> loopContent = new List<Transform>(); // สร้างรายการสำหรับเก็บเนื้อหาของลูป "for"
+                                                                         // ดึงเนื้อหาของลูป "for" จากเอาต์พุต
+                    for (int j = loopIndex; j < Output.Count; j++)
+                    {
+                        loopContent.Add(Output[j]);
+                    }
+                    // นำเนื้อหาของลูป "for" มาเพิ่มในเอาต์พุตตามจำนวนครั้งที่ต้องทำซ้ำ
+                    for (int k = 1; k < loopCount; k++)
+                    {
+                        Output.AddRange(loopContent);
+                    }
+                }
+                else
+                {
+                    Output.Add(command); // เพิ่มคำสั่ง move ในเอาต์พุต
+                }
+            }
+
+            // foreach (Transform item in Output)
+            // {
+            //     Debug.Log(item.name);
+            // }
+
+            StartCoroutine(RunCommand(Output));
         }
 
         private void LoopCheckCommand(Transform transformObject)
@@ -116,60 +159,20 @@ namespace CommandChoice.Component
         private IEnumerator RunCommand(List<Transform> listCommand, int? timeSet = null, bool IsChild = false)
         {
             if (timeSet == null) TimeCount = 0;
-            bool CheckSetEndLoop = true;
 
             countTime.text = $"Count: {TimeCount}";
             PlayerManager player = GameObject.FindGameObjectWithTag(StaticText.TagPlayer).GetComponent<PlayerManager>();
             foreach (var item in listCommand.Select((value, index) => new { value, index }))
             {
-                if (item.index == 0)
+                yield return new WaitForSeconds(2f);
+                try
                 {
-                    yield return new WaitForSeconds(2f);
-                    item.value.GetComponent<Command>().PlayingAction();
+                    listCommand[item.index - 1].GetComponent<Command>().ResetAction();
+                    listCommand[item.index].GetComponent<Command>().PlayingAction();
                 }
-                else if (item.value.name == StaticText.EndLoop)
+                catch (System.Exception)
                 {
-                    yield return new WaitForSeconds(1f);
-                    if (CheckSetEndLoop) LoopCommands[0].SetEndLoop(item.index);
-                    int index = item.index;
-                    Transform commandPerverse = listCommand[index - 1].transform;
-                    while (commandPerverse.name == StaticText.EndLoop)
-                    {
-                        commandPerverse = listCommand[index -= 1].transform;
-                    }
-                    if (commandPerverse.name != StaticText.EndLoop) commandPerverse.GetComponent<Command>().ResetAction();
-                    if (LoopCommands.Count == 0) continue;
-                    if (LoopCommands[0].CommandTransform.GetComponent<Command>().CommandFunction.countTime == 0)
-                    {
-                        print($"Remove End Loop: {LoopCommands.Count} index Start: {LoopCommands.First().IndexStartLoop} index End: {LoopCommands.First().IndexEndLoop} count command: {LoopCommands[0].CommandTransform.GetComponent<Command>().CommandFunction.countTime}");
-                        LoopCommands.RemoveAt(0);
-                        continue;
-                    }
-                    if (LoopCommands.Count > 1)
-                    {
-                        if (!CheckSetEndLoop && LoopCommands[1].CommandTransform.GetComponent<Command>().CommandFunction.countTime == 0)
-                        {
-                            continue;
-                        }
-                    }
-                    print($"Still End Loop: {LoopCommands.Count} index Start: {LoopCommands.First().IndexStartLoop} index End: {LoopCommands.First().IndexEndLoop} count command: {LoopCommands[0].CommandTransform.GetComponent<Command>().CommandFunction.countTime}");
-                    yield return StartCoroutine(RunCommand(LoopCommands.First().CheckCommand(ListCommandSelected), TimeCount, true));
-                    continue;
-                }
-                else
-                {
-                    yield return new WaitForSeconds(2f);
-                    int index = item.index;
-                    Transform commandPerverse = listCommand[index - 1].transform;
-                    while (commandPerverse.name == StaticText.EndLoop)
-                    {
-                        commandPerverse = listCommand[index -= 1].transform;
-                    }
-                    commandPerverse.GetComponent<Command>().ResetAction();
-                    if (item.value.name != StaticText.EndLoop)
-                    {
-                        item.value.GetComponent<Command>().PlayingAction();
-                    }
+                    listCommand[item.index].GetComponent<Command>().PlayingAction();
                 }
                 if (item.value.name == StaticText.MoveUp)
                 {
@@ -190,30 +193,36 @@ namespace CommandChoice.Component
                 else if (item.value.name == StaticText.Loop)
                 {
                     Command command = item.value.GetComponent<Command>();
-                    if (LoopCommands.Count > 0)
+                    if (item.value.childCount > 1)
                     {
-                        if (LoopCommands[0].CommandTransform.GetHashCode() == item.value.GetHashCode() && IsChild)
-                        {
-                            CheckSetEndLoop = false;
-                            command.CommandFunction.UsedLoopCount();
-                            command.CommandFunction.UpdateTextCommand(item.value.name);
-                            countTime.text = $"Count: {TimeCount += 1}";
-                            print($"Still Start Loop: {LoopCommands.Count} index Start: {LoopCommands.First().IndexStartLoop} index End: {LoopCommands.First().IndexEndLoop}  count command: {command.CommandFunction.countTime}");
-                            continue;
-                        }
+                        CheckLoopForCountTextUI(item.value);
                     }
-                    if (command.CommandFunction.countTime > 0)
-                    {
-                        CheckSetEndLoop = true;
-                        command.CommandFunction.UsedLoopCount();
-                        command.CommandFunction.UpdateTextCommand(item.value.name);
-                        LoopCommands.Insert(0, new LoopCommandModel(item.value, item.index));
-                        print($"Add Start Loop: {LoopCommands.Count} index Start: {LoopCommands.First().IndexStartLoop} index End: {LoopCommands.First().IndexEndLoop} count command: {command.CommandFunction.countTime}");
-                    }
+                    command.CommandFunction.UsedLoopCount();
+                    command.CommandFunction.UpdateTextCommand(item.value.name);
                 }
                 countTime.text = $"Count: {TimeCount += 1}";
             }
             print("End Run");
+        }
+
+        void CheckLoopForCountTextUI(Transform transformParent)
+        {
+            foreach (Transform item in transformParent)
+            {
+                if (item.name == StaticText.Loop)
+                {
+                    if (item.GetComponent<Command>().CommandFunction.countTime <= 0)
+                    {
+                        CommandFunction checkCommandLoop = item.GetComponent<Command>().CommandFunction;
+                        checkCommandLoop.countTime = checkCommandLoop.countDefault;
+                        checkCommandLoop.UpdateTextCommand(item.name);
+                    }
+                    if (item.transform.childCount > 1)
+                    {
+                        CheckLoopForCountTextUI(item.transform);
+                    }
+                }
+            }
         }
 
         public void ConfigCommand(Command command, CommandFunction commandFunction)

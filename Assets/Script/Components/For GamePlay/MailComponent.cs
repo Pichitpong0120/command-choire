@@ -8,7 +8,7 @@ namespace CommandChoice.Component
     {
         [SerializeField] int countMail = 0;
 
-        void Awake()
+        void Start()
         {
             transform.Find("Canvas").GetComponentInChildren<Text>().text = countMail.ToString();
         }
