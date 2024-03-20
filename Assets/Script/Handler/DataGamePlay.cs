@@ -4,23 +4,33 @@ using UnityEngine;
 
 namespace CommandChoice.Data
 {
+    [System.Serializable]
     public class DataGamePlay
     {
-        public List<GameObject> MailObjects { get; private set; } = new();
-        public List<GameObject> EnemyObjects { get; private set; } = new();
+        [field: SerializeField] public List<GameObject> MailObjects { get; private set; } = new();
+        [field: SerializeField] public List<GameObject> EnemyObjects { get; private set; } = new();
 
         public DataGamePlay()
         {
-            foreach (GameObject item in GameObject.FindGameObjectsWithTag(StaticText.TagMail))
+            try
             {
-                if (item == null) break;
-                MailObjects.Add(item);
-            };
-            foreach (GameObject item in GameObject.FindGameObjectsWithTag(StaticText.TagEnemy))
-            {
-                if (item == null) break;
-                EnemyObjects.Add(item);
-            };
+                if (GameObject.FindGameObjectsWithTag(StaticText.TagMail).Length > 0)
+                {
+                    foreach (GameObject item in GameObject.FindGameObjectsWithTag(StaticText.TagMail))
+                    {
+                        MailObjects.Add(item);
+                    };
+                }
+                if (GameObject.FindGameObjectsWithTag(StaticText.TagEnemy).Length > 0)
+                {
+                    foreach (GameObject item in GameObject.FindGameObjectsWithTag(StaticText.TagEnemy))
+                    {
+                        EnemyObjects.Add(item);
+                    };
+                }
+            }
+            catch (System.Exception){/* Can Play Game */}
+
         }
     }
 }

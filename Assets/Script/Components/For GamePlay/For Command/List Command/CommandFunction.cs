@@ -77,6 +77,7 @@ namespace CommandChoice.Component
         {
             if (setNew) countTime = countDefault;
             countTime -= 1;
+            if(countTime < 0) countTime = 0;
             return countTime;
         }
 

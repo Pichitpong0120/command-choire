@@ -7,7 +7,9 @@ namespace CommandChoice.Component
     {
         //[SerializeField] private Camera camera;
         [SerializeField] private GameObject player;
-        [SerializeField] private Vector2 offset;
+        [SerializeField] private Vector3 offset;
+        [SerializeField] private float smoothTime = 0.25f;
+        [SerializeField] private Vector3 velocity = Vector3.zero;
 
         void Awake()
         {
@@ -17,7 +19,8 @@ namespace CommandChoice.Component
 
         void Update()
         {
-            transform.position = new Vector3(player.transform.position.x + offset.x, player.transform.position.y + offset.y, player.transform.position.z - 10f);
+            Vector3 targetPosition = player.transform.position + offset;
+            transform.position = Vector3.SmoothDamp(transform.position, targetPosition, ref velocity, smoothTime);
         }
     }
 }

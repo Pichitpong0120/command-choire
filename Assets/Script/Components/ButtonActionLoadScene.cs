@@ -37,7 +37,6 @@ namespace CommandChoice.Component
             {
                 buttonAction.onClick.AddListener(() => SceneGameManager.LoadScene(levelLoadScene));
             }
-
         }
 
         public void ChangeLevelScene(string newSceneName)

@@ -37,6 +37,14 @@ namespace CommandChoice.Component
 
         public void PlayAction(List<Transform> listCommand)
         {
+            if (DataThisGame.EnemyObjects.Count > 0)
+            {
+                foreach (GameObject item in DataThisGame.EnemyObjects)
+                {
+                    if (!item.TryGetComponent<DogComponent>(out var enemy)) continue;
+                    enemy.StopFootWalkDog();
+                }
+            }
             ListCommandSelected.Clear();
             LoopCheckCommand(listCommand);
         }
@@ -144,15 +152,18 @@ namespace CommandChoice.Component
             {
                 foreach (GameObject item in DataThisGame.MailObjects)
                 {
-                    item.GetComponent<MailComponent>().ResetGame();
-                    print(item.name);
+                    MailComponent mail = item.GetComponent<MailComponent>();
+                    if (mail == null) continue;
+                    mail.ResetGame();
                 }
             }
             if (DataThisGame.EnemyObjects.Count > 0)
             {
-                foreach (GameObject enemy in DataThisGame.EnemyObjects)
+                foreach (GameObject item in DataThisGame.EnemyObjects)
                 {
-                    enemy.GetComponent<DogComponent>().Movement();
+                    DogComponent enemy = item.GetComponent<DogComponent>();
+                    if (enemy == null) continue;
+                    enemy.ResetGame();
                 }
             }
             foreach (Transform item in GameObject.Find("Right-Bottom").transform)
@@ -183,19 +194,19 @@ namespace CommandChoice.Component
                 }
                 if (item.value.name == StaticText.MoveUp)
                 {
-                    player.PlayerMoveUp();
+                    yield return player.PlayerMoveUp();
                 }
                 else if (item.value.name == StaticText.MoveDown)
                 {
-                    player.PlayerMoveDown();
+                    yield return player.PlayerMoveDown();
                 }
                 else if (item.value.name == StaticText.MoveLeft)
                 {
-                    player.PlayerMoveLeft();
+                    yield return player.PlayerMoveLeft();
                 }
                 else if (item.value.name == StaticText.MoveRight)
                 {
-                    player.PlayerMoveRight();
+                    yield return player.PlayerMoveRight();
                 }
                 else if (item.value.name == StaticText.Loop)
                 {
@@ -209,14 +220,7 @@ namespace CommandChoice.Component
                     SkipAction = true;
                 }
                 countTime.text = $"Count: {TimeCount += 1}";
-                if (!SkipAction)
-                {
-                    foreach (GameObject enemy in DataThisGame.EnemyObjects)
-                    {
-                        if (enemy == null) break;
-                        enemy.GetComponent<DogComponent>().Movement();
-                    }
-                }
+                if (!SkipAction) { }
             }
             //print("End Run");
         }

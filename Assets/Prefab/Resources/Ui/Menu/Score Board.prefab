@@ -249,7 +249,6 @@ GameObject:
   - component: {fileID: 1754584473380150853}
   - component: {fileID: 5870222576225636577}
   - component: {fileID: 337647297699654091}
-  - component: {fileID: 5665265409924968117}
   m_Layer: 5
   m_Name: Continue
   m_TagString: Untagged
@@ -359,21 +358,6 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls: []
---- !u!114 &5665265409924968117
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3155768846731956454}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: e260a393f8983ef41be74d17f19d84e1, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  buttonAction: {fileID: 0}
-  sceneMenuSelect: 3
-  levelLoadScene: 
 --- !u!1 &3184580110481376749
 GameObject:
   m_ObjectHideFlags: 0
@@ -1327,6 +1311,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e831b5ac993436c4a94a1da833927e52, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  continueButton: {fileID: 337647297699654091}
   replaceButton: {fileID: 4921129475253843061}
   scoreText: {fileID: 3409896506147030940}
   timeText: {fileID: 3189080312522935561}
