@@ -400,57 +400,62 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 204a0f03d4384ae4c9bfed93ab5d3b82, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  <DataThisGame>k__BackingField:
+    playActionCommand: 0
+    percentScore: 150
+    <MailObjects>k__BackingField: []
+    <EnemyObjects>k__BackingField: []
   <TimeCount>k__BackingField: 0
-  <ListCommand>k__BackingField:
+  <ListCommandModel>k__BackingField:
     commandBehavior:
     - <Active>k__BackingField: 1
       <Name>k__BackingField: Move Up
-      <CanUse>k__BackingField: 3
+      <CanUse>k__BackingField: 0
       <InfinityCanUse>k__BackingField: 1
     - <Active>k__BackingField: 1
       <Name>k__BackingField: Move Down
-      <CanUse>k__BackingField: 3
+      <CanUse>k__BackingField: 0
       <InfinityCanUse>k__BackingField: 1
     - <Active>k__BackingField: 1
       <Name>k__BackingField: Move Left
-      <CanUse>k__BackingField: 3
+      <CanUse>k__BackingField: 0
       <InfinityCanUse>k__BackingField: 1
     - <Active>k__BackingField: 1
       <Name>k__BackingField: Move Right
-      <CanUse>k__BackingField: 3
+      <CanUse>k__BackingField: 7
       <InfinityCanUse>k__BackingField: 1
     - <Active>k__BackingField: 1
       <Name>k__BackingField: Idle
-      <CanUse>k__BackingField: 3
+      <CanUse>k__BackingField: 0
       <InfinityCanUse>k__BackingField: 1
     commandFunctions:
-    - <Active>k__BackingField: 1
+    - <Active>k__BackingField: 0
       <Name>k__BackingField: Break
-      <CanUse>k__BackingField: 3
+      <CanUse>k__BackingField: 0
       <InfinityCanUse>k__BackingField: 0
-    - <Active>k__BackingField: 1
+    - <Active>k__BackingField: 0
       <Name>k__BackingField: Count
-      <CanUse>k__BackingField: 3
+      <CanUse>k__BackingField: 0
       <InfinityCanUse>k__BackingField: 0
-    - <Active>k__BackingField: 1
+    - <Active>k__BackingField: 0
       <Name>k__BackingField: If
-      <CanUse>k__BackingField: 3
+      <CanUse>k__BackingField: 0
       <InfinityCanUse>k__BackingField: 0
-    - <Active>k__BackingField: 1
+    - <Active>k__BackingField: 0
       <Name>k__BackingField: Else
-      <CanUse>k__BackingField: 3
+      <CanUse>k__BackingField: 0
       <InfinityCanUse>k__BackingField: 0
     - <Active>k__BackingField: 1
       <Name>k__BackingField: Loop
-      <CanUse>k__BackingField: 3
-      <InfinityCanUse>k__BackingField: 0
-    - <Active>k__BackingField: 1
+      <CanUse>k__BackingField: 1
+      <InfinityCanUse>k__BackingField: 1
+    - <Active>k__BackingField: 0
       <Name>k__BackingField: Skip To
-      <CanUse>k__BackingField: 3
+      <CanUse>k__BackingField: 0
       <InfinityCanUse>k__BackingField: 0
-    - <Active>k__BackingField: 1
+    - <Active>k__BackingField: 0
       <Name>k__BackingField: Trigger
-      <CanUse>k__BackingField: 3
+      <CanUse>k__BackingField: 0
       <InfinityCanUse>k__BackingField: 0
     listColorCommands:
     - serializedVersion: 2
@@ -463,8 +468,9 @@ MonoBehaviour:
       rgba: 4283478016
   <CommandContent>k__BackingField: {fileID: 3730949669673037830}
   countTime: {fileID: 5019247375397819109}
+  <AddCommandButton>k__BackingField: {fileID: 5100686744701655175}
   <DropRemoveCommand>k__BackingField: {fileID: 227636297493470569}
-  <ListNameCommand>k__BackingField: []
+  <ListCommandSelected>k__BackingField: []
 --- !u!1 &1604529931590406835
 GameObject:
   m_ObjectHideFlags: 0

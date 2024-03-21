@@ -40,17 +40,29 @@ namespace CommandChoice.Component
                     {
                         if (item.name != StaticText.EndLoop) scene[i].DetailLevelScene.CountBoxCommand++;
                     }
+                    for (int j = 0; j < scene[i].DetailLevelScene.MailLevelScene; j++)
+                    {
+                        mail[j].SetActive(true);
+                    }
+                    int checkLostMail = 3 - scene[i].DetailLevelScene.MailLevelScene;
+                    int percentScore = commandManager.DataThisGame.percentScore;
+                    if (checkLostMail > 0)
+                    {
+                        for (int j = 0; j < checkLostMail; j++)
+                        {
+                            percentScore -= DataGlobal.minusScoreLostMail;
+                        }
+                    }
                     commandText.text = scene[i].DetailLevelScene.CountBoxCommand.ToString();
+                    scene[i].DetailLevelScene.ScoreLevelScene = percentScore;
+                    if (scene[i].DetailLevelScene.ScoreLevelScene > 100) scene[i].DetailLevelScene.ScoreLevelScene = 100;
+                    else if (scene[i].DetailLevelScene.ScoreLevelScene < 0) scene[i].DetailLevelScene.ScoreLevelScene = 0;
                     scoreText.text = $"{scene[i].DetailLevelScene.ScoreLevelScene}%";
                     scene[i].DetailLevelScene.MailLevelScene = player.Mail;
                     scene[i].DetailLevelScene.UseTime = commandManager.TimeCount;
                     timeText.text = commandManager.TimeCount.ToString();
                     newScore = scene[i].DetailLevelScene.NewHightScore(100);
                     foreach (GameObject item in mail) { item.SetActive(false); }
-                    for (int j = 0; j < scene[i].DetailLevelScene.MailLevelScene; j++)
-                    {
-                        mail[j].SetActive(true);
-                    }
                     if (player.Mail > 0 && player.HP > 0)
                     {
                         try

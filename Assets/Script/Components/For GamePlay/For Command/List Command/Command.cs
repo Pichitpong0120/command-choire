@@ -112,92 +112,104 @@ namespace CommandChoice.Component
 
         void IBeginDragHandler.OnBeginDrag(PointerEventData eventData)
         {
-            //Debug.Log($"OnBeginDrag '{gameObject.name}'");
-            this.eventData = eventData;
-            Parent.UpdateParentAndIndex(transform.parent, transform.GetSiblingIndex());
-            transform.SetParent(transform.root);
-            transform.SetAsLastSibling();
-            image.raycastTarget = false;
-            imageColor = image.color;
-            image.color = new Color(imageColor.r, imageColor.g, imageColor.b, 0.1f);
-            GetComponentInChildren<Text>().raycastTarget = false;
-            GetComponent<Button>().enabled = false;
-            OnDrag = true;
-            verticalLayout.enabled = false;
-            contentSize.enabled = false;
-            CommandManager.DropRemoveCommand.SetActive(OnDrag);
-            beginDrag = scrollControl.transform.position;
-            foreach (Transform child in transform)
+            if (!CommandManager.DataThisGame.playActionCommand)
             {
-                child.gameObject.SetActive(false);
+                //Debug.Log($"OnBeginDrag '{gameObject.name}'");
+                this.eventData = eventData;
+                Parent.UpdateParentAndIndex(transform.parent, transform.GetSiblingIndex());
+                transform.SetParent(transform.root);
+                transform.SetAsLastSibling();
+                image.raycastTarget = false;
+                imageColor = image.color;
+                image.color = new Color(imageColor.r, imageColor.g, imageColor.b, 0.1f);
+                GetComponentInChildren<Text>().raycastTarget = false;
+                GetComponent<Button>().enabled = false;
+                OnDrag = true;
+                verticalLayout.enabled = false;
+                contentSize.enabled = false;
+                CommandManager.DropRemoveCommand.SetActive(OnDrag);
+                beginDrag = scrollControl.transform.position;
+                foreach (Transform child in transform)
+                {
+                    child.gameObject.SetActive(false);
+                }
             }
         }
         void IDragHandler.OnDrag(PointerEventData eventData)
         {
-            //Debug.Log($"OnDrag '{gameObject.name}'");
-            transform.position = Input.mousePosition;
-            //print(RootContentCommand.transform.position.y - eventData.pointerDrag.transform.position.y);
+            if (!CommandManager.DataThisGame.playActionCommand)
+            {
+                //Debug.Log($"OnDrag '{gameObject.name}'");
+                transform.position = Input.mousePosition;
+                //print(RootContentCommand.transform.position.y - eventData.pointerDrag.transform.position.y);
+            }
         }
 
         void IEndDragHandler.OnEndDrag(PointerEventData eventData)
         {
-            //Debug.Log($"OnEndDrag '{gameObject.name}'");
-            transform.SetParent(Parent.parent);
-            transform.SetSiblingIndex(Parent.index);
-            foreach (Transform child in transform)
+            if (!CommandManager.DataThisGame.playActionCommand)
             {
-                child.gameObject.SetActive(true);
-            }
-            image.raycastTarget = true;
-            image.color = imageColor;
-            GetComponentInChildren<Text>().raycastTarget = true;
-            GetComponent<Button>().enabled = true;
-            OnDrag = false;
-            verticalLayout.enabled = true;
-            contentSize.enabled = true;
-            CommandManager.DropRemoveCommand.SetActive(OnDrag);
-            if (Type == TypeCommand.Function)
-            {
-                CommandFunction command = transform.GetChild(0).GetComponent<CommandFunction>();
-                command.UpdateColor(command.RootContentCommand.transform);
+                //Debug.Log($"OnEndDrag '{gameObject.name}'");
+                transform.SetParent(Parent.parent);
+                transform.SetSiblingIndex(Parent.index);
+                foreach (Transform child in transform)
+                {
+                    child.gameObject.SetActive(true);
+                }
+                image.raycastTarget = true;
+                image.color = imageColor;
+                GetComponentInChildren<Text>().raycastTarget = true;
+                GetComponent<Button>().enabled = true;
+                OnDrag = false;
+                verticalLayout.enabled = true;
+                contentSize.enabled = true;
+                CommandManager.DropRemoveCommand.SetActive(OnDrag);
+                if (Type == TypeCommand.Function)
+                {
+                    CommandFunction command = transform.GetChild(0).GetComponent<CommandFunction>();
+                    command.UpdateColor(command.RootContentCommand.transform);
+                }
             }
         }
 
         void IDropHandler.OnDrop(PointerEventData eventData)
         {
-            Command dropCommandObject = eventData.pointerDrag.GetComponent<Command>();
-
-            if (Type == TypeCommand.Function)
+            if (!CommandManager.DataThisGame.playActionCommand)
             {
-                if (dropCommandObject.transform.position.y - transform.position.y >= 80)
+                Command dropCommandObject = eventData.pointerDrag.GetComponent<Command>();
+
+                if (Type == TypeCommand.Function)
                 {
-                    dropCommandObject.Parent.UpdateIndex(transform.GetSiblingIndex());
-                    dropCommandObject.Parent.UpdateParent(transform.parent);
-                }
-                else if (dropCommandObject.transform.position.y - transform.position.y <= -60)
-                {
-                    dropCommandObject.Parent.UpdateIndex(transform.GetSiblingIndex() + 1);
-                    dropCommandObject.Parent.UpdateParent(transform.parent);
+                    if (dropCommandObject.transform.position.y - transform.position.y >= 80)
+                    {
+                        dropCommandObject.Parent.UpdateIndex(transform.GetSiblingIndex());
+                        dropCommandObject.Parent.UpdateParent(transform.parent);
+                    }
+                    else if (dropCommandObject.transform.position.y - transform.position.y <= -60)
+                    {
+                        dropCommandObject.Parent.UpdateIndex(transform.GetSiblingIndex() + 1);
+                        dropCommandObject.Parent.UpdateParent(transform.parent);
+                    }
+                    else
+                    {
+                        dropCommandObject.Parent.UpdateParentAndIndex(transform, 1);
+                    }
                 }
                 else
                 {
-                    dropCommandObject.Parent.UpdateParentAndIndex(transform, 1);
+                    if (transform.position.y >= dropCommandObject.transform.position.y)
+                    {
+                        dropCommandObject.Parent.UpdateIndex(transform.GetSiblingIndex() + 1);
+                    }
+                    else
+                    {
+                        dropCommandObject.Parent.UpdateIndex(transform.GetSiblingIndex());
+                    }
+                    dropCommandObject.Parent.UpdateParent(transform.parent);
                 }
-            }
-            else
-            {
-                if (transform.position.y >= dropCommandObject.transform.position.y)
-                {
-                    dropCommandObject.Parent.UpdateIndex(transform.GetSiblingIndex() + 1);
-                }
-                else
-                {
-                    dropCommandObject.Parent.UpdateIndex(transform.GetSiblingIndex());
-                }
-                dropCommandObject.Parent.UpdateParent(transform.parent);
-            }
 
-            //Debug.Log($"'{dropCommandObject.name}' OnDrop '{gameObject.name}'");
+                //Debug.Log($"'{dropCommandObject.name}' OnDrop '{gameObject.name}'");
+            }
         }
     }
 }

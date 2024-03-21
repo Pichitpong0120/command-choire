@@ -7,6 +7,8 @@ namespace CommandChoice.Data
     [System.Serializable]
     public class DataGamePlay
     {
+        public bool playActionCommand = false;
+        public int percentScore = 150;
         [field: SerializeField] public List<GameObject> MailObjects { get; private set; } = new();
         [field: SerializeField] public List<GameObject> EnemyObjects { get; private set; } = new();
 
@@ -29,8 +31,7 @@ namespace CommandChoice.Data
                     };
                 }
             }
-            catch (System.Exception){/* Can Play Game */}
-
+            catch (System.Exception) {/* Can Play Game */}
         }
     }
 }

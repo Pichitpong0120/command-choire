@@ -1,3 +1,4 @@
+using CommandChoice.Data;
 using CommandChoice.Model;
 using UnityEngine;
 using UnityEngine.UI;
@@ -98,6 +99,7 @@ namespace CommandChoice.Component
                     }
                     setType.enabled = true;
                     commandManager.AddNewCommand(genCommandBox);
+                    commandManager.DataThisGame.percentScore -= DataGlobal.minusScoreBoxCommand;
                     Destroy(gameObject);
                 }
             });

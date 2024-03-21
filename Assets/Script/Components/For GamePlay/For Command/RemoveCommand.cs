@@ -1,3 +1,4 @@
+using CommandChoice.Data;
 using CommandChoice.Model;
 using UnityEngine;
 using UnityEngine.EventSystems;
@@ -32,6 +33,7 @@ namespace CommandChoice.Component
             contentSize.enabled = true;
             verticalLayout.enabled = true;
             commandManager.ListCommandModel.ReturnCommand(dropCommandObject);
+            commandManager.DataThisGame.percentScore += DataGlobal.minusScoreBoxCommand;
             Destroy(dropCommandObject.gameObject);
             gameObject.SetActive(false);
         }

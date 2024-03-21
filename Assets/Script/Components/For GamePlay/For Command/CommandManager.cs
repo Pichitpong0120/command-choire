@@ -15,6 +15,7 @@ namespace CommandChoice.Component
         [field: SerializeField] public ListCommandModel ListCommandModel { get; private set; }
         [field: SerializeField] public Transform CommandContent { get; private set; }
         [SerializeField] private Text countTime;
+        [field: SerializeField] public GameObject AddCommandButton { get; private set; }
         [field: SerializeField] public GameObject DropRemoveCommand { get; private set; }
         [field: SerializeField] public List<Transform> ListCommandSelected { get; private set; } = new();
         private readonly List<LoopCommandModel> LoopCommands = new();
@@ -47,6 +48,8 @@ namespace CommandChoice.Component
             }
             ListCommandSelected.Clear();
             LoopCheckCommand(listCommand);
+            DataThisGame.playActionCommand = true;
+            AddCommandButton.SetActive(false);
         }
 
         private void LoopCheckCommand(List<Transform> transformObject)
@@ -171,6 +174,8 @@ namespace CommandChoice.Component
                 if (item.gameObject.name == "Run") item.gameObject.SetActive(true);
                 if (item.gameObject.name == "Reset") item.gameObject.SetActive(false);
             }
+            DataThisGame.playActionCommand = false;
+            AddCommandButton.SetActive(true);
         }
 
         private IEnumerator RunCommand(List<Transform> listCommand, int? timeSet = null, bool IsChild = false)
