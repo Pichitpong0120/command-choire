@@ -119421,11 +119421,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2671527544909865785, guid: d95dc8eaacb47694688fef0667ac62b2, type: 3}
       propertyPath: m_IsActive
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 3730949669673037830, guid: d95dc8eaacb47694688fef0667ac62b2, type: 3}
       propertyPath: m_SizeDelta.y
-      value: 0
+      value: 40
       objectReference: {fileID: 0}
     - target: {fileID: 9216926691805279350, guid: d95dc8eaacb47694688fef0667ac62b2, type: 3}
       propertyPath: <ListCommand>k__BackingField.commandBehavior.Array.data[0].<Active>k__BackingField
@@ -143218,10 +143218,6 @@ MonoBehaviour:
   - {fileID: 1095525200}
   - {fileID: 557877017}
   - {fileID: 845385261}
-  modifierRayCheck: 24
-  layerCanWalk:
-    serializedVersion: 2
-    m_Bits: 128
 --- !u!1660057539 &9223372036854775807
 SceneRoots:
   m_ObjectHideFlags: 0
